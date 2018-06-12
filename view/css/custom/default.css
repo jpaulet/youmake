@@ -1,0 +1,94 @@
+body{
+    background-color: #fafafa;
+}
+/* The right sidebar CSS modification */  
+
+.compress { 
+	top: 1px !important; 
+}
+
+
+/* CUSTOM STYLES */
+.navbar-default {
+	background-color: #fafafa;
+	border-color: none;
+	border: 0px;
+}
+
+.container-fluid{
+	margin-left: 200px;
+	padding: 10px 30px;
+}
+
+.first-page-navbar #sidebar{
+	display: block !important;
+	width: 200px;
+}
+
+.btn-zero-border{
+	border: 0px solid #fff;
+}
+
+.right-menus .btn{
+	border: 0px solid #fff;
+}
+
+#sidebar {
+	border: 0px solid #fff;
+}
+#sideBarContainer {
+	border: 0px solid #fff;
+}
+
+.list-group-item {
+	border: 0px solid #fff !important;
+	border: 3px;
+}
+
+.first-page-slider-row{
+	padding:10px 10px 40px;
+	border-radius:8px;
+}
+.well{
+	background-color: transparent;
+	border: 0px;
+	border-radius: 0px;
+	margin:0px auto;
+	max-width: 800px;
+	-webkit-box-shadow:none;
+	box-shadow:none;
+}
+
+.control-label-make{
+	font-weight: 300;
+	font-size:12px;
+	padding-top:5px;
+}
+
+.form-control-make{
+	border: 0px;
+}
+
+.input-group-addon-make{
+	border:0px;
+	background-color: #fff;
+}
+
+.nav > li > a { padding: 10px 5px; }
+
+.sidebar-title{
+	font-size:14px;
+}
+
+.list-group-item {
+	background-color: #fafafa;
+}
+
+.btn-gris {
+	background-color: #fafafa !important;
+}
+
+.panel-body {
+	background-color:#fff;
+	border-radius:8px;
+}
