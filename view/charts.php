@@ -132,8 +132,8 @@ foreach ($videos as $value) {
         include $global['systemRootPath'] . 'view/include/navbar.php';
 //var_dump($videos);
         ?>
-        <div class="container-fluid">
-            <div class="list-group-item clear clearfix">
+        <div class="container-fluid bg-white">
+            <div class="list-group-item clear clearfix" style='background-color:#fff;border:1px solid #E1E1E1;'>
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#dashboard"><i class="fas fa-tachometer-alt"></i> <?php echo __("Dashboard"); ?></a></li>
                     <li><a data-toggle="tab" href="#menu1"><i class="fab fa-youtube"></i> <i class="fa fa-eye"></i> <?php echo __("Video views - per Channel"); ?></a></li>

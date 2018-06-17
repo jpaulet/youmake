@@ -16,7 +16,7 @@ $thisScriptFile = pathinfo( $_SERVER["SCRIPT_FILENAME"]);
 if(empty($advancedCustom->userMustBeLoggedIn) || User::isLogged()){
 $updateFiles = getUpdatesFilesArray();
 ?>
-<nav class="navbar navbar-default navbar-fixed-top first-page-navbar" style='background-color:#fafafa;'>
+<nav class="navbar navbar-default navbar-fixed-top first-page-navbar" style='background-color:#F9FBFD;'>
     <ul class="items-container">
         <li>
             <ul class="left-side">
@@ -153,7 +153,7 @@ $updateFiles = getUpdatesFilesArray();
                             #navBarFlag .dropdown-menu {
                                 min-width: 20px;
                             }
-                            .btn-gris{ background-color: #fafafa; }
+                            .btn-gris{ background-color: #F9FBFD; }
                         </style>
                         <div id="navBarFlag" data-input-name="country" data-selected-country="<?php echo $lang; ?>"></div>
                         <script>
@@ -354,7 +354,7 @@ $updateFiles = getUpdatesFilesArray();
     </ul>
 </nav>
 
-<div id="sidebar" class="list-group-item" style="background-color:#fafafa;">
+<div id="sidebar" class="list-group-item" style="background-color:#F9FBFD;width:220px;position:fixed;margin-top:0px;float:left;">
     <div id="sideBarContainer">
         <ul class="nav navbar">                
             <li style='background-color:#fff;border-radius:8px;padding:10px;'>

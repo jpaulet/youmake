@@ -1,10 +1,12 @@
 <?php
+/*
 if (! file_exists('../videos/configuration.php')) {
     if (! file_exists('../install/index.php')) {
         die("No Configuration and no Installation");
     }    
     header("Location: install/index.php");
 }
+*/
 require_once '../videos/configuration.php';
 require_once $global['systemRootPath'] . 'objects/video.php';
 require_once $global['systemRootPath'] . 'objects/category.php';
@@ -74,7 +76,7 @@ unset($_SESSION['type']);
 </head>
 <body>
     <?php include $global['systemRootPath'] . 'view/include/navbar.php'; ?>
-    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 container-fluid first-page-container" id="mainContainer" style="display: none;padding:10px 40px;background-color:#fafafa;"> 
+    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 container-fluid first-page-container" id="mainContainer" style="display: none;padding:10px 40px;background-color:#F9FBFD;"> 
         <div class='row jumbotron'>
             <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
             <h2 style='text-align:center;'> Join the community of Live Makers! </h2>

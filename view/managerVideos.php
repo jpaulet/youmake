@@ -53,7 +53,7 @@ if (!empty($_GET['video_id'])) {
 
     <body>
         <?php include $global['systemRootPath'] . 'view/include/navbar.php'; ?>
-        <div class="container-fluid">
+        <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 container-fluid">
         <?php include $global['systemRootPath'] . 'view/include/updateCheck.php'; ?>
             <div class="btn-group" >
                 <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-warning">

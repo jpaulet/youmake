@@ -80,10 +80,29 @@ if (strpos($_SERVER['REQUEST_URI'], "/cat/") === false) {
     <body>
         <?php include $global['systemRootPath'].'view/include/navbar.php'; ?>
         <div class="container-fluid gallery" itemscope itemtype="http://schema.org/VideoObject">
+            
             <div class="row text-center" style="padding: 10px;">
                 <?php echo $config->getAdsense(); ?>
             </div>
+            
             <div class="col-sm-10 col-sm-offset-1 list-group-item">
+                
+                <div class='row jumbotron'>
+                    <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
+                    <h2 style='text-align:center;'> Join the community of Live Makers! </h2>
+                    <div> 
+                        Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
+                        <strong>grow your community</strong> around your product before you launch
+                        and <strong>earn money</strong> while you build! 
+                    </div>
+                    <div> 
+                        We are X liveMakers right now! 
+                    </div>
+                    <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
+                        Want more? See our features, <a class='button button-join' href=''>JOIN now!</a> or read the F.A.Q
+                    </p>
+                </div>
+
                 <?php
                 if (!empty($currentCat)) {
                     include $global['systemRootPath'] . 'plugin/Gallery/view/Category.php';
