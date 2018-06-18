@@ -26,7 +26,7 @@ $options = json_decode($obj->withdrawFundsOptions);
         ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
                     <div class="panel-heading" style='font-weight:600;'><?php echo __("Withdraw Funds"); ?></div>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <div class="col-sm-6">
@@ -73,7 +73,7 @@ $options = json_decode($obj->withdrawFundsOptions);
                                 <label for="informations"><?php echo __("Informations"); ?></label>
                                 <textarea class="form-control" id="informations" name="informations"></textarea>
                             </div>
-                            <button class="btn btn-primary" id="manualWithdrawFundsPageButton"><?php echo $obj->manualWithdrawFundsPageButton; ?></button>
+                            <button class="btn btn-primary youmake-button" id="manualWithdrawFundsPageButton"><?php echo $obj->manualWithdrawFundsPageButton; ?></button>
                         </div>  
                     </div>
                 </div>

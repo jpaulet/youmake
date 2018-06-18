@@ -18,6 +18,15 @@ $options = json_decode($obj->addFundsOptions);
         <?php
         include $global['systemRootPath'] . 'view/include/head.php';
         ?>
+        <style>
+            .addFunds-row {
+                margin-bottom: 30px;
+            }
+            .addFunds-row h3{
+                font-weight: 600;
+                font-size: 13px;
+            }
+        </style>
     </head>
     <body>
         <?php
@@ -25,8 +34,20 @@ $options = json_decode($obj->addFundsOptions);
         ?>
         <div class="container-fluid">
             <div class="row ">
-                <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
-                    <h3><?php echo __("Add Funds"); ?></h3>
+                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <h3><?php echo __("Become Member"); ?></h3>
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
+                        <div class="col-sm-6">
+                            <?php echo "Benefits of being `YouMake` premium member" ?>
+                        </div>
+                        <div class="col-sm-6" style='text-align:center;'>
+                            <button class='youmake-button'> Become Member </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <h3><?php echo __("Add Funds"); ?> Paypal</h3>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <div class="col-sm-6">
                             <?php echo $obj->add_funds_text ?>
@@ -62,7 +83,11 @@ $options = json_decode($obj->addFundsOptions);
                                     <?php
                                     foreach ($options as $value) {
                                         ?>
-                                        <option value="<?php echo $value; ?>"><?php echo $obj->currency_symbol; ?> <?php echo $value; ?> <?php echo $obj->currency; ?></option>
+                                        <option value="<?php echo $value; ?>">
+                                            <?php echo $obj->currency_symbol; ?> 
+                                            <?php echo $value; ?> 
+                                            <?php echo $obj->currency; ?>
+                                        </option>
                                         <?php
                                     }
                                     ?>
@@ -72,6 +97,20 @@ $options = json_decode($obj->addFundsOptions);
                             $plugin->getAvailablePayments();
                             ?>
                         </div>  
+                    </div>
+                </div>
+
+                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <h3><?php echo __("Add Funds"); ?> Stripe</h3>
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
+                        <div class="col-sm-6">
+                            <?php echo $obj->add_funds_text ?>
+                        </div>
+                        <div class="col-sm-6">
+                            <?php 
+                            include $global['systemRootPath'] . 'view/custom/stripe.php';
+                            ?>
+                        </div>
                     </div>
                 </div>
             </div>

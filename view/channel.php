@@ -67,192 +67,196 @@ $playlists = PlayList::getAllFromUser($user_id, $publicOnly);
     ?>
 
     <div class="container-fluid">
-        <div class="bgWhite list-group-item gallery clear clearfix" >
-            <div class="row bg-info profileBg" style="background-image: url('<?php echo $global['webSiteRootURL'], $user->getBackgroundURL(); ?>')">
-                <img src="<?php echo User::getPhoto($user_id); ?>" alt="<?php echo $user->_getName(); ?>" class="img img-responsive img-thumbnail" style="max-width: 100px;"/>
-            </div>
-            <div class="col-md-12">
-                <h1 class="pull-left">
-               <?php  
-                        echo $user->getNameIdentificationBd();
-                    ?></h1>
-                <span class="pull-right">
-                    <?php
-                    echo Subscribe::getButton($user_id);
-                    ?>
-                </span>
-            </div>
-            <div class="col-md-12">
-                <?php echo nl2br(htmlentities($user->getAbout())); ?>
-            </div>
-            <div class="col-md-12">
-                <div class="panel-default">
-                    <div class="panel-heading">
+        <div class='row'>
+            <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                <div class="bgWhite list-group-item gallery clear clearfix" >
+                    <div class="row bg-info profileBg" style="background-image: url('<?php echo $global['webSiteRootURL'], $user->getBackgroundURL(); ?>')">
+                        <img src="<?php echo User::getPhoto($user_id); ?>" alt="<?php echo $user->_getName(); ?>" class="img img-responsive img-thumbnail" style="max-width: 100px;"/>
+                    </div>
+                    <div class="col-md-12">
+                        <h1 class="pull-left">
+                       <?php  
+                                echo $user->getNameIdentificationBd();
+                            ?></h1>
+                        <span class="pull-right">
+                            <?php
+                            echo Subscribe::getButton($user_id);
+                            ?>
+                        </span>
+                    </div>
+                    <div class="col-md-12">
+                        <?php echo nl2br(htmlentities($user->getAbout())); ?>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="panel-default">
+                            <div class="panel-heading" style='background-color: transparent;border:0px;'>
+                                <?php
+                                if ($isMyChannel) {
+                                    ?>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>mvideos" class="btn btn-success ">
+                                        <span class="glyphicon glyphicon-film"></span>
+                                        <span class="glyphicon glyphicon-headphones"></span>
+                                        <?php echo __("My videos"); ?>
+                                    </a>
+                                    <?php
+                                } else {
+                                    echo __("My videos");
+                                }
+                                echo YouPHPTubePlugin::getChannelButton();
+                                ?>
+                            </div>
+                            <div class="panel-body">
+                                    <?php
+                                    if(!empty($uploadedVideos[0])){
+                                        $video = $uploadedVideos[0];
+                                        $obj = new stdClass();
+                                        $obj->BigVideo = true;
+                                        $obj->Description = false;
+                                        include $global['systemRootPath'] . 'plugin/Gallery/view/BigVideo.php';
+                                        unset($uploadedVideos[0]);
+                                    }
+                                    ?>
+                                <div class="row mainArea">
+                                    <?php
+                                    createGallerySection($uploadedVideos);
+                                    ?>
+                                </div>
+                            </div>
+                        </div>    
+                    </div>
+
+                    <div class="col-md-12">
                         <?php
-                        if ($isMyChannel) {
-                            ?>
-                            <a href="<?php echo $global['webSiteRootURL']; ?>mvideos" class="btn btn-success ">
-                                <span class="glyphicon glyphicon-film"></span>
-                                <span class="glyphicon glyphicon-headphones"></span>
-                                <?php echo __("My videos"); ?>
-                            </a>
-                            <?php
-                        } else {
-                            echo __("My videos");
-                        }
-                        echo YouPHPTubePlugin::getChannelButton();
-                        ?>
-                    </div>
-                    <div class="panel-body">
-                            <?php
-                            if(!empty($uploadedVideos[0])){
-                                $video = $uploadedVideos[0];
-                                $obj = new stdClass();
-                                $obj->BigVideo = true;
-                                $obj->Description = false;
-                                include $global['systemRootPath'] . 'plugin/Gallery/view/BigVideo.php';
-                                unset($uploadedVideos[0]);
+                        foreach ($playlists as $playlist) {
+                            $videosArrayId = PlayList::getVideosIdFromPlaylist($playlist['id']);
+                            if (empty($videosArrayId)) {
+                                continue;
                             }
+                            $videos = Video::getAllVideos("a", false, false, $videosArrayId);
+                            $videos = PlayList::sortVideos($videos, $videosArrayId);
                             ?>
-                        <div class="row mainArea">
-                            <?php
-                            createGallerySection($uploadedVideos);
-                            ?>
-                        </div>
-                    </div>
-                </div>    
-            </div>
 
-            <div class="col-md-12">
-                <?php
-                foreach ($playlists as $playlist) {
-                    $videosArrayId = PlayList::getVideosIdFromPlaylist($playlist['id']);
-                    if (empty($videosArrayId)) {
-                        continue;
-                    }
-                    $videos = Video::getAllVideos("a", false, false, $videosArrayId);
-                    $videos = PlayList::sortVideos($videos, $videosArrayId);
-                    ?>
+                            <div class="panel-default">
+                                <div class="panel-heading">
 
-                    <div class="panel-default">
-                        <div class="panel-heading">
-
-                            <strong style="font-size: 1em;" class="playlistName"><?php echo $playlist['name']; ?> </strong>
-                            <a href="<?php echo $global['webSiteRootURL']; ?>playlist/<?php echo $playlist['id']; ?>" class="btn btn-xs btn-default playAll"><span class="fa fa-play"></span> <?php echo __("Play All"); ?></a>
-                            <?php
-                            if ($isMyChannel) {
-                                ?>     
-                                <script>
-                                    $(function () {
-                                        $("#sortable<?php echo $playlist['id']; ?>").sortable({
-                                            stop: function (event, ui) {
-                                                modal.showPleaseWait();
-                                                var list = $(this).sortable("toArray");
-                                                $.ajax({
-                                                    url: '<?php echo $global['webSiteRootURL']; ?>sortPlaylist',
-                                                    data: {
-                                                        "list": list,
-                                                        "playlist_id": <?php echo $playlist['id']; ?>
-                                                    },
-                                                    type: 'post',
-                                                    success: function (response) {
-                                                        modal.hidePleaseWait();
+                                    <strong style="font-size: 1em;" class="playlistName"><?php echo $playlist['name']; ?> </strong>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>playlist/<?php echo $playlist['id']; ?>" class="btn btn-xs btn-default playAll"><span class="fa fa-play"></span> <?php echo __("Play All"); ?></a>
+                                    <?php
+                                    if ($isMyChannel) {
+                                        ?>     
+                                        <script>
+                                            $(function () {
+                                                $("#sortable<?php echo $playlist['id']; ?>").sortable({
+                                                    stop: function (event, ui) {
+                                                        modal.showPleaseWait();
+                                                        var list = $(this).sortable("toArray");
+                                                        $.ajax({
+                                                            url: '<?php echo $global['webSiteRootURL']; ?>sortPlaylist',
+                                                            data: {
+                                                                "list": list,
+                                                                "playlist_id": <?php echo $playlist['id']; ?>
+                                                            },
+                                                            type: 'post',
+                                                            success: function (response) {
+                                                                modal.hidePleaseWait();
+                                                            }
+                                                        });
                                                     }
                                                 });
-                                            }
-                                        });
-                                        $("#sortable<?php echo $playlist['id']; ?>").disableSelection();
-                                    });
-                                </script>  
-                                <div class="pull-right btn-group">
-                                    <button class="btn btn-xs btn-info" ><i class="fa fa-info-circle"></i> <?php echo __("Drag and drop to sort"); ?></button>
-                                    <button class="btn btn-xs btn-danger deletePlaylist" playlist_id="<?php echo $playlist['id']; ?>" ><span class="fa fa-trash-o"></span> <?php echo __("Delete"); ?></button>
-                                    <button class="btn btn-xs btn-primary renamePlaylist" playlist_id="<?php echo $playlist['id']; ?>" ><span class="fa fa-pencil"></span> <?php echo __("Rename"); ?></button>
-                                </div>
-                                <?php
-                            }
-                            ?>
-                        </div>
-                        <div class="panel-body">
-
-                            <div id="sortable<?php echo $playlist['id']; ?>" style="list-style: none;">
-                                <?php
-                                foreach ($videos as $value) {
-                                    $img_portrait = ($value['rotation'] === "90" || $value['rotation'] === "270") ? "img-portrait" : "";
-                                    $name = User::getNameIdentificationById($value['users_id']);
-
-                                    $images = Video::getImageFromFilename($value['filename'], $value['type']);
-                                    $imgGif = $images->thumbsGif;
-                                    $poster = $images->thumbsJpg;
-                                    ?>
-                                    <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 galleryVideo " id="<?php echo $value['id']; ?>">
-                                        <a class="aspectRatio16_9" href="<?php echo $global['webSiteRootURL']; ?>video/<?php echo $value['clean_title']; ?>" title="<?php echo $value['title']; ?>" style="margin: 0;" >
-                                            <img src="<?php echo $poster; ?>" alt="<?php echo $value['title']; ?>" class="img img-responsive <?php echo $img_portrait; ?>  rotate<?php echo $value['rotation']; ?>" />
-                                            <span class="duration"><?php echo Video::getCleanDuration($value['duration']); ?></span>
-                                        </a>
-                                        <a href="<?php echo $global['webSiteRootURL']; ?>video/<?php echo $value['clean_title']; ?>" title="<?php echo $value['title']; ?>">
-                                            <h2><?php echo $value['title']; ?></h2>
-                                        </a>
+                                                $("#sortable<?php echo $playlist['id']; ?>").disableSelection();
+                                            });
+                                        </script>  
+                                        <div class="pull-right btn-group">
+                                            <button class="btn btn-xs btn-info" ><i class="fa fa-info-circle"></i> <?php echo __("Drag and drop to sort"); ?></button>
+                                            <button class="btn btn-xs btn-danger deletePlaylist" playlist_id="<?php echo $playlist['id']; ?>" ><span class="fa fa-trash-o"></span> <?php echo __("Delete"); ?></button>
+                                            <button class="btn btn-xs btn-primary renamePlaylist" playlist_id="<?php echo $playlist['id']; ?>" ><span class="fa fa-pencil"></span> <?php echo __("Rename"); ?></button>
+                                        </div>
                                         <?php
-                                        if ($isMyChannel) {
+                                    }
+                                    ?>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div id="sortable<?php echo $playlist['id']; ?>" style="list-style: none;">
+                                        <?php
+                                        foreach ($videos as $value) {
+                                            $img_portrait = ($value['rotation'] === "90" || $value['rotation'] === "270") ? "img-portrait" : "";
+                                            $name = User::getNameIdentificationById($value['users_id']);
+
+                                            $images = Video::getImageFromFilename($value['filename'], $value['type']);
+                                            $imgGif = $images->thumbsGif;
+                                            $poster = $images->thumbsJpg;
                                             ?>
-                                            <button class="btn btn-xs btn-default btn-block removeVideo" playlist_id="<?php echo $playlist['id']; ?>" video_id="<?php echo $value['id']; ?>">
-                                                <span class="fa fa-trash-o"></span> <?php echo __("Remove"); ?>
-                                            </button>
+                                            <li class="col-lg-2 col-md-4 col-sm-4 col-xs-6 galleryVideo " id="<?php echo $value['id']; ?>">
+                                                <a class="aspectRatio16_9" href="<?php echo $global['webSiteRootURL']; ?>video/<?php echo $value['clean_title']; ?>" title="<?php echo $value['title']; ?>" style="margin: 0;" >
+                                                    <img src="<?php echo $poster; ?>" alt="<?php echo $value['title']; ?>" class="img img-responsive <?php echo $img_portrait; ?>  rotate<?php echo $value['rotation']; ?>" />
+                                                    <span class="duration"><?php echo Video::getCleanDuration($value['duration']); ?></span>
+                                                </a>
+                                                <a href="<?php echo $global['webSiteRootURL']; ?>video/<?php echo $value['clean_title']; ?>" title="<?php echo $value['title']; ?>">
+                                                    <h2><?php echo $value['title']; ?></h2>
+                                                </a>
+                                                <?php
+                                                if ($isMyChannel) {
+                                                    ?>
+                                                    <button class="btn btn-xs btn-default btn-block removeVideo" playlist_id="<?php echo $playlist['id']; ?>" video_id="<?php echo $value['id']; ?>">
+                                                        <span class="fa fa-trash-o"></span> <?php echo __("Remove"); ?>
+                                                    </button>
+                                                    <?php
+                                                }
+                                                ?>
+                                                <div class="text-muted galeryDetails">
+                                                    <div>
+                                                        <?php
+                                                        $value['tags'] = Video::getTags($value['id']);
+                                                        foreach ($value['tags'] as $value2) {
+                                                            if ($value2->label === __("Group")) {
+                                                                ?>
+                                                                <span class="label label-<?php echo $value2->type; ?>"><?php echo $value2->text; ?></span>
+                                                                <?php
+                                                            }
+                                                        }
+                                                        ?>
+                                                    </div>
+                                                    <div>
+                                                        <i class="fa fa-eye"></i>
+                                                        <span itemprop="interactionCount">
+                                                            <?php echo number_format($value['views_count'], 0); ?> <?php echo __("Views"); ?>
+                                                        </span>
+                                                    </div>
+                                                    <div>
+                                                        <i class="fa fa-clock-o"></i>
+                                                        <?php
+                                                        echo humanTiming(strtotime($value['videoCreation'])), " ", __('ago');
+                                                        ?>
+                                                    </div>
+                                                    <div>
+                                                        <i class="fa fa-user"></i>
+                                                        <?php
+                                                        echo $name;
+                                                        ?>
+                                                    </div>
+                                                    <?php
+                                                    if (Video::canEdit($value['id'])) {
+                                                        ?>
+                                                        <div>
+                                                            <a href="<?php echo $global['webSiteRootURL']; ?>mvideos?video_id=<?php echo $value['id']; ?>" class="text-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Video"); ?></a>
+                                                        </div>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </li>
                                             <?php
                                         }
                                         ?>
-                                        <div class="text-muted galeryDetails">
-                                            <div>
-                                                <?php
-                                                $value['tags'] = Video::getTags($value['id']);
-                                                foreach ($value['tags'] as $value2) {
-                                                    if ($value2->label === __("Group")) {
-                                                        ?>
-                                                        <span class="label label-<?php echo $value2->type; ?>"><?php echo $value2->text; ?></span>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
-                                            </div>
-                                            <div>
-                                                <i class="fa fa-eye"></i>
-                                                <span itemprop="interactionCount">
-                                                    <?php echo number_format($value['views_count'], 0); ?> <?php echo __("Views"); ?>
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <i class="fa fa-clock-o"></i>
-                                                <?php
-                                                echo humanTiming(strtotime($value['videoCreation'])), " ", __('ago');
-                                                ?>
-                                            </div>
-                                            <div>
-                                                <i class="fa fa-user"></i>
-                                                <?php
-                                                echo $name;
-                                                ?>
-                                            </div>
-                                            <?php
-                                            if (Video::canEdit($value['id'])) {
-                                                ?>
-                                                <div>
-                                                    <a href="<?php echo $global['webSiteRootURL']; ?>mvideos?video_id=<?php echo $value['id']; ?>" class="text-primary"><i class="fa fa-edit"></i> <?php echo __("Edit Video"); ?></a>
-                                                </div>
-                                                <?php
-                                            }
-                                            ?>
-                                        </div>
-                                    </li>
-                                    <?php
-                                }
-                                ?>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <?php
+                        }
+                        ?>
                     </div>
-                    <?php
-                }
-                ?>
+                </div>
             </div>
         </div>
     </div>

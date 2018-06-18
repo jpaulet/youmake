@@ -14,7 +14,7 @@
 if (User::canStream()) {
     ?>
     <li>
-        <a href="<?php echo $global['webSiteRootURL']; ?>plugin/Live"  class="btn btn-danger navbar-btn" data-toggle="tooltip" title="<?php echo __("Broadcast a Live Streaming"); ?>" data-placement="bottom" >
+        <a href="<?php echo $global['webSiteRootURL']; ?>plugin/Live"  class="btn btn-danger navbar-btn youmake-button" data-toggle="tooltip" title="<?php echo __("Broadcast a Live Streaming"); ?>" data-placement="bottom" style='height:32px;line-height: 32px;margin-top:8px;padding:0px 26px;order: '>
             <span class="fa fa-circle"></span> <?php echo $buttonTitle; ?>
         </a>
     </li>
@@ -22,7 +22,7 @@ if (User::canStream()) {
 }
 ?>
 <li class="dropdown">
-    <a href="#" class=" btn btn-default navbar-btn" data-toggle="dropdown" style='border: transparent; background-color:transparent;'>
+    <a href="#" class=" btn btn-default navbar-btn" data-toggle="dropdown" style='border: transparent; background-color:transparent;color:#470e82;'>
         <span class="fa fa-bell"></span> 
         <span class="badge onlineApplications" style=" background: rgba(255,0,0,1); color: #FFF;">0</span>
         <b class="caret"></b>

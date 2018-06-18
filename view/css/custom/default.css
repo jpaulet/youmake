@@ -1,5 +1,5 @@
 body{
-    background-color: #fafafa;
+    background-color: #F9FBFD !important;
 }
 /* The right sidebar CSS modification */  
 
@@ -10,13 +10,13 @@ body{
 
 /* CUSTOM STYLES */
 .navbar-default {
-	background-color: #fafafa;
+	background-color: #F9FBFD;
 	border-color: none;
 	border: 0px;
 }
 
 .container-fluid{
-	/* margin-left: 200px; */
+	margin-left: 200px !important;
 	padding: 10px 30px;
 }
 
@@ -72,6 +72,7 @@ body{
 .input-group-addon-make{
 	border:0px;
 	background-color: #fff;
+	color#470e82 !important;
 }
 
 .nav > li > a { padding: 10px 5px; }
@@ -81,11 +82,11 @@ body{
 }
 
 .list-group-item {
-	background-color: #fafafa;
+	background-color: #F9FBFD;
 }
 
 .btn-gris {
-	background-color: #fafafa !important;
+	background-color: #F9FBFD !important;
 }
 
 .panel-body {
@@ -104,5 +105,51 @@ body{
 	margin: 0 auto 20px;
 }
 
+.panel-heading {
+	font-weight:600;
+	font-size:13px;
+	/*border-left:3px solid #ff0000;*/
+	line-height:13px;
+	border-radius:0px;
+	margin-bottom:10px;
+}
 
-/* better color than #fafafa; => #F9FBFD */
+
+.youmake-button:hover {
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .10), 0 3px 6px rgba(0, 0, 0, .08);
+    background-color: #3f0c74 !important;
+}
+
+.youmake-button {
+    border: none;
+    border-radius: 4px;
+    outline: none;
+    text-decoration: none;
+    color: #fff;
+    background: #4f1091 !important;
+    background-color: rgb(50, 50, 93);
+    white-space: nowrap;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 14px;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, .11), 0 1px 3px rgba(0, 0, 0, .08);
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.025em;
+    text-decoration: none;
+    -webkit-transition: all 150ms ease;
+    transition: all 150ms ease;
+    margin:0px auto;
+}
+
+.panel-body h3,h2{
+	font-size:13px;
+	font-weight: 400;
+}
+.panel-body{
+	font-size:13px;
+}
+
+/* better color than #F9FBFD; => #F9FBFD */

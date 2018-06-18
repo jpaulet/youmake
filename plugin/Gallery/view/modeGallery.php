@@ -80,118 +80,120 @@ if (strpos($_SERVER['REQUEST_URI'], "/cat/") === false) {
     <body>
         <?php include $global['systemRootPath'].'view/include/navbar.php'; ?>
         <div class="container-fluid gallery" itemscope itemtype="http://schema.org/VideoObject">
-            
-            <div class="row text-center" style="padding: 10px;">
-                <?php echo $config->getAdsense(); ?>
-            </div>
-            
-            <div class="col-sm-10 col-sm-offset-1 list-group-item">
-                
-                <div class='row jumbotron'>
-                    <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
-                    <h2 style='text-align:center;'> Join the community of Live Makers! </h2>
-                    <div> 
-                        Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
-                        <strong>grow your community</strong> around your product before you launch
-                        and <strong>earn money</strong> while you build! 
+            <div class='row'>
+                <div class='col-xs-12 col-md-10 col-lg-8 col-lg-offset-2'>
+                    
+                    <div class="row text-center" style="padding: 10px;">
+                        <?php echo $config->getAdsense(); ?>
                     </div>
-                    <div> 
-                        We are X liveMakers right now! 
-                    </div>
-                    <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
-                        Want more? See our features, <a class='button button-join' href=''>JOIN now!</a> or read the F.A.Q
-                    </p>
-                </div>
-
-                <?php
-                if (!empty($currentCat)) {
-                    include $global['systemRootPath'] . 'plugin/Gallery/view/Category.php';
-                }
-                if (!empty($video)) {
-                    $img_portrait = ($video['rotation'] === "90" || $video['rotation'] === "270") ? "img-portrait" : "";
-                    include $global['systemRootPath'] . 'plugin/Gallery/view/BigVideo.php';
-                    ?>
-
-                    <div class="row mainArea" style='margin:20px;'>
-                        <!-- For Live Videos -->
-                        <div id="liveVideos" class="clear clearfix" style="display: none;">
-                            <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>
-                            <div class="row extraVideos"></div>
+                    
+                    <div class="col-sm-10 col-sm-offset-1 list-group-item">
+                        
+                        <div class='row jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;'>
+                            <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
+                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
+                            <div> 
+                                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
+                                <strong>grow your community</strong> around your product before you launch
+                                and <strong>earn money</strong> while you build! 
+                            </div>
+                            <div> 
+                                We are X liveMakers right now! 
+                            </div>
+                            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
+                                Want more? See our features, <a class='button button-join' href=''>JOIN now!</a> or read the F.A.Q
+                            </p>
                         </div>
-                        <script>
-                            function afterExtraVideos($liveLi) {
-                                $liveLi.removeClass('col-lg-12 col-sm-12 col-xs-12 bottom-border');
-                                $liveLi.find('.thumbsImage').removeClass('col-lg-5 col-sm-5 col-xs-5');
-                                $liveLi.find('.videosDetails').removeClass('col-lg-7 col-sm-7 col-xs-7');
-                                $liveLi.addClass('col-lg-2 col-md-4 col-sm-4 col-xs-6 fixPadding');
-                                $('#liveVideos').slideDown();
-                                return $liveLi;
-                            }
-                        </script>
+
                         <?php
-                        echo YouPHPTubePlugin::getGallerySection();
-                        ?>
-                        <!-- For Live Videos End -->    
-                        <?php
-                        if ($obj->SortByName) {
-                            createGallery(__("Sort by name"), 'title', $obj->SortByNameRowCount, 'sortByNameOrder', "zyx", "abc", $orderString);
-                        } 
-                        if ($obj->DateAdded) {
-                            createGallery(__("Date added"), 'created', $obj->DateAddedRowCount, 'dateAddedOrder', __("newest"), __("oldest"), $orderString, "DESC");
-                        } 
-                        if ($obj->MostWatched) {
-                            createGallery(__("Most watched"), 'views_count', $obj->MostWatchedRowCount, 'mostWatchedOrder', __("Most"), __("Fewest"), $orderString, "DESC");
+                        if (!empty($currentCat)) {
+                            include $global['systemRootPath'] . 'plugin/Gallery/view/Category.php';
                         }
-                        if ($obj->MostPopular) {
-                            createGallery(__("Most popular"), 'likes', $obj->MostPopularRowCount, 'mostPopularOrder', __("Most"), __("Fewest"), $orderString, "DESC");
-                        }
-                        if ($obj->SubscribedChannels && User::isLogged() && empty($_GET['showOnly'])) {
-                            require_once $global['systemRootPath'] . 'objects/subscribe.php';
-                            $channels = Subscribe::getSubscribedChannels(User::getId());
-                            foreach ($channels as $value) {
-                                ?>    
-                                <div class="clear clearfix">
-                                    <h3 class="galleryTitle">
-                                        <img src="<?php
-                    echo $value['photoURL'];
-                                ?>" class="img img-circle img-responsive pull-left" style="max-height: 20px;">
-                                        <span style="margin: 0 5px;">
-                                            <?php
-                                            echo $value['identification'];
-                                            ?>
-                                        </span>
-                                        <a class="btn btn-xs btn-default" href="<?php echo User::getChannelLink($value['users_id']); ?>" style="margin: 0 10px;">
-                                            <i class="fas fa-external-link-alt"></i>
-                                        </a>
-                                        <?php
-                                        echo Subscribe::getButton($value['users_id']);
-                                        ?>
-                                    </h3>
-                                    <div class="row">
-                                        <?php
-                                        $countCols = 0;
-                                        unset($_POST['sort']);
-                                        $_POST['sort']['created'] = "DESC";
-                                        $_POST['current'] = 1;
-                                        $_POST['rowCount'] = $obj->SubscribedChannelsRowCount;
-                                        $total = Video::getTotalVideos("viewableNotAd", $value['users_id']);
-                                        $videos = Video::getAllVideos("viewableNotAd", $value['users_id']);
-                                        createGallerySection($videos);
-                                        ?>
-                                    </div>
+                        if (!empty($video)) {
+                            $img_portrait = ($video['rotation'] === "90" || $video['rotation'] === "270") ? "img-portrait" : "";
+                            include $global['systemRootPath'] . 'plugin/Gallery/view/BigVideo.php';
+                            ?>
+
+                            <div class="row mainArea" style='margin:20px;'>
+                                <!-- For Live Videos -->
+                                <div id="liveVideos" class="clear clearfix" style="display: none;">
+                                    <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>
+                                    <div class="row extraVideos"></div>
                                 </div>
+                                <script>
+                                    function afterExtraVideos($liveLi) {
+                                        $liveLi.removeClass('col-lg-12 col-sm-12 col-xs-12 bottom-border');
+                                        $liveLi.find('.thumbsImage').removeClass('col-lg-5 col-sm-5 col-xs-5');
+                                        $liveLi.find('.videosDetails').removeClass('col-lg-7 col-sm-7 col-xs-7');
+                                        $liveLi.addClass('col-lg-2 col-md-4 col-sm-4 col-xs-6 fixPadding');
+                                        $('#liveVideos').slideDown();
+                                        return $liveLi;
+                                    }
+                                </script>
                                 <?php
-                            }
-                        }
-                        ?>
+                                echo YouPHPTubePlugin::getGallerySection();
+                                ?>
+                                <!-- For Live Videos End -->    
+                                <?php
+                                if ($obj->SortByName) {
+                                    createGallery(__("Sort by name"), 'title', $obj->SortByNameRowCount, 'sortByNameOrder', "zyx", "abc", $orderString);
+                                } 
+                                if ($obj->DateAdded) {
+                                    createGallery(__("Date added"), 'created', $obj->DateAddedRowCount, 'dateAddedOrder', __("newest"), __("oldest"), $orderString, "DESC");
+                                } 
+                                if ($obj->MostWatched) {
+                                    createGallery(__("Most watched"), 'views_count', $obj->MostWatchedRowCount, 'mostWatchedOrder', __("Most"), __("Fewest"), $orderString, "DESC");
+                                }
+                                if ($obj->MostPopular) {
+                                    createGallery(__("Most popular"), 'likes', $obj->MostPopularRowCount, 'mostPopularOrder', __("Most"), __("Fewest"), $orderString, "DESC");
+                                }
+                                if ($obj->SubscribedChannels && User::isLogged() && empty($_GET['showOnly'])) {
+                                    require_once $global['systemRootPath'] . 'objects/subscribe.php';
+                                    $channels = Subscribe::getSubscribedChannels(User::getId());
+                                    foreach ($channels as $value) {
+                                        ?>    
+                                        <div class="clear clearfix">
+                                            <h3 class="galleryTitle">
+                                                <img src="<?php echo $value['photoURL']; ?>" class="img img-circle img-responsive pull-left" style="max-height: 20px;">
+                                                <span style="margin: 0 5px;">
+                                                    <?php
+                                                    echo $value['identification'];
+                                                    ?>
+                                                </span>
+                                                <a class="btn btn-xs btn-default" href="<?php echo User::getChannelLink($value['users_id']); ?>" style="margin: 0 10px;">
+                                                    <i class="fas fa-external-link-alt"></i>
+                                                </a>
+                                                <?php
+                                                echo Subscribe::getButton($value['users_id']);
+                                                ?>
+                                            </h3>
+                                            <div class="row">
+                                                <?php
+                                                $countCols = 0;
+                                                unset($_POST['sort']);
+                                                $_POST['sort']['created'] = "DESC";
+                                                $_POST['current'] = 1;
+                                                $_POST['rowCount'] = $obj->SubscribedChannelsRowCount;
+                                                $total = Video::getTotalVideos("viewableNotAd", $value['users_id']);
+                                                $videos = Video::getAllVideos("viewableNotAd", $value['users_id']);
+                                                createGallerySection($videos);
+                                                ?>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    }
+                                }
+                                ?>
+                            </div>
+                        <?php } else { ?>
+                        
+                            <div class="alert">
+                                <span class="glyphicon glyphicon-facetime-video"></span>
+                                <?php echo __("We have not found any videos or audios to show"); ?>.
+                            </div>
+                        <?php } ?>
                     </div>
-                <?php } else { ?>
-                
-                    <div class="alert">
-                        <span class="glyphicon glyphicon-facetime-video"></span>
-                        <?php echo __("We have not found any videos or audios to show"); ?>.
-                    </div>
-                <?php } ?>
+                </div>
             </div>
         </div>
     </div>

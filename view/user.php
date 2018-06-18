@@ -39,7 +39,7 @@ $advancedCustom = json_decode($json_file);
                 $user->loadSelfUser();
                 ?>
                 <div class="row">
-                    <div class=' class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12"'>
+                    <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
                         <div class="panel-heading" style='font-weight:600;'><?php echo __("Update your user") ?></div>
                         <form class="form-compact well form-horizontal"  id="updateUserForm" onsubmit="" style='background-color:#fff;border-radius:8px;margin:0px;'>
                             <?php //echo $tagsStr; ?>
@@ -158,9 +158,11 @@ $advancedCustom = json_decode($json_file);
 
                                 <div class="form-group">
                                     <div class="col-md-12 ">
-                                        <div id="croppieBg"></div>
+                                        <div id="croppieBg" style='width:100%;'></div>
                                         <center>
-                                            <a id="upload-btnBg" class="btn btn-success"><i class="fa fa-upload"></i> <?php echo __("Upload a Background"); ?></a>
+                                            <a id="upload-btnBg" class="btn btn-success">
+                                                <i class="fa fa-upload"></i> 
+                                                <?php echo __("Upload a Background"); ?></a>
                                         </center>
                                     </div>
                                     <input type="file" id="uploadBg" value="Choose a file" accept="image/*" style="display: none;" />
@@ -196,7 +198,6 @@ $advancedCustom = json_decode($json_file);
                                 }).then(function () {
                                     console.log('jQuery bind complete');
                                 });
-
                             }
 
                             reader.readAsDataURL($(input)[0].files[0]);
@@ -322,12 +323,9 @@ $advancedCustom = json_decode($json_file);
             } else {
                 ?>
                 <div class="row">
-                    <div class="hidden-xs col-sm-2 col-md-3 col-lg-4"></div>
-                    <div class="col-xs-12 col-sm-8  col-md-6 col-lg-4 list-group-item ">
+                    <div class="col-lg-4 col-lg-offset-4 col-md-offset-2 col-md-10 col-sm-12 col-xs-12 list-group-item" style='background-color: #fff;border:1px solid #eee;padding:20px 30px;'>
                         <fieldset>
                             <legend><?php echo __("Please sign in"); ?></legend>
-
-
                             <?php
                             if (empty($advancedCustom->disableNativeSignIn)) {
                                 ?>
@@ -397,7 +395,6 @@ $advancedCustom = json_decode($json_file);
                                 }
                                 ?>
                             </div>
-                            <hr>
                         </fieldset>
 
                     </div>
@@ -405,17 +402,17 @@ $advancedCustom = json_decode($json_file);
                 </div>
                 <script>
                     $(document).ready(function () {
-    <?php
-    if (!empty($_GET['error'])) {
-        ?>
-                            swal("<?php echo __("Sorry!"); ?>", "<?php echo addslashes($_GET['error']); ?>", "error");
-        <?php
-    }
-    $refererUrl = $_SERVER["HTTP_REFERER"];
-    if (strpos($_SERVER["HTTP_REFERER"], "?error=" . __("You%20can%20not%20manage")) != false) {
-        $refererUrl = substr($_SERVER["HTTP_REFERER"], 0, strpos($_SERVER["HTTP_REFERER"], "?"));
-    }
-    ?>
+                        <?php
+                        if (!empty($_GET['error'])) {
+                            ?>
+                                                swal("<?php echo __("Sorry!"); ?>", "<?php echo addslashes($_GET['error']); ?>", "error");
+                            <?php
+                        }
+                        $refererUrl = $_SERVER["HTTP_REFERER"];
+                        if (strpos($_SERVER["HTTP_REFERER"], "?error=" . __("You%20can%20not%20manage")) != false) {
+                            $refererUrl = substr($_SERVER["HTTP_REFERER"], 0, strpos($_SERVER["HTTP_REFERER"], "?"));
+                        }
+                        ?>
                         $('#loginForm').submit(function (evt) {
                             evt.preventDefault();
                             modal.showPleaseWait();

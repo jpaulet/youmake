@@ -69,8 +69,23 @@ if(empty($channelName)){
     <body>
         <?php
         include $global['systemRootPath'] . 'view/include/navbar.php';
+
+        if(YPTWallet::getTotalBalance() == 0 && !User::isAdmin()){ 
         ?>
         <div class="container-fluid">
+            <div class='row'>
+                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                    Add funds
+                </div>
+            </div>
+        </div>
+        <?php
+            return;
+        }
+        ?>
+        <div class="container-fluid" style='margin-top:0px;'>
+
+            <!-- Left -->
             <div class="col-md-6">
                 <?php
                 if(!empty($obj->experimentalWebcam)){
@@ -138,6 +153,8 @@ if(empty($channelName)){
                 YouPHPTubePlugin::getLivePanel();
                 ?>
             </div>
+
+            <!-- Right -->
             <div class="col-md-6">
                 <div class="">
                     <div class="panel-heading">
@@ -200,7 +217,7 @@ if(empty($channelName)){
                         <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-primary"><span class="fa fa-users"></span> <?php echo __("Add more user Groups"); ?></a>
                     </div>
                 </div>
-
+            </div>
             </div>
         </div>
         <?php

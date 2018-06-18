@@ -10,8 +10,17 @@ $balance = $plugin->getBalance(User::getId());
 </style>
 <li>
     <div class="btn-group">
-        <button type="button" class="btn btn-default  dropdown-toggle navbar-btn pull-left"  data-toggle="dropdown" style='border: transparent; background-color:transparent;'>
-            <?php echo $obj->wallet_button_title; ?> <span class="badge"><?php echo $obj->currency_symbol; ?> <span class="walletBalance"><?php echo number_format($balance, $obj->decimalPrecision); ?></span> <?php echo $obj->currency; ?></span></span> <span class="caret"></span>
+        <button type="button" class="btn btn-default  dropdown-toggle navbar-btn pull-left" data-toggle="dropdown" style='border: transparent; background-color:transparent;'>
+            <?php echo $obj->wallet_button_title; ?> 
+            <span class="badge" style='padding:8px 14px;margin-top:-2px;background-color:#370b65;'>
+                <?php echo $obj->currency_symbol; ?> 
+                <span class="walletBalance">
+                    <?php echo number_format($balance, $obj->decimalPrecision); ?>
+                </span> 
+                <?php echo $obj->currency; ?>
+            </span>
+            </span> 
+            <span class="caret"></span>
         </button>
         <ul class="dropdown-menu dropdown-menu-right" role="menu"> 
             <?php

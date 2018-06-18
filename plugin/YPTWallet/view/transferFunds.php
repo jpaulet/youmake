@@ -32,17 +32,17 @@ $obj = YouPHPTubePlugin::getObjectDataIfEnabled("YPTWallet");
         ?>
         <div class="container-fluid">
             <div class="row">
-
                 <div class="row ">
-                    <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+                    <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
                         <div class="panel-heading"><?php echo __("Transfer Funds"); ?></div>
-                        <div class="panel-body">
-                            <div class="col-sm-6">
-                                <?php echo $obj->transfer_funds_text ?>
+                        <div class="panel-body" style='padding:20px;'>
+                            <div class="col-sm-4">
+                                <h2 style='margin-left:0px;padding-left:0px;'> <?php echo $obj->transfer_funds_text_title; ?> </h2>
+                                <?php //echo $obj->transfer_funds_text; ?>
+                                <?php echo __("Transfer funds from your account to another user account"); ?>
                             </div>
-                            <div class="col-sm-6" style='background-color:#fff;border-radius:8px;'>
+                            <div class="col-sm-8" style='background-color:#fff;border-radius:8px;'>
                                 <div class="row">
-
                                     <div class="col-sm-12">
                                         <?php
                                         if (!empty($_GET['status'])) {
@@ -95,7 +95,9 @@ $obj = YouPHPTubePlugin::getObjectDataIfEnabled("YPTWallet");
                                 <div class="row">
                                     <br>
                                     <div class="col-sm-12 text-center">
-                                        <button class="btn btn-primary" id="transferNow"><i class="fa fa-exchange" aria-hidden="true"></i> <?php echo __("Transfer now"); ?></button>
+                                        <button class="btn btn-primary youmake-button" id="transferNow"><i class="fa fa-exchange" aria-hidden="true"></i> 
+                                            <?php echo __("Transfer now"); ?>
+                                        </button>
                                     </div>
                                 </div>
 

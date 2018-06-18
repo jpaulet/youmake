@@ -4,11 +4,21 @@
     width: 100%;
 }
 
+.flagstrap-selected{
+    text-transform: uppercase;
+ }
+
 .flagstrap-icon {
+    filter: grayscale(1);
     display: inline-block;
     width: 16px;
     height: 11px;
     background: url(flags.png) no-repeat
+}
+
+.flagstrap-icon:hover{
+    filter: none;
+    -webkit-filter: grayscale(0%);
 }
 
 .flagstrap-placeholder,

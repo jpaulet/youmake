@@ -22,7 +22,7 @@ if (!User::isAdmin()) {
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
         <div class="container-fluid">
-            <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
+            <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
                 <div class="panel-heading">
                     <?php
                     echo __("Pending Requests");

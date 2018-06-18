@@ -28,6 +28,7 @@ $theme = $config->getTheme();
     //$cssFiles[] = "{$global['webSiteRootURL']}css/font-awesome-4.7.0/css/font-awesome.min.css";
     $cssFiles[] = "view/js/bootstrap-toggle/bootstrap-toggle.min.css";
     $cssFiles[] = "view/css/custom/{$theme}.css";
+    $cssFiles[] = "view/css/custom/default.css";
     $cssFiles = array_merge($cssFiles,YouPHPTubePlugin::getCSSFiles());
     $cssURL =  combineFiles($cssFiles, "css");
 ?>
@@ -53,8 +54,8 @@ if (!$config->getDisable_analytics()) {
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-96597943-1', 'auto', 'youPHPTube');
-    ga('youPHPTube.send', 'pageview');
+    //ga('create', 'UA-96597943-1', 'auto', 'youPHPTube');
+    //ga('youPHPTube.send', 'pageview');
 </script>
 <?php
 }

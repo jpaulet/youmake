@@ -19,60 +19,61 @@ if (!User::canUpload() || !empty($advancedCustom->doNotShowImportMP4Button)) {
         ?>
 
         <div class="container-fluid">
-            <div class="col-xs-12">
-                <div class="panel-heading" style='font-weight:600;'>Import Local Videos</div>
-                <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
-                    <div class="alert alert-info">
-                        <i class="fas fa-question-circle"></i>
-                        Here you can direct import multiple videos stored on your hard drive.<br>
-                        If there is a file (html or htm or txt) we will import it's content as a description, and the first 
-                        <input type="number" id="length" value="100" style="width: 70px;" /> characteres will be the file title. (choose 0 to use the file name as the title)
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" value="delete" id="delete" checked="true"> <?php echo __("Delete files after submit"); ?></label>
+            <div class='row'>
+                <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <h3 class="panel-heading" style='padding-left:0px;margin-left:0px;'>Import Local Videos</h3>
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
+                        <div class="alert alert-info">
+                            <i class="fas fa-question-circle"></i>
+                            Here you can direct import multiple videos stored on your hard drive.<br>
+                            If there is a file (html or htm or txt) we will import it's content as a description, and the first 
+                            <input type="number" id="length" value="100" style="width: 70px;" /> characteres will be the file title. (choose 0 to use the file name as the title)
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <input type="text" id="path"  class="form-control" placeholder="Local Path of videos i.e. /media/videos"/>
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" id="pathBtn">
-                                    <span class="glyphicon glyphicon-list"></span> <?php echo __("List Files"); ?>
-                                </button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" id="checkBtn">
-                                    <i class="far fa-check-square" aria-hidden="true"></i>
-                                </button>
-                            </span>
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" id="uncheckBtn">
-                                    <i class="far fa-square" aria-hidden="true"></i>
-                                </button>
-                            </span>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox" value="delete" id="delete" checked="true"> <?php echo __("Delete files after submit"); ?></label>
+                            </div>
                         </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" id="path"  class="form-control" placeholder="Local Path of videos i.e. /media/videos"/>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" id="pathBtn">
+                                        <span class="glyphicon glyphicon-list"></span> <?php echo __("List Files"); ?>
+                                    </button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" id="checkBtn">
+                                        <i class="far fa-check-square" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                                <span class="input-group-btn">
+                                    <button class="btn btn-secondary" id="uncheckBtn">
+                                        <i class="far fa-square" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <select class="form-control" id="bulk_categories_id" name="bulk_categories_id">
+
+                                <option value="0">Category - Use site default</option>
+                                <?php
+                                foreach ($_SESSION['login']->categories as $key => $value) {
+                                    echo '<option value="' . $value->id . '">' . $value->name . '</option>';
+                                }
+                                ?>
+                            </select>
+                        </div> 
+                        <ul class="list-group" id="files">
+                        </ul>
+                        <button class="btn btn-block btn-primary" id="addQueueBtn"><?php echo __("Direct Import all"); ?></button>
+
+
                     </div>
-
-                    <div class="form-group">
-                        <select class="form-control" id="bulk_categories_id" name="bulk_categories_id">
-
-                            <option value="0">Category - Use site default</option>
-                            <?php
-                            foreach ($_SESSION['login']->categories as $key => $value) {
-                                echo '<option value="' . $value->id . '">' . $value->name . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div> 
-                    <ul class="list-group" id="files">
-                    </ul>
-                    <button class="btn btn-block btn-primary" id="addQueueBtn"><?php echo __("Direct Import all"); ?></button>
-
-
                 </div>
             </div>
-
         </div><!--/.container-->
         <?php
         include $global['systemRootPath'] . 'view/include/footer.php';

@@ -1,6 +1,6 @@
-<div class="row main-video" id="mvideo">
-    <div class="col-sm-2 col-md-2 firstC"></div>
-    <div class="col-sm-8 col-md-8 secC">
+<div class="row main-video" id="mvideo" style='background-color:transparent;'>
+    <!-- <div class="col-sm-2 col-md-2 firstC"></div> -->
+    <div class="col-sm-8 col-md-8 secC" style=''>
         <div id="videoContainer">
             <div id="floatButtons" style="display: none;">
                 <p class="btn btn-outline btn-xs move">
@@ -51,7 +51,7 @@
                     }
                     $_GET['isMediaPlaySite'] = $video['id'];
                 ?>      
-                    <div id="main-video" class="embed-responsive embed-responsive-16by9">
+                    <div id="main-video" class="embed-responsive embed-responsive-16by9" style='background-color:rgba(0,0,0,0.5);'>
                         <video id="mainVideo" class="embed-responsive-item video-js vjs-default-skin <?php echo $vjsClass; ?> vjs-big-play-centered" controls <?php if ($config->getAutoplay()) { echo " autoplay "; } ?> data-setup='{"aspectRatio": "16:9", "techOrder": ["<?php if($_GET['isEmbedded']=="y"){ echo "youtube"; } else { echo "vimeo"; } ?>"], "sources": [{ "type": "video/<?php if($_GET['isEmbedded']=="y"){ echo "youtube"; } else { echo "vimeo"; } ?>", "src": "<?php echo $video['videoLink']; ?>"}] }' ></video>
                         <script>
                             var player;
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <div class="col-sm-2 col-md-2"></div>
+    <!-- <div class="col-sm-2 col-md-2"></div> -->
 </div>
 <!--/row-->
 <script>
@@ -170,3 +170,4 @@
         addView(<?php echo $video['id']; ?>);
     });
 </script>
+ 

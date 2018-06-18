@@ -15,8 +15,14 @@ $advancedCustom = json_decode($json_file);
 $thisScriptFile = pathinfo( $_SERVER["SCRIPT_FILENAME"]);
 if(empty($advancedCustom->userMustBeLoggedIn) || User::isLogged()){
 $updateFiles = getUpdatesFilesArray();
+
+$plugin = YouPHPTubePlugin::loadPluginIfEnabled("YPTWallet");
+$obj = $plugin->getDataObject();
 ?>
 <nav class="navbar navbar-default navbar-fixed-top first-page-navbar" style='background-color:#F9FBFD;'>
+<div class='container-fluid' style='margin:0px;padding:0px;margin-left:0px !important;'>
+    <div class='row'>
+    <div class='col-xs-12'>
     <ul class="items-container">
         <li>
             <ul class="left-side">
@@ -43,25 +49,16 @@ $updateFiles = getUpdatesFilesArray();
                     </a>
                 </li>
             </ul>
-        </li>
-        <li>
+
             <div class="navbar-header">
                 <button type="button" class=" navbar-toggle btn btn-default navbar-btn" data-toggle="collapse" data-target="#myNavbar" style="padding: 6px 12px;">
                     <span class="fa fa-bars"></span>
                 </button>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
-                <ul class="right-menus">
-                    <li class="">
-                        <form class="navbar-form navbar-left" id="searchForm"  action="<?php echo $global['webSiteRootURL']; ?>" >
-                            <div class="input-group" >
-                                <div class="form-inline">
-                                    <input class="form-control" type="text" value="<?php if(!empty($_GET['search'])) { echo $_GET['search']; } ?>" name="search" placeholder="<?php echo __("Search"); ?>" style='min-width:140px;'>
-                                    <button class="input-group-addon form-control hidden-xs"  style="width: 30px;" type="submit"><span class="glyphicon glyphicon-search" style='font-size:12px;margin-left:-3px;'></span></button>
-                                </div>
-                            </div>
-                        </form>
-                    </li>
+
+            <div class="collapse navbar-collapse" id="myNavbar" style='width:100%;'>
+                <ul class="right-menus" style='float:right;'>
+                    
                     <?php
                     echo YouPHPTubePlugin::getHTMLMenuRight();
                     ?>
@@ -71,7 +68,7 @@ $updateFiles = getUpdatesFilesArray();
                         <li>
 
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default  dropdown-toggle navbar-btn pull-left btn-zero-border"  data-toggle="dropdown">
+                                <button type="button" class="btn btn-default dropdown-toggle navbar-btn pull-left btn-zero-border"  data-toggle="dropdown" style='color:#470e82;background-color:transparent;'>
                                     <i class="<?php echo isset($advancedCustom->uploadButtonDropdownIcon)?$advancedCustom->uploadButtonDropdownIcon:"fas fa-video"; ?>"></i> <?php echo !empty($advancedCustom->uploadButtonDropdownText)?$advancedCustom->uploadButtonDropdownText:""; ?> <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right" role="menu" style="">
@@ -90,14 +87,17 @@ $updateFiles = getUpdatesFilesArray();
                                             ?>
                                             <li>
                                                 <a href="<?php echo $config->getEncoderURL(), "?webSiteRootURL=", urlencode($global['webSiteRootURL']), "&user=", urlencode(User::getUserName()), "&pass=", urlencode(User::getUserPass()); ?>" target="encoder" >
-                                                    <span class="fa fa-cog"></span> <?php echo __("Encode video and audio"); ?>
+                                                    <span class="fa fa-cog"></span> 
+                                                    <?php echo __("Encode video and audio"); ?>
                                                 </a>
                                             </li>
                                             <?php
                                         } else {
                                             ?>
                                             <li>
-                                                <a href="<?php echo $global['webSiteRootURL']; ?>siteConfigurations" ><span class="fa fa-cogs"></span> <?php echo __("Configure an Encoder URL"); ?></a>
+                                                <a href="<?php echo $global['webSiteRootURL']; ?>siteConfigurations" ><span class="fa fa-cogs"></span> 
+                                                    <?php echo __("Configure an Encoder URL"); ?>
+                                                </a>
                                             </li>
                                             <?php
                                         }
@@ -106,7 +106,8 @@ $updateFiles = getUpdatesFilesArray();
                                         ?>
                                         <li>
                                             <a  href="<?php echo $global['webSiteRootURL']; ?>upload" >
-                                                <span class="fa fa-upload"></span> <?php echo __("Direct upload"); ?>
+                                                <span class="fa fa-upload"></span> 
+                                                <?php echo __("Direct upload"); ?>
                                             </a>
                                         </li>
                                         <?php
@@ -115,7 +116,8 @@ $updateFiles = getUpdatesFilesArray();
                                         ?>
                                         <li>
                                             <a  href="<?php echo $global['webSiteRootURL']; ?>view/import.php" >
-                                                <span class="fas fa-hdd"></span> <?php echo __("Direct Import Local Videos"); ?>
+                                                <span class="fas fa-hdd"></span> 
+                                                <?php echo __("Direct Import Local Videos"); ?>
                                             </a>
                                         </li>
                                         <?php
@@ -124,7 +126,8 @@ $updateFiles = getUpdatesFilesArray();
                                         ?>                                    
                                         <li>
                                             <a  href="<?php echo $global['webSiteRootURL']; ?>mvideos?link=1" >
-                                                <span class="fa fa-link"></span> <?php echo __("Embed a video link"); ?>
+                                                <span class="fa fa-link"></span> 
+                                                <?php echo __("Embed a video link"); ?>
                                             </a>
                                         </li>
                                         <?php
@@ -132,7 +135,6 @@ $updateFiles = getUpdatesFilesArray();
                                     ?>
                                 </ul>
                             </div>
-
                         </li>
                         <?php
                     }
@@ -177,7 +179,7 @@ $updateFiles = getUpdatesFilesArray();
                 <!-- LOGGED USER -->
                     <?php if (User::isLogged()) { ?>
                         <li class="dropdown user" style='margin-right:40px;margin-left:30px;'>
-                          <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" style='position:absolute;top:13px;width:70px;color:#333;'>
+                          <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#" style='position:absolute;top:13px;width:70px;color:#470e82;'>
                             <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
                           </a>
                           <ul class="dropdown-menu dropdown-user" style='left:-160px;width:200px;padding:0px 0px;'>
@@ -339,7 +341,7 @@ $updateFiles = getUpdatesFilesArray();
                         </li>
                         <li>
                             <div>
-                                <a href="<?php echo $global['webSiteRootURL']; ?>user" class="btn btn-success btn-block" style="color:#fff;padding:7px;margin:8px;"> 
+                                <a href="<?php echo $global['webSiteRootURL']; ?>user" class="btn btn-success btn-block youmake-button" style="color:#fff;padding:7px;margin:8px;height:35px;line-height: 22px;"> 
                                     <?php echo __("Join Now! "); ?>
                                 </a>
                             </div>
@@ -352,18 +354,41 @@ $updateFiles = getUpdatesFilesArray();
 
         </li>
     </ul>
+    </div>
+    </div>
+    </div>
 </nav>
 
-<div id="sidebar" class="list-group-item" style="background-color:#F9FBFD;width:220px;position:fixed;margin-top:0px;float:left;">
+<div id="sidebar" class="list-group-item col-lg-2 col-md-2 hidden-xs hidden-sm" style="background-color:#F9FBFD;margin-top:0px;float:left;max-width: 220px;">
     <div id="sideBarContainer">
-        <ul class="nav navbar">                
+        <ul style='padding:0px;'>
+            <li class="nav navbar">
+                <form class="navbar-form navbar-left" id="searchForm"  action="<?php echo $global['webSiteRootURL']; ?>" style='margin:0px;padding:0px 10px;'>
+                    <div class="input-group" >
+                        <div class="form-inline">
+                            <input class="form-control" type="text" value="<?php if(!empty($_GET['search'])) { echo $_GET['search']; } ?>" name="search" placeholder="<?php echo __("Search"); ?>" style='width:85%;border: 0px;border: 0px;border: 1px solid #eee;background-color: rgba(255,255,255,0.5);border-right:0px;'>
+                            <button class="input-group-addon form-control hidden-xs"  style="width: 15%;border: 0px;border: 0px;border: 1px solid #eee;background-color: rgba(255,255,255,0.5);border-left:0px;" type="submit"><span class="glyphicon glyphicon-search" style='font-size:12px;margin-left:-3px;'></span></button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+        </ul>
+
+        <ul class="nav navbar" style='padding:0px 10px;'>            
+            <h3 class='panel-heading' style='margin-bottom:0px;color:#3c116bb3;'>
+                <i class="fa fa-video"></i>
+                <?php echo __("Live Makers"); ?>
+            </h3>
+
             <li style='background-color:#fff;border-radius:8px;padding:10px;'>
+            <!-- 
                 <a href="<?php echo $global['webSiteRootURL']; ?>makers" style='border-bottom: 1px solid #efefef;padding-bottom: 5px;margin-bottom:5px;'>
                     <i class="fa fa-search"></i>
                     <?php echo __("Live Makers"); ?>
                 </a>
+            -->
                 <?php
-                $totalUsers = User::getAllUsersByStreaming();
+                $totalUsers = array(); //User::getAllUsersByStreaming();
                 foreach($totalUsers as $u){
                     echo 
                         '<div class="pull-left">
@@ -396,7 +421,7 @@ $updateFiles = getUpdatesFilesArray();
                 if (empty($advancedCustom->removeBrowserChannelLinkFromMenu)) {
             ?>
             <li>
-                <a href="<?php echo $global['webSiteRootURL']; ?>channels" style='font-size:12px;'>
+                <a href="<?php echo $global['webSiteRootURL']; ?>channels" style='font-size:12px;text-align:center;'>
                     <i class="fa fa-search"></i>
                     <?php echo __("Browse Channels"); ?>
                 </a>
@@ -407,7 +432,7 @@ $updateFiles = getUpdatesFilesArray();
             ?>
             <!-- categories -->
             <li>
-                <h3 class="text-danger sidebar-title"><?php echo __("Categories"); ?></h3>
+                <h3 class="text-danger sidebar-title panel-heading" style='margin-bottom:0px;color:#3c116bb3;font-weight: 600;'><?php echo __("Categories"); ?></h3>
             </li>
             <?php
             

@@ -17,8 +17,8 @@ if (!empty($ad)) {
 	$logId = Video_ad::log($ad['id']);
 	}
 ?>
-<div class="row main-video" id="mvideo">
-	<div class="col-sm-2 col-md-2 firstC"></div>
+<div class="row main-video" id="mvideo" style='max-height:550px;margin-left:5px;padding-left: 0px;margin-bottom:20px;'>
+	<!-- <div class="col-sm-2 col-md-2 firstC"></div> -->
 	<div class="col-sm-8 col-md-8 secC">
 		<div id="videoContainer">
 			<div id="floatButtons" style="display: none;">
@@ -30,7 +30,7 @@ if (!empty($ad)) {
 					<i class="far fa-window-close"></i>
 				</button>
 			</div>
-			<div id="main-video" class="embed-responsive <?php echo $embedResponsiveClass; if (!empty($logId)) { echo " ad"; } ?>">
+			<div id="main-video" class="embed-responsive <?php echo $embedResponsiveClass; if (!empty($logId)) { echo " ad"; } ?>" style='background-color:rgba(0,0,0,0.5);'>
 				<video preload="auto" poster="<?php echo $poster; ?>" controls class="embed-responsive-item video-js vjs-default-skin <?php echo $vjsClass; ?> vjs-big-play-centered" id="mainVideo" data-setup='{ "aspectRatio": "<?php echo $aspectRatio; ?>" }'>
                     <?php if($playNowVideo['type']=="video"){ ?>
                         <!-- <?php echo $playNowVideo['title'], " ", $playNowVideo['filename']; ?> -->
@@ -77,7 +77,7 @@ if (YouPHPTubePlugin::isEnabled("0e225f8e-15e2-43d4-8ff7-0cb07c2a2b3b")) {
         
             <?php } } ?>
     </div>
-	<div class="col-sm-2 col-md-2"></div>
+	<!-- <div class="col-sm-2 col-md-2"></div> -->
 </div>
 <!--/row-->
 <script>

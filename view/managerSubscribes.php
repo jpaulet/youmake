@@ -22,24 +22,33 @@ if (!User::canUpload()) {
         ?>
 
         <div class="container-fluid">
-            <div class="col-lg-9">
-                <textarea id="emailMessage" placeholder="Enter text ..." style="width: 100%;"></textarea>
+            <div class='row'>
+                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                    <h3 class='panel-heading'> Message to yours subscribers</h3>
+                    <div class='panel-body'>
+                        <textarea id="emailMessage" placeholder="Enter text ..." style="width: 100%;"></textarea>
+                        <button type="button" class="btn btn-success" id="sendSubscribeBtn" style='float:right;margin:20px;'>
+                            <span class="fa fa-envelope-o" aria-hidden="true"></span> <?php echo __("Notify Subscribers"); ?>
+                        </button>
+                    </div>
+                </div>
+
+                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12' style='margin-top:30px;'>
+                    <h3 class='panel-heading'> Messages History</h3>
+                    <div class='panel-body'>
+                        <table id="grid" class="table table-condensed table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="identification" ><?php echo __("Subscribed to"); ?></th>
+                                    <th data-column-id="created" ><?php echo __("Created"); ?></th>
+                                    <th data-column-id="modified" ><?php echo __("Modified"); ?></th>
+                                    <th data-column-id="status" data-formatter="status" data-sortable="false"><?php echo __("Status"); ?></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-lg-3">
-                <button type="button" class="btn btn-success" id="sendSubscribeBtn">
-                    <span class="fa fa-envelope-o" aria-hidden="true"></span> <?php echo __("Notify Subscribers"); ?>
-                </button>
-            </div>
-            <table id="grid" class="table table-condensed table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th data-column-id="identification" ><?php echo __("Subscribed to"); ?></th>
-                        <th data-column-id="created" ><?php echo __("Created"); ?></th>
-                        <th data-column-id="modified" ><?php echo __("Modified"); ?></th>
-                        <th data-column-id="status" data-formatter="status" data-sortable="false"><?php echo __("Status"); ?></th>
-                    </tr>
-                </thead>
-            </table>
         </div><!--/.container-->
 
         <?php

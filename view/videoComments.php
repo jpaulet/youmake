@@ -1,86 +1,110 @@
 <?php
 if (User::canSeeCommentTextarea()) {
-    if (!empty($video['id'])) {
-        ?>
-        <div class="input-group">
-            <textarea class="form-control custom-control" rows="3" style="resize:none" id="comment" maxlength="<?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>" <?php
-            if (!User::canComment()) {
-                echo "disabled";
-            }
-            ?>><?php
-                          if (!User::canComment()) {
-                              echo __("You cannot comment on videos");
-                          }
-                          ?></textarea>
-            <?php if (User::canComment()) { ?>
-                <span class="input-group-addon btn btn-success" id="saveCommentBtn" <?php
-                if (!User::canComment()) {
-                    echo "disabled='disabled'";
-                }
-                ?>><span class="glyphicon glyphicon-comment"></span> <?php echo __("Comment"); ?></span>
-                  <?php } else { ?>
-                <a class="input-group-addon btn btn-success" href="<?php echo $global['webSiteRootURL']; ?>user"><span class="glyphicon glyphicon-log-in"></span> <?php echo __("You must login to be able to comment on videos"); ?></a>
-            <?php } ?>
-        </div>
-        <div class="pull-right" id="count_message"></div>
-        <script>
-            $(document).ready(function () {
-                var text_max = <?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>;
-                $('#count_message').html(text_max + ' <?php echo __("remaining"); ?>');
-                $('#comment').keyup(function () {
-                    var text_length = $(this).val().length;
-                    var text_remaining = text_max - text_length;
-                    $('#count_message').html(text_remaining + ' <?php echo __("remaining"); ?>');
-                });
-            });
-        </script>
-        <?php
-    }
     ?>
-    <div class="replySet hidden" id="replyTemplate" comments_id="0">
-        <div>        
+
+    <div class='row'>
+        <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
             <?php
-            if (User::canComment()) {
+            if (!empty($video['id'])) {
                 ?>
-                <button class="btn btn-default no-outline reply btn-xs"> 
-                    <?php echo __("Reply"); ?>
-                </button>
+                <div class="input-group">
+                    <textarea class="form-control custom-control" rows="3" style="resize:none" id="comment" maxlength="<?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>" <?php
+                    if (!User::canComment()) {
+                        echo "disabled";
+                    }
+                    ?>><?php
+                      if (!User::canComment()) {
+                          echo __("You cannot comment on videos");
+                      }
+                      ?>
+                    </textarea>
+                    <?php if (User::canComment()) { ?>
+                        <span class="input-group-addon btn btn-success" id="saveCommentBtn" <?php
+                        if (!User::canComment()) {
+                            echo "disabled='disabled'";
+                        }
+                        ?>><span class="glyphicon glyphicon-comment"></span> <?php echo __("Comment"); ?></span>
+                          <?php } else { ?>
+                        <a class="input-group-addon btn btn-success" href="<?php echo $global['webSiteRootURL']; ?>user"><span class="glyphicon glyphicon-log-in"></span> <?php echo __("You must login to be able to comment on videos"); ?></a>
+                    <?php } ?>
+                </div>
+                <div class="pull-right" id="count_message"></div>
+                <script>
+                    $(document).ready(function () {
+                        var text_max = <?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>;
+                        $('#count_message').html(text_max + ' <?php echo __("remaining"); ?>');
+                        $('#comment').keyup(function () {
+                            var text_length = $(this).val().length;
+                            var text_remaining = text_max - text_length;
+                            $('#count_message').html(text_remaining + ' <?php echo __("remaining"); ?>');
+                        });
+                    });
+                </script>
                 <?php
             }
             ?>
-            <button class="btn btn-default no-outline btn-xs replyLikeBtn"> 
-                <span class="fa fa-thumbs-up"></span>
-                <small>0</small>
-            </button> 
-            <button class="btn btn-default no-outline btn-xs replyDislikeBtn"> 
-                <span class="fa fa-thumbs-down"></span>
-                <small>0</small>
-            </button>           
-            <button class="btn btn-default no-outline allReplies btn-xs viewAllReplies">  
-                <?php echo __("View all replies"); ?> (<span class="total_replies">0</span>) <i class="fa fa-chevron-down" aria-hidden="true"></i>
-            </button> 
-            <button class="btn btn-default no-outline allReplies btn-xs hideAllReplies" style="display: none"> 
-                <?php echo __("Hide Replies"); ?> <i class="fa fa-chevron-up" aria-hidden="true"></i>
-            </button> 
-            <button class="btn btn-default no-outline btn-xs pull-right delete userCanAdminComment"> 
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </button> 
-            <button class="btn btn-default no-outline btn-xs pull-right edit userCanAdminComment"> 
-                <i class="fas fa-edit" aria-hidden="true"></i>
-            </button> 
-        </div>
-        <div style="padding-left: 50px;">
-            <div class="input-group formRepy" style="display: none;">
-                <textarea class="form-control custom-control" rows="2" style="resize:none" maxlength="<?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>" ></textarea>
 
-                <span class="input-group-addon btn btn-success saveReplyBtn">
-                    <span class="glyphicon glyphicon-comment"></span> <?php echo __("Reply"); ?>
-                </span>
+            <div class="replySet hidden" id="replyTemplate" comments_id="0">
+                <div>        
+                    <?php
+                    if (User::canComment()) {
+                        ?>
+                        <button class="btn btn-default no-outline reply btn-xs"> 
+                            <?php echo __("Reply"); ?>
+                        </button>
+                        <?php
+                    }
+                    ?>
+                    <button class="btn btn-default no-outline btn-xs replyLikeBtn"> 
+                        <span class="fa fa-thumbs-up"></span>
+                        <small>0</small>
+                    </button> 
+                    <button class="btn btn-default no-outline btn-xs replyDislikeBtn"> 
+                        <span class="fa fa-thumbs-down"></span>
+                        <small>0</small>
+                    </button>           
+                    <button class="btn btn-default no-outline allReplies btn-xs viewAllReplies">  
+                        <?php echo __("View all replies"); ?> (<span class="total_replies">0</span>) <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button> 
+                    <button class="btn btn-default no-outline allReplies btn-xs hideAllReplies" style="display: none"> 
+                        <?php echo __("Hide Replies"); ?> <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </button> 
+                    <button class="btn btn-default no-outline btn-xs pull-right delete userCanAdminComment"> 
+                        <i class="fa fa-trash" aria-hidden="true"></i>
+                    </button> 
+                    <button class="btn btn-default no-outline btn-xs pull-right edit userCanAdminComment"> 
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+                    </button> 
+                </div>
+                <div style="padding-left: 50px;">
+                    <div class="input-group formRepy" style="display: none;">
+                        <textarea class="form-control custom-control" rows="2" style="resize:none" maxlength="<?php echo empty($advancedCustom->commentsMaxLength)?"200":$advancedCustom->commentsMaxLength ?>" ></textarea>
+
+                        <span class="input-group-addon btn btn-success saveReplyBtn">
+                            <span class="glyphicon glyphicon-comment"></span> <?php echo __("Reply"); ?>
+                        </span>
+                    </div>
+                    <div class="replyGrid" style="display: none;">
+                        <table class="table table-condensed table-hover table-striped nowrapCell grid">
+                            <thead>
+                                <tr>
+                                    <th data-column-id="comment"  data-formatter="commands" ><?php echo __("Comment"); ?></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="replyGrid" style="display: none;">
-                <table class="table table-condensed table-hover table-striped nowrapCell grid">
+            <h3 class='panel-heading' style='margin-left:0px;padding-left:0px;'><?php echo __("Comments"); ?>:</h3>
+            <div class='panel-body'>
+                <table id="grid" class="table table-condensed table-hover table-striped nowrapCell">
                     <thead>
                         <tr>
+                            <?php
+                            if (empty($video['id'])) {
+                                ?>
+                                <th data-formatter="video"  data-width="200px" ><?php echo __("Video"); ?></th>
+                            <?php } ?>
                             <th data-column-id="comment"  data-formatter="commands" ><?php echo __("Comment"); ?></th>
                         </tr>
                     </thead>
@@ -88,19 +112,6 @@ if (User::canSeeCommentTextarea()) {
             </div>
         </div>
     </div>
-    <h4><?php echo __("Comments"); ?>:</h4>
-    <table id="grid" class="table table-condensed table-hover table-striped nowrapCell">
-        <thead>
-            <tr>
-                <?php
-                if (empty($video['id'])) {
-                    ?>
-                    <th data-formatter="video"  data-width="200px" ><?php echo __("Video"); ?></th>
-                <?php } ?>
-                <th data-column-id="comment"  data-formatter="commands" ><?php echo __("Comment"); ?></th>
-            </tr>
-        </thead>
-    </table>
 
     <div id="commentFormModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">

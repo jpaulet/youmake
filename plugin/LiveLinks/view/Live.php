@@ -85,17 +85,15 @@ if(!empty($_GET['embed'])){
                 <div class="col-xs-12 col-sm-12 col-lg-12"><?php echo $video['creator']; ?></div>
             </div> 
             <div class="col-md-3">
-                    <?php
-                    echo $config->getAdsense();
-                    ?>
+                <?php echo $config->getAdsense(); ?>
             </div>
         </div>
         
         <script src="<?php echo $global['webSiteRootURL']; ?>js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
         <script>
-                        /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
-                        $.widget.bridge('uibutton', $.ui.button);
-                        $.widget.bridge('uitooltip', $.ui.tooltip);
+            /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
+            $.widget.bridge('uibutton', $.ui.button);
+            $.widget.bridge('uitooltip', $.ui.tooltip);
         </script>  
         
         <script src="<?php echo $global['webSiteRootURL']; ?>js/video.js/video.js" type="text/javascript"></script>
@@ -105,15 +103,14 @@ if(!empty($_GET['embed'])){
         include $global['systemRootPath'] . 'view/include/footer.php';
         ?>
 
-                <?php
-                if(!empty($p)){
-                    $p->getChat($uuid);
-                }
-                ?>
+        <?php
+        if(!empty($p)){
+            $p->getChat($uuid);
+        }
+        ?>
         <script src="<?php echo $global['webSiteRootURL']; ?>js/videojs-persistvolume/videojs.persistvolume.js" type="text/javascript"></script>
         <script src="<?php echo $global['webSiteRootURL']; ?>js/webui-popover/jquery.webui-popover.min.js" type="text/javascript"></script>
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/bootstrap-list-filter/bootstrap-list-filter.min.js" type="text/javascript"></script>
-        
+        <script src="<?php echo $global['webSiteRootURL']; ?>js/bootstrap-list-filter/bootstrap-list-filter.min.js" type="text/javascript"></script>        
     </body>
 </html>
 

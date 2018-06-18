@@ -1,4 +1,4 @@
-<button type="submit" class="btn btn-primary" id="YPTWalletPayPalButton"><?php echo __("Confirm"); ?> PayPal</button>
+<button type="submit" class="btn btn-primary youmake-button" id="YPTWalletPayPalButton"><?php echo __("Confirm"); ?> PayPal</button>
 <script>
     $(document).ready(function () {
         $('#YPTWalletPayPalButton').click(function (evt) {

@@ -30,7 +30,8 @@ class YPTWallet extends PluginAbstract {
         $obj->add_funds_success_success = "<h1>Thank you,<br> Your funds has been added<h1>";
         $obj->add_funds_success_cancel = "<h1>Ops,<br> You have cancel it<h1>";
         $obj->add_funds_success_fail = "<h1>Sorry,<br> Your funds request has been fail<h1>";
-        $obj->transfer_funds_text = "<h1>Transfer money for other users</h1>Transfer funds from your account to another user account";
+        $obj->transfer_funds_text_title = "Transfer money for other users";
+        $obj->transfer_funds_text = "Transfer funds from your account to another user account";
         $obj->transfer_funds_success_success = "<h1>Thank you,<br> Your funds has been transfered<h1>";
         $obj->transfer_funds_success_fail = "<h1>Sorry,<br> Your funds transfer request has been fail<h1>";
         $obj->withdraw_funds_text = "<h1>Withdraw money from your</h1>Transfer funds from your account to your credit card or bank account";

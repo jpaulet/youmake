@@ -1,6 +1,7 @@
 html,
 body {
     height: 100vh;
+    background-color: #F9FBFD;
 }
 body {
     padding-top: 60px;
@@ -401,12 +402,13 @@ img.rotate-90 {
     /* Opera */
 }
 .subsB  {
-    background-color: #e62117;
+    background-color: #370b65;
     color: #FFF;
     -webkit-transition: all 1s ease-out;
     -moz-transition: all 1s ease-out;
     -o-transition: all 1s ease-out;
     transition: all 1s ease-out;
+    padding:0px 14px;
 }
 .subsB  span:before {
     content: "\f16a";

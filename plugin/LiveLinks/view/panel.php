@@ -1,7 +1,9 @@
 <link rel="stylesheet" type="text/css" href="<?php echo $global['webSiteRootURL']; ?>view/css/DataTables/datatables.min.css"/> 
 <link href="<?php echo $global['webSiteRootURL']; ?>js/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css"/>
-<div class="panel panel-default">
-    <div class="panel-heading"><i class="fas fa-link"></i> <?php echo __("Add an external Live Link"); ?></div>
+<div class="">
+    <div class="panel-heading">
+        <i class="fas fa-link"></i> <?php echo __("Add an external Live Link"); ?>
+    </div>
     <div class="panel-body"> 
         <div class="row">
             <div class="col-sm-4">
@@ -53,7 +55,7 @@
                 </form>
             </div>
             <div class="col-sm-8">
-                <div class="panel panel-default ">
+                <div class=" ">
                     <div class="panel-heading"><?php echo __("Live Events"); ?></div>
                     <div class="panel-body">
                         <table id="exampleLinks" class="display" width="100%" cellspacing="0">

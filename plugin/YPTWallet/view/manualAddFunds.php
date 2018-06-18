@@ -26,7 +26,7 @@ $options = json_decode($obj->addFundsOptions);
         ?>
         <div class="container-fluid">
             <div class="row">
-                <div class="panel panel-default">
+                <div class="">
                     <div class="panel-heading"><?php echo __("Add Funds"); ?></div>
                     <div class="panel-body">
                         <div class="col-sm-6">

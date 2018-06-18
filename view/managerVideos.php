@@ -53,353 +53,357 @@ if (!empty($_GET['video_id'])) {
 
     <body>
         <?php include $global['systemRootPath'] . 'view/include/navbar.php'; ?>
-        <div class="col-lg-8 col-lg-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 container-fluid">
-        <?php include $global['systemRootPath'] . 'view/include/updateCheck.php'; ?>
-            <div class="btn-group" >
-                <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-warning">
-                    <span class="fa fa-users"></span> <?php echo __("User Groups"); ?>
-                </a>
-                <a href="<?php echo $global['webSiteRootURL']; ?>users" class="btn btn-primary">
-                    <span class="fa fa-user"></span> <?php echo __("Users"); ?>
-                </a>
-                <a href="<?php echo $global['webSiteRootURL']; ?>charts" class="btn btn-info">
-                    <span class="fa fa-bar-chart"></span>
-                    <?php echo __("Video Chart"); ?>
-                </a>
-                <?php
-                $categories = Category::getAllCategories();
-                if (empty($advancedCustom->doNotShowEncoderButton)) {
-                    if (!empty($config->getEncoderURL())) {
-                        ?>
-                        <a href="<?php echo $config->getEncoderURL(), "?webSiteRootURL=", urlencode($global['webSiteRootURL']), "&user=", urlencode(User::getUserName()), "&pass=", urlencode(User::getUserPass()); ?>" class="btn btn-default">
-                            <span class="fa fa-cog"></span>
-                            <?php echo __("Encode video and audio"); ?>
+        <div class='container-fluid'>
+            <div class='row'>
+                <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12" style='background-color: #fff;padding:40px 30px'>
+                <?php include $global['systemRootPath'] . 'view/include/updateCheck.php'; ?>
+                    <div class="btn-group" >
+                        <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-warning">
+                            <span class="fa fa-users"></span> <?php echo __("User Groups"); ?>
+                        </a>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>users" class="btn btn-primary">
+                            <span class="fa fa-user"></span> <?php echo __("Users"); ?>
+                        </a>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>charts" class="btn btn-info">
+                            <span class="fa fa-bar-chart"></span>
+                            <?php echo __("Video Chart"); ?>
                         </a>
                         <?php
-                    }
-                }
-                if (empty($advancedCustom->doNotShowUploadMP4Button)) {
-                    ?>
-                    <a href="<?php echo $global['webSiteRootURL']; ?>upload" class="btn btn-default">
-                        <span class="fa fa-upload"></span>
-                        <?php echo __("Upload a MP4 File"); ?>
-                    </a>
-                    <?php
-                }
-                if (empty($advancedCustom->doNotShowEmbedButton)) {
-                    ?>                                    
-                    <button class="btn btn-default" id="linkExternalVideo">
-                        <span class="fa fa-link"></span>
-                        <?php echo __("Embed a video link"); ?>
-                    </button>
-                    <?php
-                }
-                ?>
-
-
-
-                <?php
-                if (User::isAdmin()) {
-                    ?>
-                    <a href="<?php echo $global['webSiteRootURL']; ?>ads" class="btn btn-danger">
-                        <span class="far fa-money-bill-alt"></span> <?php echo __("Advertising Manager"); ?>
-                    </a>
-                    <?php
-                }
-                ?>
-            </div>
-            <small class="text-muted clearfix">
-                <?php
-                $secondsTotal = getSecondsTotalVideosLength();
-                $seconds = $secondsTotal % 60;
-                $minutes = ($secondsTotal - $seconds) / 60;
-                printf(__("You are hosting %d minutes and %d seconds of video"), $minutes, $seconds);
-                ?>
-            </small>
-            <?php
-            if (!empty($global['videoStorageLimitMinutes'])) {
-                $secondsLimit = $global['videoStorageLimitMinutes'] * 60;
-                if ($secondsLimit > $secondsTotal) {
-
-                    $percent = intval($secondsTotal / $secondsLimit * 100);
-                } else {
-                    $percent = 100;
-                }
-                ?> and you have <?php echo $global['videoStorageLimitMinutes']; ?> minutes of storage
-                <div class="progress">
-                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
-                         aria-valuenow="<?php echo $percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent; ?>%">
-                        <?php echo $percent; ?>% of your storage limit used
-                    </div>
-                </div>
-                <?php
-            }
-            ?>
-            <div class="pull-left btn-group">       
-                <button class="btn btn-secondary" id="checkBtn">
-                    <i class="far fa-square" aria-hidden="true" id="chk"></i>
-                </button>
-                <?php if (!$config->getDisable_youtubeupload()) { ?>
-                <button class="btn btn-danger" id="uploadYouTubeBtn">
-                    <i class="fab fa-youtube" aria-hidden="true"></i> <?php echo __('Upload to YouTube'); ?>
-                </button>
-                <?php } ?>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        <?php echo __('Categories'); ?> <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
-                        <?php
-                        foreach ($categories as $value) {
-                            echo "<li><a href=\"#\"  onclick=\"changeCategory({$value['id']});return false;\" ><i class=\"{$value['iconClass']}\"></i> {$value['name']}</a></li>";
+                        $categories = Category::getAllCategories();
+                        if (empty($advancedCustom->doNotShowEncoderButton)) {
+                            if (!empty($config->getEncoderURL())) {
+                                ?>
+                                <a href="<?php echo $config->getEncoderURL(), "?webSiteRootURL=", urlencode($global['webSiteRootURL']), "&user=", urlencode(User::getUserName()), "&pass=", urlencode(User::getUserPass()); ?>" class="btn btn-default">
+                                    <span class="fa fa-cog"></span>
+                                    <?php echo __("Encode video and audio"); ?>
+                                </a>
+                                <?php
+                            }
+                        }
+                        if (empty($advancedCustom->doNotShowUploadMP4Button)) {
+                            ?>
+                            <a href="<?php echo $global['webSiteRootURL']; ?>upload" class="btn btn-default">
+                                <span class="fa fa-upload"></span>
+                                <?php echo __("Upload a MP4 File"); ?>
+                            </a>
+                            <?php
+                        }
+                        if (empty($advancedCustom->doNotShowEmbedButton)) {
+                            ?>                                    
+                            <button class="btn btn-default" id="linkExternalVideo">
+                                <span class="fa fa-link"></span>
+                                <?php echo __("Embed a video link"); ?>
+                            </button>
+                            <?php
                         }
                         ?>
-                    </ul>
-                </div>           
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        <?php echo __('Status'); ?> <span class="caret"></span></button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" onclick="changeStatus('a'); return false;"><i class="fas fa-eye"></i> <?php echo __('Active'); ?></a></li>
-                        <li><a href="#" onclick="changeStatus('i'); return false;"><i class="fas fa-eye-slash"></i></span> <?php echo __('Inactive'); ?></a></li>
-                        <li><a href="#" onclick="changeStatus('u'); return false;"><i class="fas fa-eye" style="color: #BBB;"></i> <?php echo __('Unlisted'); ?></a></li>
-                        <!--
-                        <li><a href="#" onclick="changeStatus('p'); return false;"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> <?php echo __('Private'); ?></a></li>
-                        -->
-                    </ul>
-                </div>
-                <button class="btn btn-danger" id="deleteBtn">
-                    <i class="fa fa-trash" aria-hidden="true"></i> <?php echo __('Delete'); ?>
-                </button>
-            </div>
-            <table id="grid" class="table table-condensed table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th data-formatter="checkbox" data-width="25px" ></th>
-                        <th data-column-id="title" data-formatter="titleTag" ><?php echo __("Title"); ?></th>
-                        <th data-column-id="tags" data-formatter="tags" data-sortable="false" data-width="210px"><?php echo __("Tags"); ?></th>
-                        <th data-column-id="duration" data-width="100px"><?php echo __("Duration"); ?></th>
-                        <th data-column-id="created" data-order="desc" data-width="100px"><?php echo __("Created"); ?></th>
-                        <th data-column-id="commands" data-formatter="commands" data-sortable="false"  data-width="200px"></th>
-                    </tr>
-                </thead>
-            </table>
 
-            <div id="videoFormModal" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><?php echo __("Video Form"); ?></h4>
+
+
+                        <?php
+                        if (User::isAdmin()) {
+                            ?>
+                            <a href="<?php echo $global['webSiteRootURL']; ?>ads" class="btn btn-danger">
+                                <span class="far fa-money-bill-alt"></span> <?php echo __("Advertising Manager"); ?>
+                            </a>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <small class="text-muted clearfix">
+                        <?php
+                        $secondsTotal = getSecondsTotalVideosLength();
+                        $seconds = $secondsTotal % 60;
+                        $minutes = ($secondsTotal - $seconds) / 60;
+                        printf(__("You are hosting %d minutes and %d seconds of video"), $minutes, $seconds);
+                        ?>
+                    </small>
+                    <?php
+                    if (!empty($global['videoStorageLimitMinutes'])) {
+                        $secondsLimit = $global['videoStorageLimitMinutes'] * 60;
+                        if ($secondsLimit > $secondsTotal) {
+
+                            $percent = intval($secondsTotal / $secondsLimit * 100);
+                        } else {
+                            $percent = 100;
+                        }
+                        ?> and you have <?php echo $global['videoStorageLimitMinutes']; ?> minutes of storage
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar"
+                                 aria-valuenow="<?php echo $percent; ?>" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $percent; ?>%">
+                                <?php echo $percent; ?>% of your storage limit used
+                            </div>
                         </div>
-                        <div class="modal-body" style="max-height: 70vh; overflow-y: scroll;">
-                            <div id="postersImage">
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#jpg">Poster (JPG)</a></li>
-                                    <li><a data-toggle="tab" href="#gif">Mouse Over Poster (GIF)</a></li>
-                                </ul>
-
-                                <div class="tab-content">
-                                    <div id="jpg" class="tab-pane fade in active">
-                                        <input id="input-jpg" type="file" class="file-loading" accept="image/jpg">
-                                    </div>
-                                    <div id="gif" class="tab-pane fade">
-                                        <input id="input-gif" type="file" class="file-loading" accept="image/gif">
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="videoLinkContent">                                
-                                <label for="videoLink" class="sr-only"><?php echo __("Video Link"); ?></label>
-                                <input type="text" id="videoLink" class="form-control first" placeholder="<?php echo __("Video Link"); ?> http://www.your-embed-link.com/video" required>
-                                <select class="form-control last" id="videoLinkType" required>
-                                    <option value="embed"><?php echo __("Embeded"); ?></option>
-                                    <option value="linkVideo"><?php echo __("Direct video-link (webm or mp4)"); ?></option>
-                                    <option value="linkAudio"><?php echo __("Direct audio-link (mp3 or ogg)"); ?></option>
-                                </select>
-                            </div>
-                            <hr>
-                            <form class="form-compact"  id="updateCategoryForm" onsubmit="">
-                                <input type="hidden" id="inputVideoId"  >
-                                <div class="titles">
-                                    <label for="inputTitle" class="sr-only"><?php echo __("Title"); ?></label>
-                                    <input type="text" id="inputTitle" class="form-control first" placeholder="<?php echo __("Title"); ?>" required autofocus>
-                                    <label for="inputCleanTitle" class="sr-only"><?php echo __("Clean Title"); ?></label>
-                                    <input type="text" id="inputCleanTitle" class="form-control" placeholder="<?php echo __("Clean Title"); ?>" required>
-                                </div>
-                                <label for="inputDescription" class="sr-only"><?php echo __("Description"); ?></label>
-                                <textarea id="inputDescription" class="form-control" placeholder="<?php echo __("Description"); ?>" required></textarea>
-                                <label for="inputCategory" class="sr-only"><?php echo __("Category"); ?></label>
-                                <select class="form-control last" id="inputCategory" required>
-                                    <?php
-                                    foreach ($categories as $value) {
-                                        echo "<option value='{$value['id']}'>{$value['name']}</option>";
-                                    }
-                                    ?>
-                                </select>
-
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <span class="fa fa-globe"></span> <?php echo __("Public Video"); ?>
-                                        <div class="material-switch pull-right">
-                                            <input id="public" type="checkbox" value="0" class="userGroups"/>
-                                            <label for="public" class="label-success"></label>
-                                        </div>
-                                    </li>
-                                    <li class="list-group-item active non-public">
-                                        <?php echo __("Groups that can see this video"); ?>
-                                        <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="popover" title="<?php echo __("What is User Groups"); ?>" data-placement="bottom"  data-content="<?php echo __("By linking groups to this video, it will no longer be public and only users in the same group will be able to watch this video"); ?>"><span class="fa fa-question-circle" aria-hidden="true"></span> <?php echo __("Help"); ?></a>
-                                    </li>
-                                    <?php
-                                    foreach ($userGroups as $value) {
-                                        ?>
-                                        <li class="list-group-item non-public">
-                                            <span class="fa fa-lock"></span>
-                                            <?php echo $value['group_name']; ?>
-                                            <span class="label label-info"><?php echo $value['total_users']; ?> Users linked</span>
-                                            <div class="material-switch pull-right">
-                                                <input id="videoGroup<?php echo $value['id']; ?>" type="checkbox" value="<?php echo $value['id']; ?>" class="videoGroups"/>
-                                                <label for="videoGroup<?php echo $value['id']; ?>" class="label-warning"></label>
-                                            </div>
-                                        </li>
-                                        <?php
-                                    }
-                                    ?>
-                                </ul>
-
+                        <?php
+                    }
+                    ?>
+                    <div class="pull-left btn-group">       
+                        <button class="btn btn-secondary" id="checkBtn">
+                            <i class="far fa-square" aria-hidden="true" id="chk"></i>
+                        </button>
+                        <?php if (!$config->getDisable_youtubeupload()) { ?>
+                        <button class="btn btn-danger" id="uploadYouTubeBtn">
+                            <i class="fab fa-youtube" aria-hidden="true"></i> <?php echo __('Upload to YouTube'); ?>
+                        </button>
+                        <?php } ?>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <?php echo __('Categories'); ?> <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
                                 <?php
-                                if (User::isAdmin()) {
-                                    ?>
-
-                                    <ul class="list-group" id="videoIsAdControl">
-                                        <li class="list-group-item">
-                                            <a href="#" class="btn btn-info btn-xs" data-toggle="popover" title="<?php echo __("What is this"); ?>" data-placement="bottom"  data-content="<?php echo __("This video will work as an advertising and will no longer appear on videos list"); ?>"><span class="fa fa-question-circle" aria-hidden="true"></span> <?php echo __("Help"); ?></a>
-                                            <?php echo __("Create an Advertising"); ?>
-                                            <div class="material-switch pull-right">
-                                                <input id="videoIsAd" type="checkbox" value="0" class="userGroups"/>
-                                                <label for="videoIsAd" class="label-success"></label>
-                                            </div>
-                                        </li>
-                                        <li class="list-group-item videoIsAdContent" style="display: none">
-                                            <label for="inputAdTitle" class="sr-only"><?php echo __("Advertising Title"); ?></label>
-                                            <input type="text" id="inputAdTitle" class="form-control first" placeholder="<?php echo __("Advertising Title"); ?>" required autofocus>
-                                            <label for="inputAdUrlRedirect" class="sr-only"><?php echo __("URL"); ?></label>
-                                            <input type="url" id="inputAdUrlRedirect" class="form-control last" placeholder="<?php echo __("URL"); ?>" required autofocus>
-
-                                            <label for="inputAdStarts" class="sr-only"><?php echo __("Starts on"); ?></label>
-                                            <input type="text" id="inputAdStarts" class="form-control datepicker" placeholder="<?php echo __("Starts on"); ?>" required autofocus>
-                                            <small>Leave Blank for Right Now</small>
-                                            <label for="inputAdFinish" class="sr-only"><?php echo __("Finish on"); ?></label>
-                                            <input type="text" id="inputAdFinish" class="form-control datepicker" placeholder="<?php echo __("Finish on"); ?>" required autofocus>
-                                            <small>Leave Blank for Never</small>
-
-                                            <label for="inputAdSkip" class="sr-only"><?php echo __("Skip Button appears after (X) seconds"); ?></label>
-                                            <input type="number" id="inputAdSkip" class="form-control " placeholder="<?php echo __("Skip Button appears after (X) seconds"); ?>" required autofocus>
-                                            <small>Leave blank for since begin or put a number of seconds bigger the the ad for never</small>
-
-
-                                            <label for="inputAdClick" class="sr-only"><?php echo __("Stop ad after (X) clicks"); ?></label>
-                                            <input type="number" id="inputAdClick" class="form-control " placeholder="<?php echo __("Stop ad after (X) clicks"); ?>" required autofocus>
-                                            <small>Leave Blank for Never</small>
-
-                                            <label for="inputAdPrints" class="sr-only"><?php echo __("Stop ad after (X) prints"); ?></label>
-                                            <input type="number" id="inputAdPrints" class="form-control " placeholder="<?php echo __("Stop ad after (X) prints"); ?>" required autofocus>
-                                            <small>Leave Blank for Never</small>
-
-                                            <label for="inputAdCategory" class="sr-only"><?php echo __("Category to display this Ad"); ?></label>
-                                            <select class="form-control last" id="inputAdCategory" required>
-                                                <?php
-                                                foreach ($categories as $value) {
-                                                    echo "<option value='{$value['id']}'>{$value['name']}</option>";
-                                                }
-                                                ?>
-                                            </select>
-                                        </li>
-                                    </ul>
-
-                                    <?php
+                                foreach ($categories as $value) {
+                                    echo "<li><a href=\"#\"  onclick=\"changeCategory({$value['id']});return false;\" ><i class=\"{$value['iconClass']}\"></i> {$value['name']}</a></li>";
                                 }
                                 ?>
+                            </ul>
+                        </div>           
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                <?php echo __('Status'); ?> <span class="caret"></span></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="#" onclick="changeStatus('a'); return false;"><i class="fas fa-eye"></i> <?php echo __('Active'); ?></a></li>
+                                <li><a href="#" onclick="changeStatus('i'); return false;"><i class="fas fa-eye-slash"></i></span> <?php echo __('Inactive'); ?></a></li>
+                                <li><a href="#" onclick="changeStatus('u'); return false;"><i class="fas fa-eye" style="color: #BBB;"></i> <?php echo __('Unlisted'); ?></a></li>
+                                <!--
+                                <li><a href="#" onclick="changeStatus('p'); return false;"><span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span> <?php echo __('Private'); ?></a></li>
+                                -->
+                            </ul>
+                        </div>
+                        <button class="btn btn-danger" id="deleteBtn">
+                            <i class="fa fa-trash" aria-hidden="true"></i> <?php echo __('Delete'); ?>
+                        </button>
+                    </div>
+                    <table id="grid" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-formatter="checkbox" data-width="25px" ></th>
+                                <th data-column-id="title" data-formatter="titleTag" ><?php echo __("Title"); ?></th>
+                                <th data-column-id="tags" data-formatter="tags" data-sortable="false" data-width="210px"><?php echo __("Tags"); ?></th>
+                                <th data-column-id="duration" data-width="100px"><?php echo __("Duration"); ?></th>
+                                <th data-column-id="created" data-order="desc" data-width="100px"><?php echo __("Created"); ?></th>
+                                <th data-column-id="commands" data-formatter="commands" data-sortable="false"  data-width="200px"></th>
+                            </tr>
+                        </thead>
+                    </table>
 
-                                <div class="row">
-                                    <h3><?php echo __("Autoplay Next Video"); ?> <button class="btn btn-danger btn-sm" id="removeAutoplay"><i class="fa fa-trash"></i> <?php echo __("Remove Autoplay Next Video"); ?></button></h3>
-                                    <div class="col-md-4">
-                                        <img id="inputNextVideo-poster" src="img/notfound.jpg" class="ui-state-default" alt="">
-                                    </div>
-                                    <div class="col-md-8">                                        
-                                        <input id="inputNextVideo" placeholder="<?php echo __("Autoplay Next Video"); ?>" class="form-control">
-                                        <input id="inputNextVideoClean" placeholder="<?php echo __("Autoplay Next Video URL"); ?>" class="form-control" readonly="readonly">
-                                        <input type="hidden" id="inputNextVideo-id">                                        
-                                    </div>
+                    <div id="videoFormModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title"><?php echo __("Video Form"); ?></h4>
                                 </div>
-                                <script>
-                                    $(function () {
+                                <div class="modal-body" style="max-height: 70vh; overflow-y: scroll;">
+                                    <div id="postersImage">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#jpg">Poster (JPG)</a></li>
+                                            <li><a data-toggle="tab" href="#gif">Mouse Over Poster (GIF)</a></li>
+                                        </ul>
 
-
-                                        $("#inputNextVideo").autocomplete({
-                                            minLength: 0,
-                                            source: function (req, res) {
-                                                $.ajax({
-                                                    url: '<?php echo $global['webSiteRootURL']; ?>videos.json',
-                                                    type: "POST",
-                                                    data: {
-                                                        searchPhrase: req.term
-                                                    },
-                                                    success: function (data) {
-                                                        res(data.rows);
-                                                    }
-                                                });
-                                            },
-                                            focus: function (event, ui) {
-                                                $("#inputNextVideo").val(ui.item.title);
-                                                return false;
-                                            },
-                                            select: function (event, ui) {
-                                                $("#inputNextVideo").val(ui.item.title);
-                                                $("#inputNextVideoClean").val('<?php echo $global['webSiteRootURL']; ?>video/' + ui.item.clean_title);
-                                                $("#inputNextVideo-id").val(ui.item.id);
-                                                $("#inputNextVideo-poster").attr("src", "videos/" + ui.item.filename + ".jpg");
-                                                return false;
+                                        <div class="tab-content">
+                                            <div id="jpg" class="tab-pane fade in active">
+                                                <input id="input-jpg" type="file" class="file-loading" accept="image/jpg">
+                                            </div>
+                                            <div id="gif" class="tab-pane fade">
+                                                <input id="input-gif" type="file" class="file-loading" accept="image/gif">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="videoLinkContent">                                
+                                        <label for="videoLink" class="sr-only"><?php echo __("Video Link"); ?></label>
+                                        <input type="text" id="videoLink" class="form-control first" placeholder="<?php echo __("Video Link"); ?> http://www.your-embed-link.com/video" required>
+                                        <select class="form-control last" id="videoLinkType" required>
+                                            <option value="embed"><?php echo __("Embeded"); ?></option>
+                                            <option value="linkVideo"><?php echo __("Direct video-link (webm or mp4)"); ?></option>
+                                            <option value="linkAudio"><?php echo __("Direct audio-link (mp3 or ogg)"); ?></option>
+                                        </select>
+                                    </div>
+                                    <hr>
+                                    <form class="form-compact"  id="updateCategoryForm" onsubmit="">
+                                        <input type="hidden" id="inputVideoId"  >
+                                        <div class="titles">
+                                            <label for="inputTitle" class="sr-only"><?php echo __("Title"); ?></label>
+                                            <input type="text" id="inputTitle" class="form-control first" placeholder="<?php echo __("Title"); ?>" required autofocus>
+                                            <label for="inputCleanTitle" class="sr-only"><?php echo __("Clean Title"); ?></label>
+                                            <input type="text" id="inputCleanTitle" class="form-control" placeholder="<?php echo __("Clean Title"); ?>" required>
+                                        </div>
+                                        <label for="inputDescription" class="sr-only"><?php echo __("Description"); ?></label>
+                                        <textarea id="inputDescription" class="form-control" placeholder="<?php echo __("Description"); ?>" required></textarea>
+                                        <label for="inputCategory" class="sr-only"><?php echo __("Category"); ?></label>
+                                        <select class="form-control last" id="inputCategory" required>
+                                            <?php
+                                            foreach ($categories as $value) {
+                                                echo "<option value='{$value['id']}'>{$value['name']}</option>";
                                             }
-                                        }).autocomplete("instance")._renderItem = function (ul, item) {
-                                            return $("<li>").append("<div>" + item.title + "<br><?php echo __("Uploaded By"); ?>: " + item.user + "</div>").appendTo(ul);
-                                            ;
-                                        };
-                                    });
-                                </script>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __("Close"); ?></button>
-                            <button type="button" class="btn btn-primary" id="saveCategoryBtn"><?php echo __("Save changes"); ?></button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-            <?php
-            if ((User::isAdmin())&&(!$config->getDisable_youtubeupload())) {
-                ?>
-                <div class="alert alert-info">
-                    <h1><span class="fab fa-youtube-square"></span> Let us upload your video to YouTube</h1>
-                    <h2>Before you start</h2>
-                    <ol>
-                        <li>
-                            <a href="<?php echo $global['webSiteRootURL']; ?>siteConfigurations" class="btn btn-info btn-xs">Enable Google Login</a> and get your google ID and Key
-                        </li>
-                        <li>
-                            Go to https://console.developers.google.com
-                            on <a href="https://console.developers.google.com/apis/dashboard" class="btn btn-info btn-xs" target="_blank">dashboard</a> Enable <strong>YouTube Data API v3</strong>
-                        </li>
-                        <li>
-                            In credentials authorized this redirect URIs <code><?php echo $global['webSiteRootURL']; ?>objects/youtubeUpload.json.php</code>
-                        </li>
-                        <li>
-                            You can find more help on <a href="https://developers.google.com/youtube/v3/getting-started" class="btn btn-info btn-xs"  target="_blank">https://developers.google.com/youtube/v3/getting-started </a>
-                        </li>
-                    </ol>
+                                            ?>
+                                        </select>
 
+                                        <ul class="list-group">
+                                            <li class="list-group-item">
+                                                <span class="fa fa-globe"></span> <?php echo __("Public Video"); ?>
+                                                <div class="material-switch pull-right">
+                                                    <input id="public" type="checkbox" value="0" class="userGroups"/>
+                                                    <label for="public" class="label-success"></label>
+                                                </div>
+                                            </li>
+                                            <li class="list-group-item active non-public">
+                                                <?php echo __("Groups that can see this video"); ?>
+                                                <a href="#" class="btn btn-info btn-xs pull-right" data-toggle="popover" title="<?php echo __("What is User Groups"); ?>" data-placement="bottom"  data-content="<?php echo __("By linking groups to this video, it will no longer be public and only users in the same group will be able to watch this video"); ?>"><span class="fa fa-question-circle" aria-hidden="true"></span> <?php echo __("Help"); ?></a>
+                                            </li>
+                                            <?php
+                                            foreach ($userGroups as $value) {
+                                                ?>
+                                                <li class="list-group-item non-public">
+                                                    <span class="fa fa-lock"></span>
+                                                    <?php echo $value['group_name']; ?>
+                                                    <span class="label label-info"><?php echo $value['total_users']; ?> Users linked</span>
+                                                    <div class="material-switch pull-right">
+                                                        <input id="videoGroup<?php echo $value['id']; ?>" type="checkbox" value="<?php echo $value['id']; ?>" class="videoGroups"/>
+                                                        <label for="videoGroup<?php echo $value['id']; ?>" class="label-warning"></label>
+                                                    </div>
+                                                </li>
+                                                <?php
+                                            }
+                                            ?>
+                                        </ul>
+
+                                        <?php
+                                        if (User::isAdmin()) {
+                                            ?>
+
+                                            <ul class="list-group" id="videoIsAdControl">
+                                                <li class="list-group-item">
+                                                    <a href="#" class="btn btn-info btn-xs" data-toggle="popover" title="<?php echo __("What is this"); ?>" data-placement="bottom"  data-content="<?php echo __("This video will work as an advertising and will no longer appear on videos list"); ?>"><span class="fa fa-question-circle" aria-hidden="true"></span> <?php echo __("Help"); ?></a>
+                                                    <?php echo __("Create an Advertising"); ?>
+                                                    <div class="material-switch pull-right">
+                                                        <input id="videoIsAd" type="checkbox" value="0" class="userGroups"/>
+                                                        <label for="videoIsAd" class="label-success"></label>
+                                                    </div>
+                                                </li>
+                                                <li class="list-group-item videoIsAdContent" style="display: none">
+                                                    <label for="inputAdTitle" class="sr-only"><?php echo __("Advertising Title"); ?></label>
+                                                    <input type="text" id="inputAdTitle" class="form-control first" placeholder="<?php echo __("Advertising Title"); ?>" required autofocus>
+                                                    <label for="inputAdUrlRedirect" class="sr-only"><?php echo __("URL"); ?></label>
+                                                    <input type="url" id="inputAdUrlRedirect" class="form-control last" placeholder="<?php echo __("URL"); ?>" required autofocus>
+
+                                                    <label for="inputAdStarts" class="sr-only"><?php echo __("Starts on"); ?></label>
+                                                    <input type="text" id="inputAdStarts" class="form-control datepicker" placeholder="<?php echo __("Starts on"); ?>" required autofocus>
+                                                    <small>Leave Blank for Right Now</small>
+                                                    <label for="inputAdFinish" class="sr-only"><?php echo __("Finish on"); ?></label>
+                                                    <input type="text" id="inputAdFinish" class="form-control datepicker" placeholder="<?php echo __("Finish on"); ?>" required autofocus>
+                                                    <small>Leave Blank for Never</small>
+
+                                                    <label for="inputAdSkip" class="sr-only"><?php echo __("Skip Button appears after (X) seconds"); ?></label>
+                                                    <input type="number" id="inputAdSkip" class="form-control " placeholder="<?php echo __("Skip Button appears after (X) seconds"); ?>" required autofocus>
+                                                    <small>Leave blank for since begin or put a number of seconds bigger the the ad for never</small>
+
+
+                                                    <label for="inputAdClick" class="sr-only"><?php echo __("Stop ad after (X) clicks"); ?></label>
+                                                    <input type="number" id="inputAdClick" class="form-control " placeholder="<?php echo __("Stop ad after (X) clicks"); ?>" required autofocus>
+                                                    <small>Leave Blank for Never</small>
+
+                                                    <label for="inputAdPrints" class="sr-only"><?php echo __("Stop ad after (X) prints"); ?></label>
+                                                    <input type="number" id="inputAdPrints" class="form-control " placeholder="<?php echo __("Stop ad after (X) prints"); ?>" required autofocus>
+                                                    <small>Leave Blank for Never</small>
+
+                                                    <label for="inputAdCategory" class="sr-only"><?php echo __("Category to display this Ad"); ?></label>
+                                                    <select class="form-control last" id="inputAdCategory" required>
+                                                        <?php
+                                                        foreach ($categories as $value) {
+                                                            echo "<option value='{$value['id']}'>{$value['name']}</option>";
+                                                        }
+                                                        ?>
+                                                    </select>
+                                                </li>
+                                            </ul>
+
+                                            <?php
+                                        }
+                                        ?>
+
+                                        <div class="row">
+                                            <h3><?php echo __("Autoplay Next Video"); ?> <button class="btn btn-danger btn-sm" id="removeAutoplay"><i class="fa fa-trash"></i> <?php echo __("Remove Autoplay Next Video"); ?></button></h3>
+                                            <div class="col-md-4">
+                                                <img id="inputNextVideo-poster" src="img/notfound.jpg" class="ui-state-default" alt="">
+                                            </div>
+                                            <div class="col-md-8">                                        
+                                                <input id="inputNextVideo" placeholder="<?php echo __("Autoplay Next Video"); ?>" class="form-control">
+                                                <input id="inputNextVideoClean" placeholder="<?php echo __("Autoplay Next Video URL"); ?>" class="form-control" readonly="readonly">
+                                                <input type="hidden" id="inputNextVideo-id">                                        
+                                            </div>
+                                        </div>
+                                        <script>
+                                            $(function () {
+
+
+                                                $("#inputNextVideo").autocomplete({
+                                                    minLength: 0,
+                                                    source: function (req, res) {
+                                                        $.ajax({
+                                                            url: '<?php echo $global['webSiteRootURL']; ?>videos.json',
+                                                            type: "POST",
+                                                            data: {
+                                                                searchPhrase: req.term
+                                                            },
+                                                            success: function (data) {
+                                                                res(data.rows);
+                                                            }
+                                                        });
+                                                    },
+                                                    focus: function (event, ui) {
+                                                        $("#inputNextVideo").val(ui.item.title);
+                                                        return false;
+                                                    },
+                                                    select: function (event, ui) {
+                                                        $("#inputNextVideo").val(ui.item.title);
+                                                        $("#inputNextVideoClean").val('<?php echo $global['webSiteRootURL']; ?>video/' + ui.item.clean_title);
+                                                        $("#inputNextVideo-id").val(ui.item.id);
+                                                        $("#inputNextVideo-poster").attr("src", "videos/" + ui.item.filename + ".jpg");
+                                                        return false;
+                                                    }
+                                                }).autocomplete("instance")._renderItem = function (ul, item) {
+                                                    return $("<li>").append("<div>" + item.title + "<br><?php echo __("Uploaded By"); ?>: " + item.user + "</div>").appendTo(ul);
+                                                    ;
+                                                };
+                                            });
+                                        </script>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __("Close"); ?></button>
+                                    <button type="button" class="btn btn-primary" id="saveCategoryBtn"><?php echo __("Save changes"); ?></button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                    <?php
+                    if ((User::isAdmin())&&(!$config->getDisable_youtubeupload())) {
+                        ?>
+                        <div class="alert alert-info">
+                            <h1><span class="fab fa-youtube-square"></span> Let us upload your video to YouTube</h1>
+                            <h2>Before you start</h2>
+                            <ol>
+                                <li>
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>siteConfigurations" class="btn btn-info btn-xs">Enable Google Login</a> and get your google ID and Key
+                                </li>
+                                <li>
+                                    Go to https://console.developers.google.com
+                                    on <a href="https://console.developers.google.com/apis/dashboard" class="btn btn-info btn-xs" target="_blank">dashboard</a> Enable <strong>YouTube Data API v3</strong>
+                                </li>
+                                <li>
+                                    In credentials authorized this redirect URIs <code><?php echo $global['webSiteRootURL']; ?>objects/youtubeUpload.json.php</code>
+                                </li>
+                                <li>
+                                    You can find more help on <a href="https://developers.google.com/youtube/v3/getting-started" class="btn btn-info btn-xs"  target="_blank">https://developers.google.com/youtube/v3/getting-started </a>
+                                </li>
+                            </ol>
+
+                        </div>
+                        <?php
+                    }
+                    ?>
                 </div>
-                <?php
-            }
-            ?>
+            </div>
         </div><!--/.container-->
 
         <?php

@@ -21,9 +21,11 @@ if (empty($plugin) || !$plugin->canAddLinks()) {
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
         <div class="container-fluid">
-            <?php
-                    include_once './view/panel.php';
-            ?>
+            <div class='row'>
+                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                    <?php include_once './view/panel.php'; ?>
+                </div>
+            </div>
         </div>
         <?php
         include $global['systemRootPath'] . 'view/include/footer.php';

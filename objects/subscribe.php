@@ -223,8 +223,8 @@ class Subscribe {
         $total = static::getTotalSubscribes($user_id);
         
         $subscribe = "<div class=\"btn-group\">"
-                . "<button class='btn btn-xs subsB subs{$user_id} subscribeButton{$user_id}'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribe") . "</b></button>"
-                . "<button class='btn btn-xs subsB subs{$user_id}'><b class='textTotal{$user_id}'>{$total}</b></button>"
+                . "<button class='btn btn-xs youmake-button subsB subs{$user_id} subscribeButton{$user_id}' style='height:35px;line-height:35px;'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribe") . "</b></button>"
+                . "<button class='btn btn-xs youmake-button subsB subs{$user_id}' style='height:35px;line-height:35px;'><b class='textTotal{$user_id}'>{$total}</b></button>"
                 . "</div>";
                 
         //show subscribe button with mail field

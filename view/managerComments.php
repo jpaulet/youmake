@@ -25,16 +25,9 @@ require_once $global['systemRootPath'] . 'objects/comment.php';
         ?>
 
         <div class="container-fluid">
-                    <?php
-        include $global['systemRootPath'] . 'view/include/updateCheck.php';
-        ?>
-            <?php
-            include $global['systemRootPath'] . 'view/videoComments.php';
-            ?>
-
+            <?php include $global['systemRootPath'] . 'view/include/updateCheck.php'; ?>
+            <?php include $global['systemRootPath'] . 'view/videoComments.php'; ?>
         </div><!--/.container-->
-        <?php
-        include $global['systemRootPath'] . 'view/include/footer.php';
-        ?>
+        <?php include $global['systemRootPath'] . 'view/include/footer.php'; ?>
     </body>
 </html>

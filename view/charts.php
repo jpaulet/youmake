@@ -130,37 +130,40 @@ foreach ($videos as $value) {
     <body>
         <?php
         include $global['systemRootPath'] . 'view/include/navbar.php';
-//var_dump($videos);
         ?>
-        <div class="container-fluid bg-white">
-            <div class="list-group-item clear clearfix" style='background-color:#fff;border:1px solid #E1E1E1;'>
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#dashboard"><i class="fas fa-tachometer-alt"></i> <?php echo __("Dashboard"); ?></a></li>
-                    <li><a data-toggle="tab" href="#menu1"><i class="fab fa-youtube"></i> <i class="fa fa-eye"></i> <?php echo __("Video views - per Channel"); ?></a></li>
-                    <li><a data-toggle="tab" href="#menu2"><i class="fa fa-comments"></i> <i class="fa fa-thumbs-up"></i> <?php echo __("Comment thumbs up - per Person"); ?></a></li>
-                    <li><a data-toggle="tab" href="#menu3"><i class="fab fa-youtube"></i> <i class="fa fa-thumbs-up"></i> <?php echo __("Video thumbs up - per Channel"); ?></a></li>
-                </ul>
+        <div class="container-fluid">
+            <div class='row'>
+                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                    <div class="list-group-item clear clearfix" style='background-color:#fff;border:1px solid #E1E1E1;'>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#dashboard"><i class="fas fa-tachometer-alt"></i> <?php echo __("Dashboard"); ?></a></li>
+                            <li><a data-toggle="tab" href="#menu1"><i class="fab fa-youtube"></i> <i class="fa fa-eye"></i> <?php echo __("Video views - per Channel"); ?></a></li>
+                            <li><a data-toggle="tab" href="#menu2"><i class="fa fa-comments"></i> <i class="fa fa-thumbs-up"></i> <?php echo __("Comment thumbs up - per Person"); ?></a></li>
+                            <li><a data-toggle="tab" href="#menu3"><i class="fab fa-youtube"></i> <i class="fa fa-thumbs-up"></i> <?php echo __("Video thumbs up - per Channel"); ?></a></li>
+                        </ul>
 
-                <div class="tab-content">
-                    <div id="dashboard" class="tab-pane fade in active" style="padding: 10px;">
-                        <?php
-                            include $global['systemRootPath'].'view/report0.php';
-                        ?>
-                    </div>
-                    <div id="menu1" class="tab-pane fade" style="padding: 10px;">
-                        <?php
-                            include $global['systemRootPath'].'view/report1.php';
-                        ?>
-                    </div>
-                    <div id="menu2" class="tab-pane fade" style="padding: 10px;">
-                        <?php
-                            include $global['systemRootPath'].'view/report2.php';
-                        ?>
-                    </div>
-                    <div id="menu3" class="tab-pane fade" style="padding: 10px;">
-                        <?php
-                            include $global['systemRootPath'].'view/report3.php';
-                        ?>
+                        <div class="tab-content">
+                            <div id="dashboard" class="tab-pane fade in active" style="padding: 10px;">
+                                <?php
+                                    include $global['systemRootPath'].'view/report0.php';
+                                ?>
+                            </div>
+                            <div id="menu1" class="tab-pane fade" style="padding: 10px;">
+                                <?php
+                                    include $global['systemRootPath'].'view/report1.php';
+                                ?>
+                            </div>
+                            <div id="menu2" class="tab-pane fade" style="padding: 10px;">
+                                <?php
+                                    include $global['systemRootPath'].'view/report2.php';
+                                ?>
+                            </div>
+                            <div id="menu3" class="tab-pane fade" style="padding: 10px;">
+                                <?php
+                                    include $global['systemRootPath'].'view/report3.php';
+                                ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
