@@ -63,6 +63,7 @@ if(empty($channelName)){
         <script src="<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/swfobject.js" type="text/javascript"></script>
         <link href="<?php echo $global['webSiteRootURL']; ?>js/video.js/video-js.min.css" rel="stylesheet" type="text/css"/>
         <link href="<?php echo $global['webSiteRootURL']; ?>css/player.css" rel="stylesheet" type="text/css"/>
+        <!-- <script src="//vjs.zencdn.net/7.0/video.min.js"></script> -->
         <script src="<?php echo $global['webSiteRootURL']; ?>js/video.js/video.js" type="text/javascript"></script>
         <script src="<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/videojs-contrib-hls.min.js" type="text/javascript"></script>
     </head>
@@ -70,11 +71,11 @@ if(empty($channelName)){
         <?php
         include $global['systemRootPath'] . 'view/include/navbar.php';
 
-        if(YPTWallet::getTotalBalance() == 0 && !User::isAdmin()){ 
+        if(false && YPTWallet::getTotalBalance() == 0 && !User::isAdmin()){ 
         ?>
         <div class="container-fluid">
             <div class='row'>
-                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                <div class='col-xs-12'>
                     Add funds
                 </div>
             </div>
@@ -83,7 +84,7 @@ if(empty($channelName)){
             return;
         }
         ?>
-        <div class="container-fluid" style='margin-top:0px;'>
+        <div class="container-fluid">
 
             <!-- Left -->
             <div class="col-md-6">
@@ -114,7 +115,7 @@ if(empty($channelName)){
                 ?>
                 <div class="">
                     <div class="panel-heading" style='font-weight:600;'><i class="fa fa-share"></i> <?php echo __("Share Info"); ?></div>
-                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>          
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;max-height:240px;'>          
                         <div class="form-group">
                             <label for="playerURL"><i class="fa fa-play-circle"></i> <?php echo __("Player URL"); ?>:</label>
                             <input type="text" class="form-control" id="playerURL" value="<?php echo $p->getPlayerServer(); ?>/<?php echo $trasnmition['key']; ?>/index.m3u8"  readonly="readonly">
@@ -131,7 +132,7 @@ if(empty($channelName)){
                 </div>
                 <div class="">
                     <div class="panel-heading" style='font-weight:600;margin-top:20px;'><i class="fa fa-hdd-o"></i> <?php echo __("Devices Stream Info"); ?></div>
-                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;max-height:200px;'>
                         <div class="form-group">
                             <label for="server"><i class="fa fa-server"></i> <?php echo __("Server URL"); ?>:</label>
                             <input type="text" class="form-control" id="server" value="<?php echo $p->getServer(); ?>?p=<?php echo User::getUserPass(); ?>" readonly="readonly">

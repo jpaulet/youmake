@@ -43,12 +43,12 @@ unset($_SESSION['type']);
     <style>
         .first-page-slider-row{
             background-color: transparent !important;
-            padding: 0px;
+            padding: 15px;
             margin-bottom: 30px;
         }
         .flickity-slider{
             position:relative;
-            width: 85%;
+            width: 94%;
         }
 
         .flickity-viewport{
@@ -62,40 +62,81 @@ unset($_SESSION['type']);
             margin: 5px 0px;
             padding: 5px 0px;
         }
-
-        .tile {
-            width: 25%;
+        
+        .tile { 
+            width: 20%;
             height: 100px;
+        }
+
+        .thumbsImage{
+            width:80%;
+            border:0px !important;
         }
 
         .tile__img{
             width: 100%;
             height: 100px;
         }
+
+        .infoText{
+            padding:10px 0px;
+        }
     </style>
 </head>
 <body>
-    <?php include $global['systemRootPath'] . 'view/include/navbar.php'; ?>
+    <?php 
+    include $global['systemRootPath'] . 'view/include/navbar.php'; 
+    ?>
 
-    <div class="container-fluid first-page-container" id="mainContainer" style="display: none;padding:10px 40px;background-color:#F9FBFD;"> 
-        <div class='row jumbotron'>
-            <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
-            <h2 style='text-align:center;'> Join the community of Live Makers! </h2>
-            <div> 
-                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
-                <strong>grow your community</strong> around your product before you launch
-                and <strong>earn money</strong> while you build! 
-            </div>
-            <div> 
-                We are X liveMakers right now! 
-            </div>
-            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
-                Want more? See our features, <a class='button button-join' href=''>JOIN now!</a> or read the F.A.Q
-            </p>
-        </div>
-        <?php
-        $category = Category::getAllCategories();
-        $currentCat;
+    <div class="container-fluid" id="mainContainer" style="display: none;background-color:#F9FBFD;margin-top:10px;"> 
+        <div class='row'>
+            <div class='col-xs-12'>
+                
+                <div class="row text-center" style="">
+                    <?php //echo $config->getAdsense(); ?>
+                </div>
+
+                <div class='col-xs-12' style='padding:0px;margin:0px;margin-bottom:40px;background-color:#4f1091;border-radius:8px;'>
+                    <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Show your  ♥  send some $" id="transferFundsImg" style='height:250px;border-radius:8px;' />
+                    <h1 style='float:right;color:#fff;font-size:36px;letter-spacing: 0.05;padding:20px 40px;line-height:40px;'> Welcome to <span style='font-weight:600;letter-spacing:0;font-size:42px;line-height:20px;margin-left:8px;margin-right:8px;'>youMake.live</span> !</h1>
+                </div>
+                
+                <div class="col-xs-12 list-group-item" style='padding:0px;margin:0px;'>
+                    
+                    <?php if (User::isLogged() && !User::completeProfile()){ ?>
+                        <div class='jumbotron' style='padding-top:35px;padding-bottom:25px;'>
+                            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Finish your profile </h2>
+                            <div> We encourage you to complete all the user information. A good profile picture, description about you and a channel name with `hook` will help you get a bigger community.</div>
+                            <p style='font-size:13px;text-align:center;'> Let's do it! <br />
+                                <a class='button button-join youmake-button youmake-button-secundary' style='background-color: #ddd !important; color:#333;margin-top:10px;margin-bottom:-40px;' href='<?php echo $global['webSiteRootURL']; ?>user'>
+                                    <span class="fa fa-user-circle"></span> Profile
+                                </a> 
+                            </p>
+                        </div>
+                    <?php } ?>
+                    
+                    <?php if(!User::isLogged()){ ?>
+                        <div class='jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;border-width: '>
+                            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
+                            <div> 
+                                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
+                                <strong>grow your community</strong> around your product before you launch
+                                and <strong>earn money</strong> while you build! 
+                            </div>
+                            <div> 
+                                We are X liveMakers right now! 
+                            </div>
+                            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
+                                Want more? See our features, <a class='button youmake-button' href=''>JOIN now!</a> or read the F.A.Q
+                            </p>
+                        </div>
+                    <?php } ?>
+            
+            <?php
+            $category = Category::getAllCategories();
+            $currentCat;
             $currentCatType = array('type'=>99); // 99 because it will not match - only when found and be replaced.
             if(!empty($_GET['catName'])){
                 foreach ($category as $cat) {
@@ -204,6 +245,26 @@ unset($_SESSION['type']);
             </div>              
             <?php
         }
+        ?>
+
+        <!-- For Live Videos -->
+        <div id="liveVideos" class="clear clearfix" style="display: none;">
+            <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>
+            <div class="extraVideos"></div>
+        </div>
+        <script>
+            function afterExtraVideos($liveLi) {
+                $liveLi.removeClass('col-lg-12 col-sm-12 col-xs-12 bottom-border');
+                $liveLi.find('.thumbsImage').removeClass('col-lg-5 col-sm-5 col-xs-5');
+                $liveLi.find('.videosDetails').removeClass('col-lg-7 col-sm-7 col-xs-7');
+                $liveLi.addClass('col-lg-2 col-md-4 col-sm-4 col-xs-6 fixPadding');
+                $('#liveVideos').slideDown();
+                return $liveLi;
+            }
+        </script>
+        <?php echo YouPHPTubePlugin::getGallerySection(); ?>
+
+        <?php
         if ($o->DateAdded) {
 
 
@@ -903,8 +964,11 @@ if (($o->LiteGallery) && (empty($_GET['catName']))) {
     </div> 
     <?php } //end of lite-design ?>
 </div>
-<div id="loading" class="loader"
-style="width: 30vh; height: 30vh; position: absolute; left: 50%; top: 50%; margin-left: -15vh; margin-top: -15vh;"></div>
+
+</div>
+</div>
+
+<div id="loading" class="loader" style="width: 30vh; height: 30vh; position: absolute; left: 50%; top: 50%; margin-left: -15vh; margin-top: -15vh;"></div>
 <div class="webui-popover-content" id="popover">
     <?php if (User::isLogged()) { ?>
         <form role="form">

@@ -26,7 +26,6 @@
                 ?>
             </div>
 
-
             <?php
             $liveCount = YouPHPTubePlugin::loadPluginIfEnabled('LiveCountdownEvent');
             $html = array();
@@ -39,11 +38,9 @@
             ?>
         </div>
     </div> 
-
     <div class="col-xs-12 col-sm-12 col-lg-2"></div>
 </div><!--/row-->
 <script>
-
     $(document).ready(function () {
         player = videojs('mainVideo');
         player.ready(function () {
@@ -51,18 +48,17 @@
             if (err && err.code) {
                 $('.vjs-error-display').hide();
                 $('#mainVideo').find('.vjs-poster').css({'background-image': 'url(<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/Offline.jpg)'});
-<?php
-if (!empty($html)) {
-    echo "showCountDown();";
-}
-?>
+            <?php
+            if (!empty($html)) {
+                echo "showCountDown();";
             }
-<?php
-if ($config->getAutoplay()) {
-    echo "this.play();";
-}
-?>
-
+            ?>
+                        }
+            <?php
+            if ($config->getAutoplay()) {
+                echo "this.play();";
+            }
+            ?>
         });
         player.persistvolume({
             namespace: "YouPHPTube"

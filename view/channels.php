@@ -22,7 +22,7 @@ $channels = Channel::getChannels();
         ?>
 
         <div class="container-fluid">
-            <div class="bgWhite list-group-item" >
+            <div class="bgWhite list-group-item col-xs-12">
                 <?php
                 foreach ($channels as $value) {
                     ?>

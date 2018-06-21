@@ -81,31 +81,52 @@ if (strpos($_SERVER['REQUEST_URI'], "/cat/") === false) {
         <?php include $global['systemRootPath'].'view/include/navbar.php'; ?>
         <div class="container-fluid gallery" itemscope itemtype="http://schema.org/VideoObject">
             <div class='row'>
-                <div class='col-xs-12 col-md-10 col-lg-8 col-lg-offset-2'>
+                <div class='col-xs-12'>
                     
                     <div class="row text-center" style="padding: 10px;">
                         <?php echo $config->getAdsense(); ?>
                     </div>
+
+                    <div class='col-xs-12' style='padding:0px;margin:0px;margin-bottom:40px;background-color:#4f1091;border-radius:8px;'>
+                        <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Show your  ♥  send some $" id="transferFundsImg" style='height:250px;border-radius:8px;' />
+                        <h1 style='float:right;color:#fff;font-size:36px;letter-spacing: 0.05;padding:20px 40px;line-height:40px;'> Welcome to <span style='font-weight:600;letter-spacing:0;font-size:42px;line-height:20px;margin-left:8px;margin-right:8px;'>youMake.live</span> !</h1>
+                    </div>
                     
-                    <div class="col-sm-10 col-sm-offset-1 list-group-item">
+                    <div class="col-xs-12 list-group-item" style='padding:0px;margin:0px;'>
                         
-                        <div class='row jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;'>
-                            <span style='position:relative;top:-20px;right:-20px;width:10px;float:right;'> x </span>
-                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
-                            <div> 
-                                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
-                                <strong>grow your community</strong> around your product before you launch
-                                and <strong>earn money</strong> while you build! 
+                        <?php if (User::isLogged() && !User::completeProfile()){ ?>
+                            <div class='jumbotron' style='padding-top:35px;padding-bottom:25px;'>
+                                <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+                                <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Finish your profile </h2>
+                                <div> We encourage you to complete all the user information. A good profile picture, description about you and a channel name with `hook` will help you get a bigger community.</div>
+                                <p style='font-size:13px;text-align:center;'> Let's do it! <br />
+                                    <a class='button button-join youmake-button youmake-button-secundary' style='background-color: #ddd !important; color:#333;margin-top:10px;margin-bottom:-40px;' href='<?php echo $global['webSiteRootURL']; ?>user'>
+                                        <span class="fa fa-user-circle"></span> Profile
+                                    </a> 
+                                </p>
                             </div>
-                            <div> 
-                                We are X liveMakers right now! 
+                        <?php } ?>
+                        
+                        <?php if(!User::isLogged()){ ?>
+                            <div class='jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;border-width: '>
+                                <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+                                <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
+                                <div> 
+                                    Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
+                                    <strong>grow your community</strong> around your product before you launch
+                                    and <strong>earn money</strong> while you build! 
+                                </div>
+                                <div> 
+                                    We are X liveMakers right now! 
+                                </div>
+                                <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
+                                    Want more? See our features, <a class='button youmake-button' href=''>JOIN now!</a> or read the F.A.Q
+                                </p>
                             </div>
-                            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
-                                Want more? See our features, <a class='button button-join' href=''>JOIN now!</a> or read the F.A.Q
-                            </p>
-                        </div>
+                        <?php } ?>
 
                         <?php
+
                         if (!empty($currentCat)) {
                             include $global['systemRootPath'] . 'plugin/Gallery/view/Category.php';
                         }
@@ -114,7 +135,7 @@ if (strpos($_SERVER['REQUEST_URI'], "/cat/") === false) {
                             include $global['systemRootPath'] . 'plugin/Gallery/view/BigVideo.php';
                             ?>
 
-                            <div class="row mainArea" style='margin:20px;'>
+                            <div class="row mainArea" style='padding:0px;margin:0px;'>
                                 <!-- For Live Videos -->
                                 <div id="liveVideos" class="clear clearfix" style="display: none;">
                                     <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>

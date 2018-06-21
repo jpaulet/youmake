@@ -28,102 +28,104 @@ $userGroups = UserGroups::getAllUsersGroups();
         ?>
 
         <div class="container-fluid">
-        <?php
-        include $global['systemRootPath'] . 'view/include/updateCheck.php';
-        ?>
-            <div class="btn-group" >
-                <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-warning">
-                    <span class="fa fa-users"></span> <?php echo __("User Groups"); ?>
-                </a>
-                <a href="<?php echo $global['webSiteRootURL']; ?>users" class="btn btn-primary">
-                    <span class="fa fa-user"></span> <?php echo __("Users"); ?>
-                </a>
+            <div class='row'>
+                <div class="col-xs-12" style='background-color: #fff;padding:30px'>
+                <?php
+                include $global['systemRootPath'] . 'view/include/updateCheck.php';
+                ?>
+                    <div class="btn-group" >
+                        <a href="<?php echo $global['webSiteRootURL']; ?>usersGroups" class="btn btn-warning">
+                            <span class="fa fa-users"></span> <?php echo __("User Groups"); ?>
+                        </a>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>users" class="btn btn-primary">
+                            <span class="fa fa-user"></span> <?php echo __("Users"); ?>
+                        </a>
 
-                <a href="<?php echo $global['webSiteRootURL']; ?>mvideos" class="btn btn-success">
-                    <span class="fa fa-film"></span> <?php echo __("Videos"); ?>
-                </a>
+                        <a href="<?php echo $global['webSiteRootURL']; ?>mvideos" class="btn btn-success">
+                            <span class="fa fa-film"></span> <?php echo __("Videos"); ?>
+                        </a>
+                    </div>
+                    <table id="grid" class="table table-condensed table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th data-column-id="title" data-formatter="titleTag" ><?php echo __("Video Title"); ?></th>
+                                <th data-column-id="ad_title" ><?php echo __("Ad Title"); ?></th>
+                                <th data-column-id="clicks" data-width="80px"><?php echo __("Clicks"); ?></th>
+                                <th data-column-id="prints" data-width="80px"><?php echo __("Prints"); ?></th>
+                                <th data-column-id="tags" data-formatter="tags" data-sortable="false" data-width="210px"><?php echo __("Tags"); ?></th>
+                                <th data-column-id="commands" data-formatter="commands" data-sortable="false"  data-width="100px"></th>
+                            </tr>
+                        </thead>
+                    </table>
+
+                    <div id="videoFormModal" class="modal fade" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title"><?php echo __("Ads Form"); ?></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form class="form-compact"  id="updateCategoryForm" onsubmit="">
+                                        <input type="hidden" id="inputAdId"  >
+
+                                        <div class="form-group">
+                                            <label for="inputAdTitle" ><?php echo __("Advertising Title"); ?></label>
+                                            <input type="text" id="inputAdTitle" class="form-control " placeholder="<?php echo __("Advertising Title"); ?>" required autofocus>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputAdUrlRedirect" ><?php echo __("URL"); ?></label>
+                                            <input type="url" id="inputAdUrlRedirect" pattern="https?://.+" class="form-control " placeholder="<?php echo __("URL"); ?>" required >
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAdStarts"><?php echo __("Starts on"); ?></label>
+                                            <input type="text" id="inputAdStarts" class="form-control datepicker" placeholder="<?php echo __("Starts on"); ?>" required >
+                                            <small>Leave Blank for Right Now</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputAdFinish"><?php echo __("Finish on"); ?></label>
+                                            <input type="text" id="inputAdFinish" class="form-control datepicker" placeholder="<?php echo __("Finish on"); ?>" required >
+                                            <small>Leave Blank for Never</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAdSkip"><?php echo __("Skip Button appears after (X) seconds"); ?></label>
+                                            <input type="number" id="inputAdSkip" class="form-control " placeholder="<?php echo __("Skip Button appears after (X) seconds"); ?>" required >
+                                            <small>Leave blank for since begin or put a number of seconds bigger the the ad for never</small>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="inputAdClick" ><?php echo __("Stop ad after (X) clicks"); ?></label>
+                                            <input type="number" id="inputAdClick" class="form-control " placeholder="<?php echo __("Stop ad after (X) clicks"); ?>" required >
+                                            <small>Leave Blank for Never</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAdPrints" ><?php echo __("Stop ad after (X) prints"); ?></label>
+                                            <input type="number" id="inputAdPrints" class="form-control " placeholder="<?php echo __("Stop ad after (X) prints"); ?>" required >
+                                            <small>Leave Blank for Never</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="inputAdCategory" ><?php echo __("Category to display this Ad"); ?></label>
+                                            <select class="form-control last" id="inputAdCategory" required>
+                                                <?php
+                                                foreach ($categories as $value) {
+                                                    echo "<option value='{$value['id']}'>{$value['name']}</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __("Close"); ?></button>
+                                    <button type="submit" class="btn btn-primary" id="saveCategoryBtn"><?php echo __("Save changes"); ?></button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
             </div>
-            <table id="grid" class="table table-condensed table-hover table-striped">
-                <thead>
-                    <tr>
-                        <th data-column-id="title" data-formatter="titleTag" ><?php echo __("Video Title"); ?></th>
-                        <th data-column-id="ad_title" ><?php echo __("Ad Title"); ?></th>
-                        <th data-column-id="clicks" data-width="80px"><?php echo __("Clicks"); ?></th>
-                        <th data-column-id="prints" data-width="80px"><?php echo __("Prints"); ?></th>
-                        <th data-column-id="tags" data-formatter="tags" data-sortable="false" data-width="210px"><?php echo __("Tags"); ?></th>
-                        <th data-column-id="commands" data-formatter="commands" data-sortable="false"  data-width="100px"></th>
-                    </tr>
-                </thead>
-            </table>
-
-            <div id="videoFormModal" class="modal fade" tabindex="-1" role="dialog">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><?php echo __("Ads Form"); ?></h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-compact"  id="updateCategoryForm" onsubmit="">
-                                <input type="hidden" id="inputAdId"  >
-
-                                <div class="form-group">
-                                    <label for="inputAdTitle" ><?php echo __("Advertising Title"); ?></label>
-                                    <input type="text" id="inputAdTitle" class="form-control " placeholder="<?php echo __("Advertising Title"); ?>" required autofocus>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="inputAdUrlRedirect" ><?php echo __("URL"); ?></label>
-                                    <input type="url" id="inputAdUrlRedirect" pattern="https?://.+" class="form-control " placeholder="<?php echo __("URL"); ?>" required >
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAdStarts"><?php echo __("Starts on"); ?></label>
-                                    <input type="text" id="inputAdStarts" class="form-control datepicker" placeholder="<?php echo __("Starts on"); ?>" required >
-                                    <small>Leave Blank for Right Now</small>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="inputAdFinish"><?php echo __("Finish on"); ?></label>
-                                    <input type="text" id="inputAdFinish" class="form-control datepicker" placeholder="<?php echo __("Finish on"); ?>" required >
-                                    <small>Leave Blank for Never</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAdSkip"><?php echo __("Skip Button appears after (X) seconds"); ?></label>
-                                    <input type="number" id="inputAdSkip" class="form-control " placeholder="<?php echo __("Skip Button appears after (X) seconds"); ?>" required >
-                                    <small>Leave blank for since begin or put a number of seconds bigger the the ad for never</small>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="inputAdClick" ><?php echo __("Stop ad after (X) clicks"); ?></label>
-                                    <input type="number" id="inputAdClick" class="form-control " placeholder="<?php echo __("Stop ad after (X) clicks"); ?>" required >
-                                    <small>Leave Blank for Never</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAdPrints" ><?php echo __("Stop ad after (X) prints"); ?></label>
-                                    <input type="number" id="inputAdPrints" class="form-control " placeholder="<?php echo __("Stop ad after (X) prints"); ?>" required >
-                                    <small>Leave Blank for Never</small>
-                                </div>
-                                <div class="form-group">
-                                    <label for="inputAdCategory" ><?php echo __("Category to display this Ad"); ?></label>
-                                    <select class="form-control last" id="inputAdCategory" required>
-                                        <?php
-                                        foreach ($categories as $value) {
-                                            echo "<option value='{$value['id']}'>{$value['name']}</option>";
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __("Close"); ?></button>
-                            <button type="submit" class="btn btn-primary" id="saveCategoryBtn"><?php echo __("Save changes"); ?></button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-
-
         </div><!--/.container-->
 
         <?php

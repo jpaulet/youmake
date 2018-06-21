@@ -22,7 +22,7 @@ if (User::canStream()) {
 }
 ?>
 <li class="dropdown">
-    <a href="#" class=" btn btn-default navbar-btn" data-toggle="dropdown" style='border: transparent; background-color:transparent;color:#470e82;'>
+    <a href="#" class="btn btn-default navbar-btn" data-toggle="dropdown" style='border: transparent; background-color:transparent;color:#470e82;'>
         <span class="fa fa-bell"></span> 
         <span class="badge onlineApplications" style=" background: rgba(255,0,0,1); color: #FFF;">0</span>
         <b class="caret"></b>
@@ -91,7 +91,7 @@ if (User::canStream()) {
         $liveLi.find('.img').attr("src", photo);
         $('#availableLiveStream').append($liveLi);
 
-        if (href != "#") {
+        if (href != "#" && href != "calendar") {
             $liveLi.find('.liveNow').removeClass("hidden");
         }
 

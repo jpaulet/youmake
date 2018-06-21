@@ -34,8 +34,8 @@ require_once $global['systemRootPath'] . 'objects/functions.php';
             if (User::isAdmin()) {
                 ?>
                 <div class="row">
-                    <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
-                        <form class="form-compact well form-horizontal"  id="updateConfigForm" onsubmit="">
+                    <div class="col-xs-12">
+                        <form class="form-compact well form-horizontal"  id="updateConfigForm" onsubmit="" style='background-color: #fff;border-radius:8px;'>
 
                             <div class="tabbable-panel">
                                 <div class="tabbable-line">

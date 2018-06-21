@@ -1607,12 +1607,22 @@ pre code {
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
-  min-height: 83vh;
 
+  padding-left: 200px;
+  max-width: 1600px;
+  margin: 20px auto;
+
+  /* min-height: 83vh; */
   background-color: #fff;
-  margin-top: 20px;
   border-radius: 8px;
 }
+
+@media screen and (min-width: 1400px) {
+  .container-fluid {
+    max-width: 1200px;
+  }
+}
+
 .row {
   margin-right: -15px;
   margin-left: -15px;
@@ -5003,6 +5013,15 @@ a.badge:focus {
     font-size: 63px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .container-fluid {
+    padding-left: 0px !important;
+    margin:0px 20px;
+    padding-right: 0px;
+  }
+}
+
 .thumbnail {
   display: block;
   padding: 4px;

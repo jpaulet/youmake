@@ -33,9 +33,12 @@ $obj = YouPHPTubePlugin::getObjectDataIfEnabled("YPTWallet");
         <div class="container-fluid">
             <div class="row">
                 <div class="row ">
-                    <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <div class="col-xs-12">
                         <div class="panel-heading"><?php echo __("Transfer Funds"); ?></div>
                         <div class="panel-body" style='padding:20px;'>
+                            <div class='col-xs-12' style='padding:0px;margin:0px;margin-bottom:40px;background-color:#4f1091;border-radius:8px;'>
+                                <img src="<?php echo $global['webSiteRootURL']; ?>img/youmake5.jpg" alt="Show your  ♥  send some $" id="transferFundsImg" style='float:right;height:250px;border-radius:8px;' />
+                            </div>
                             <div class="col-sm-4">
                                 <h2 style='margin-left:0px;padding-left:0px;'> <?php echo $obj->transfer_funds_text_title; ?> </h2>
                                 <?php //echo $obj->transfer_funds_text; ?>

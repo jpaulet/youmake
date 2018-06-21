@@ -34,7 +34,7 @@ $options = json_decode($obj->addFundsOptions);
         ?>
         <div class="container-fluid">
             <div class="row ">
-                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                <div class="addFunds-row col-xs-12">
                     <h3><?php echo __("Become Member"); ?></h3>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <div class="col-sm-6">
@@ -46,7 +46,7 @@ $options = json_decode($obj->addFundsOptions);
                     </div>
                 </div>
 
-                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                <div class="addFunds-row col-xs-12">
                     <h3><?php echo __("Add Funds"); ?> Paypal</h3>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <div class="col-sm-6">
@@ -100,7 +100,7 @@ $options = json_decode($obj->addFundsOptions);
                     </div>
                 </div>
 
-                <div class="addFunds-row col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                <div class="addFunds-row col-xs-12">
                     <h3><?php echo __("Add Funds"); ?> Stripe</h3>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <div class="col-sm-6">

@@ -150,12 +150,13 @@ a.h6{
 
 .popover-title { 
     color: black;
-    background-color: lightgray;
+    background-color: white;
 } 
 
 .popover-content{
     color: black !important; 
-    background-color: lightgray;
+    background-color: white;
+    font-size:12px;
 }
 .gallery .label{
     font-size: 100%;

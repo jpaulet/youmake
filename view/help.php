@@ -18,7 +18,7 @@ require_once '../plugin/YouPHPTubePlugin.php';
 
         <div class="container-fluid">
             <div class='row'>
-                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                <div class='col-xs-12'>
                     <h1>User-manual of <?php echo $config->getWebSiteTitle(); ?></h1>
                     <p><?php echo YouPHPTubePlugin::getHelpToc(); ?></p>
                     <p>Here you can find help, how this plattform works.</p>

@@ -133,7 +133,7 @@ foreach ($videos as $value) {
         ?>
         <div class="container-fluid">
             <div class='row'>
-                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                <div class='col-xs-12'>
                     <div class="list-group-item clear clearfix" style='background-color:#fff;border:1px solid #E1E1E1;'>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#dashboard"><i class="fas fa-tachometer-alt"></i> <?php echo __("Dashboard"); ?></a></li>

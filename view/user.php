@@ -39,7 +39,7 @@ $advancedCustom = json_decode($json_file);
                 $user->loadSelfUser();
                 ?>
                 <div class="row">
-                    <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                    <div class="col-xs-12">
                         <div class="panel-heading" style='font-weight:600;'><?php echo __("Update your user") ?></div>
                         <form class="form-compact well form-horizontal"  id="updateUserForm" onsubmit="" style='background-color:#fff;border-radius:8px;margin:0px;'>
                             <?php //echo $tagsStr; ?>
@@ -329,25 +329,25 @@ $advancedCustom = json_decode($json_file);
                             <?php
                             if (empty($advancedCustom->disableNativeSignIn)) {
                                 ?>
-                                <form class="form-compact well form-horizontal"  id="loginForm">
+                                <form class="form-compact form-horizontal"  id="loginForm" style='padding:20px;'>
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label"><?php echo __("User"); ?></label>
-                                        <div class="col-md-8 inputGroupContainer">
+                                        <label class="col-md-3 control-label control-label-make"><?php echo __("User"); ?></label>
+                                        <div class="col-md-9 inputGroupContainer">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                                                <input  id="inputUser" placeholder="<?php echo __("User"); ?>" class="form-control"  type="text" value="" required >
+                                                <span class="input-group-addon input-group-addon-make"><i class="glyphicon glyphicon-user"></i></span>
+                                                <input  id="inputUser" placeholder="<?php echo __("User"); ?>" class="form-control form-control-make"  type="text" value="" required >
                                             </div>
                                         </div>
                                     </div>
 
 
                                     <div class="form-group">
-                                        <label class="col-md-4 control-label"><?php echo __("Password"); ?></label>
-                                        <div class="col-md-8 inputGroupContainer">
+                                        <label class="col-md-3 control-label control-label-make"><?php echo __("Password"); ?></label>
+                                        <div class="col-md-9 inputGroupContainer">
                                             <div class="input-group">
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                                                <input  id="inputPassword" placeholder="<?php echo __("Password"); ?>" class="form-control"  type="password" value="" >
+                                                <span class="input-group-addon input-group-addon-make"><i class="glyphicon glyphicon-lock"></i></span>
+                                                <input  id="inputPassword" placeholder="<?php echo __("Password"); ?>" class="form-control form-control-make"  type="password" value="" >
                                             </div>
                                             <?php
                                             if (empty($advancedCustom->disableNativeSignUp)) {
@@ -371,7 +371,7 @@ $advancedCustom = json_decode($json_file);
                                     ?>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <a href="signUp" class="btn btn-primary btn-block"  id="facebookButton"><span class="fa fa-user-plus"></span> <?php echo __("Sign up"); ?></a>
+                                            <a href="signUp" class="btn btn-primary btn-block youmake-button"  id="facebookButton"><span class="fa fa-user-plus"></span> <?php echo __("Sign up"); ?></a>
                                         </div>
                                     </div>
                                     <?php
@@ -388,7 +388,7 @@ $advancedCustom = json_decode($json_file);
                                     } else if (is_array($value)) {
                                         ?>
                                         <div class="col-md-6">
-                                            <a href="login?type=<?php echo $value['parameters']->type; ?>" class="<?php echo $value['parameters']->class; ?>" ><span class="<?php echo $value['parameters']->icon; ?>"></span> <?php echo $value['parameters']->type; ?></a>
+                                            <a style="margin-bottom:10px;filter:grayscale(0.5);" href="login?type=<?php echo $value['parameters']->type; ?>" class="<?php echo $value['parameters']->class; ?>" ><span class="<?php echo $value['parameters']->icon; ?>"></span> <?php echo $value['parameters']->type; ?></a>
                                         </div>
                                         <?php
                                     }
@@ -404,9 +404,9 @@ $advancedCustom = json_decode($json_file);
                     $(document).ready(function () {
                         <?php
                         if (!empty($_GET['error'])) {
-                            ?>
-                                                swal("<?php echo __("Sorry!"); ?>", "<?php echo addslashes($_GET['error']); ?>", "error");
-                            <?php
+                        ?>
+                            swal("<?php echo __("Sorry!"); ?>", "<?php echo addslashes($_GET['error']); ?>", "error");
+                        <?php
                         }
                         $refererUrl = $_SERVER["HTTP_REFERER"];
                         if (strpos($_SERVER["HTTP_REFERER"], "?error=" . __("You%20can%20not%20manage")) != false) {
@@ -451,23 +451,24 @@ $advancedCustom = json_decode($json_file);
                                 confirmButtonText: "Yes, send it!",
                                 closeOnConfirm: false
                             },
-                                    function () {
-                                        modal.showPleaseWait();
-                                        $.ajax({
-                                            url: 'recoverPass',
-                                            data: {"user": $('#inputUser').val(), "captcha": $('#captchaText').val()},
-                                            type: 'post',
-                                            success: function (response) {
-                                                if (response.error) {
-                                                    swal("<?php echo __("Error"); ?>", response.error, "error");
-                                                } else {
-                                                    swal("<?php echo __("E-mail sent"); ?>", "<?php echo __("We sent you an e-mail with instructions"); ?>", "success");
-                                                }
-                                                modal.hidePleaseWait();
-                                            }
-                                        });
+                            
+                            function () {
+                                modal.showPleaseWait();
+                                $.ajax({
+                                    url: 'recoverPass',
+                                    data: {"user": $('#inputUser').val(), "captcha": $('#captchaText').val()},
+                                    type: 'post',
+                                    success: function (response) {
+                                        if (response.error) {
+                                            swal("<?php echo __("Error"); ?>", response.error, "error");
+                                        } else {
+                                            swal("<?php echo __("E-mail sent"); ?>", "<?php echo __("We sent you an e-mail with instructions"); ?>", "success");
+                                        }
+                                        modal.hidePleaseWait();
+                                    }
+                                });
 
-                                    });
+                            });
 
                             $('#btnReloadCapcha').click(function () {
                                 $('#captcha').attr('src', '<?php echo $global['webSiteRootURL']; ?>captcha?' + Math.random());

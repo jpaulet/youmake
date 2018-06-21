@@ -28,7 +28,7 @@ $wallet->setUsers_id(User::getId());
         ?>
         <div class="container-fluid">
             <div class="row ">
-                <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+                <div class="col-xs-12">
                     <div class="panel-heading"><?php echo __("Configurations"); ?></div>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
                         <form id="form">

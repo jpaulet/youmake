@@ -439,6 +439,11 @@ class User {
         return !empty($_SESSION['user']['id']);
     }
 
+    static function completeProfile(){
+        //Check if the user is verified, has set a `About` text and changed the default avatar
+        return self::isVerified() && (self::getAbout() !== '') && (self::getPhoto() === $global['webSiteRootURL'] . "img/userSilhouette.jpg");
+    }
+
     static function isVerified() {
         return !empty($_SESSION['user']['emailVerified']);
     }

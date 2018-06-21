@@ -50,21 +50,18 @@ $imgh = 360;
     </head>
 
     <body>
-        <?php
-        include $global['systemRootPath'] . 'view/include/navbar.php';
-        $lt = new LiveTransmition($t['id']);
-        if($lt->userCanSeeTransmition()){
-        ?>
-        
-        <div class="container-fluid principalContainer " itemscope itemtype="http://schema.org/VideoObject">
+    <?php
+    include $global['systemRootPath'] . 'view/include/navbar.php';
+    $lt = new LiveTransmition($t['id']);
+    if($lt->userCanSeeTransmition()){
+    ?>            
+        <div class="container-fluid principalContainer " itemscope itemtype="http://schema.org/VideoObject" style='margin-top:10px;'>
             <div class="col-md-12">
-                <?php
-                require "{$global['systemRootPath']}plugin/Live/view/liveVideo.php";
-                ?>
+                <?php require "{$global['systemRootPath']}plugin/Live/view/liveVideo.php"; ?>
             </div>  
         </div>
         <div class="container-fluid ">
-            <div class="col-md-5 col-md-offset-2 list-group-item">
+            <div class="col-md-8 list-group-item">
                 <h1 itemprop="name">
                     <i class="fas fa-video"></i> <?php echo $t['title']; ?>
                 </h1>
@@ -72,45 +69,41 @@ $imgh = 360;
                 <div class="col-xs-12 col-sm-12 col-lg-12"><?php echo $video['creator']; ?></div>
             </div> 
             <div class="col-md-3">
-                    <?php
-                    echo $config->getAdsense();
-                    ?>
+                <?php echo $config->getAdsense(); ?>
             </div>
         </div>
-        <?php
-        }else{
-            ?>
-        <h1 class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i> <?php echo __("You are not allowed see this streaming"); ?></h1>    
-            <?php
-        }
-        ?>
-        
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-        <script>
-                        /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
-                        $.widget.bridge('uibutton', $.ui.button);
-                        $.widget.bridge('uitooltip', $.ui.tooltip);
-        </script>  
-        
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/video.js/video.js" type="text/javascript"></script>
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/videojs-contrib-ads/videojs.ads.min.js" type="text/javascript"></script>
-        <script src="<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/videojs-contrib-hls.min.js" type="text/javascript"></script>
-        <?php        
-        include $global['systemRootPath'] . 'view/include/footer.php';
-        ?>
+    <?php
+    }else{
+    ?>
+        <h1 class="alert alert-danger">
+            <i class="fa fa-exclamation-triangle"></i> 
+            <?php echo __("You are not allowed see this streaming"); ?>
+        </h1>    
+    <?php
+    }
+    ?>
 
-                <?php
-                if(!empty($p)){
-                    $p->getChat($uuid);
-                }
-                ?>
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/videojs-persistvolume/videojs.persistvolume.js" type="text/javascript"></script>
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/webui-popover/jquery.webui-popover.min.js" type="text/javascript"></script>
-        <script src="<?php echo $global['webSiteRootURL']; ?>js/bootstrap-list-filter/bootstrap-list-filter.min.js" type="text/javascript"></script>
-        
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script>
+        /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
+        $.widget.bridge('uibutton', $.ui.button);
+        $.widget.bridge('uitooltip', $.ui.tooltip);
+    </script>  
+
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/video.js/video.js" type="text/javascript"></script>
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/videojs-contrib-ads/videojs.ads.min.js" type="text/javascript"></script>
+    <script src="<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/videojs-contrib-hls.min.js" type="text/javascript"></script>
+    <?php include $global['systemRootPath'] . 'view/include/footer.php'; ?>
+
+    <?php
+    if(!empty($p)){
+        $p->getChat($uuid);
+    }
+    ?>
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/videojs-persistvolume/videojs.persistvolume.js" type="text/javascript"></script>
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/webui-popover/jquery.webui-popover.min.js" type="text/javascript"></script>
+    <script src="<?php echo $global['webSiteRootURL']; ?>js/bootstrap-list-filter/bootstrap-list-filter.min.js" type="text/javascript"></script>        
     </body>
 </html>
 
-<?php
-include $global['systemRootPath'].'objects/include_end.php';
-?>
+<?php include $global['systemRootPath'].'objects/include_end.php'; ?>

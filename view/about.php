@@ -16,7 +16,7 @@ require_once '../videos/configuration.php';
         ?>
 
         <div class="container-fluid">
-            <div class="bgWhite">  
+            <div class="col-xs-12 bgWhite">  
                 <?php
                 $custom = "";
                 if (YouPHPTubePlugin::isEnabled("c4fe1b83-8f5a-4d1b-b912-172c608bf9e3")) {

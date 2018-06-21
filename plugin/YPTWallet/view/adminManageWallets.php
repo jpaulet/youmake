@@ -26,7 +26,7 @@ $obj = $plugin->getDataObject();
         ?>
 
         <div class="container-fluid">
-            <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
+            <div class="col-xs-12">
                 <div class="panel-heading">Total Site Balance: <b><?php echo YPTWallet::getTotalBalanceText(); ?></b></div>
                 <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
 

@@ -64,6 +64,25 @@
 <script src="https://js.stripe.com/v3/"></script>
 
 <form action="/charge" method="post" id="payment-form">
+  <div class='form-row'>
+    <div class="form-group">
+        <label for="value"><?php echo __("Add Funds"); ?> <?php echo $obj->currency_symbol; ?> <?php echo $obj->currency; ?></label>
+        <select class="form-control" id="value" >
+            <?php
+            foreach ($options as $value) {
+                ?>
+                <option value="<?php echo $value; ?>">
+                    <?php echo $obj->currency_symbol; ?> 
+                    <?php echo $value; ?> 
+                    <?php echo $obj->currency; ?>
+                </option>
+                <?php
+            }
+            ?>
+        </select>
+    </div>
+  </div>
+  
   <div class="form-row">
     <label for="card-element">
       Credit or debit card

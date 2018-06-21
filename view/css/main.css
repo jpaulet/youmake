@@ -207,7 +207,7 @@ footer ul.list-inline li {
     margin-top: 0px;
 }
 .tabbable-line > .nav-tabs > li.active {
-    border-bottom: 4px solid #f3565d;
+    border-bottom: 4px solid #4f1091 !important;
     position: relative;
 }
 .tabbable-line > .nav-tabs > li.active > a {

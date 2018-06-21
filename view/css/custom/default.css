@@ -16,9 +16,24 @@ body{
 }
 
 .container-fluid{
-	margin-left: 200px !important;
-	padding: 10px 30px;
+	padding-left: 200px !important;
+  	max-width: 1200px;
+  	margin: 20px auto;
 }
+
+@media screen and (min-width: 1400px) {
+	.container-fluid {
+		max-width: 1600px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+  .container-fluid {
+    padding-left: 0px !important;
+    margin:0px 20px;
+  }
+}
+
 
 .first-page-navbar #sidebar{
 	display: block !important;
@@ -54,7 +69,6 @@ body{
 	border: 0px;
 	border-radius: 0px;
 	margin:0px auto;
-	max-width: 800px;
 	-webkit-box-shadow:none;
 	box-shadow:none;
 }

@@ -23,7 +23,7 @@ if (!User::canUpload() || !empty($advancedCustom->doNotShowImportMP4Button)) {
                 <div class="col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
                     <h3 class="panel-heading" style='padding-left:0px;margin-left:0px;'>Import Local Videos</h3>
                     <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
-                        <div class="alert alert-info">
+                        <div class="alert alert-info" style='background-color:#dbbffc33;color:#3c116bb3;border:0px;'>
                             <i class="fas fa-question-circle"></i>
                             Here you can direct import multiple videos stored on your hard drive.<br>
                             If there is a file (html or htm or txt) we will import it's content as a description, and the first 
@@ -68,7 +68,7 @@ if (!User::canUpload() || !empty($advancedCustom->doNotShowImportMP4Button)) {
                         </div> 
                         <ul class="list-group" id="files">
                         </ul>
-                        <button class="btn btn-block btn-primary" id="addQueueBtn"><?php echo __("Direct Import all"); ?></button>
+                        <button class="btn btn-block btn-primary youmake-button" id="addQueueBtn"><?php echo __("Direct Import all"); ?></button>
 
 
                     </div>

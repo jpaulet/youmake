@@ -23,7 +23,7 @@ if (!User::canUpload()) {
 
         <div class="container-fluid">
             <div class='row'>
-                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12'>
+                <div class='col-xs-12'>
                     <h3 class='panel-heading'> Message to yours subscribers</h3>
                     <div class='panel-body'>
                         <textarea id="emailMessage" placeholder="Enter text ..." style="width: 100%;"></textarea>
@@ -33,7 +33,7 @@ if (!User::canUpload()) {
                     </div>
                 </div>
 
-                <div class='col-lg-8 col-md-offset-2 col-md-10 col-sm-12 col-xs-12' style='margin-top:30px;'>
+                <div class='col-xs-12' style='margin-top:30px;'>
                     <h3 class='panel-heading'> Messages History</h3>
                     <div class='panel-body'>
                         <table id="grid" class="table table-condensed table-hover table-striped">
