@@ -79,6 +79,7 @@
     RewriteRule    ^vEmbed/([0-9]+)/?$ view/videoEmbeded.php?v=$1    [QSA]
 
     RewriteRule    ^plugin/([A-Za-z0-9-_.]+)/(.*)?$ plugin/$1/$2    [NC,L]
+    
 
     RewriteRule    ^upload$ view/mini-upload-form/    [NC,L]
     RewriteRule    ^fileUpload$ view/mini-upload-form/upload.php    [NC,L]
@@ -198,6 +199,15 @@
     RewriteRule    ^googleAdView$ view/googleAdView.php    [NC,L]
 
     RewriteRule    ^notifications.json$ objects/notifications.json.php    [NC,L]
+
+
+    # Custom Routes
+    RewriteRule    ^makers/?$ view/custom/makers.php    [NC,L]
+    RewriteRule    ^screencasts/?$ view/custom/screencasts.php    [NC,L]
+    RewriteRule    ^learning/?$ view/custom/learning.php    [NC,L]
+    RewriteRule    ^artists/?$ view/custom/artists.php    [NC,L]
+
+    RewriteRule    ^calendar/?$ view/custom/calendar.php    [NC,L]    
 
     # It must be before image not found
     <IfModule mod_xsendfile.c>
