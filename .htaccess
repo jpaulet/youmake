@@ -207,6 +207,8 @@
     RewriteRule    ^learning/?$ view/custom/learning.php    [NC,L]
     RewriteRule    ^artists/?$ view/custom/artists.php    [NC,L]
 
+    RewriteRule    ^paystripe/?$ view/custom/pay_stripe.php    [NC,L]
+
     RewriteRule    ^calendar/?$ view/custom/calendar.php    [NC,L]    
 
     # It must be before image not found
