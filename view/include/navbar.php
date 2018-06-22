@@ -1,5 +1,4 @@
 <?php
-return;
 require_once $global['systemRootPath'] . 'objects/user.php';
 require_once $global['systemRootPath'] . 'objects/category.php';
 
@@ -11,9 +10,11 @@ if (empty($_SESSION['language'])) {
     $lang = $_SESSION['language'];
 }
 
+/*
 $json_file = '{"doNotShowUploadMP4Button":true,"doNotShowImportMP4Button":false,"doNotShowImportLocalVideosButton":false,"doNotShowEncoderButton":false,"doNotShowEmbedButton":false,"doNotShowEncoderResolutionLow":false,"doNotShowEncoderResolutionSD":false,"doNotShowEncoderResolutionHD":false,"doNotShowLeftMenuAudioAndVideoButtons":false,"disableNativeSignUp":false,"disableNativeSignIn":false,"doNotShowWebsiteOnContactForm":false,"newUsersCanStream":false,"doNotIndentifyByEmail":false,"doNotIndentifyByName":false,"doNotIndentifyByUserName":false,"doNotUseXsendFile":false,"makeVideosInactiveAfterEncode":false,"usePermalinks":true,"showAdsenseBannerOnTop":false,"showAdsenseBannerOnLeft":true,"disableAnimatedGif":false,"unverifiedEmailsCanNOTLogin":false,"removeBrowserChannelLinkFromMenu":false,"uploadButtonDropdownIcon":"fas fa-video","uploadButtonDropdownText":"","EnableWavesurfer":true,"EnableMinifyJS":false,"disableShareAndPlaylist":false,"commentsMaxLength":"200","disableYoutubePlayerIntegration":false,"utf8Encode":false,"utf8Decode":false,"embedBackgroundColor":"white","userMustBeLoggedIn":false,"underMenuBarHTMLCode":{"type":"textarea","value":""},"encoderNetwork":""}';
 $json_file = json_decode($json_file);
-// $json_file = url_get_contents("{$global['webSiteRootURL']}plugin/CustomizeAdvanced/advancedCustom.json.php");
+*/
+$json_file = url_get_contents("{$global['webSiteRootURL']}plugin/CustomizeAdvanced/advancedCustom.json.php");
 
 // convert the string to a json object
 $advancedCustom = json_decode($json_file);
@@ -50,7 +51,7 @@ $obj = $plugin->getDataObject();
                         </li>
                         <li>
                             <a class="navbar-brand" href="<?php echo $global['webSiteRootURL']; ?>" >
-                                <img src="<?php echo $global['webSiteRootURL'], $config->getLogo(); ?>" alt="<?php echo $config->getWebSiteTitle(); ?>" class="img-responsive" style='min-width:130px;margin-left:-30px;'>
+                                <img src="<?php echo $global['webSiteRootURL'], $config->getLogo(); ?>" alt="<?php echo $config->getWebSiteTitle(); ?>" class="img-responsive" style='min-width:130px;margin-left:-40px;'>
                             </a>
                         </li>
                     </ul>
@@ -145,6 +146,7 @@ $obj = $plugin->getDataObject();
                                 <?php
                             }
                             ?>
+                            <?php /* ?>
                             <li class="hidden-xs hidden-sm">
                                 <?php
                                 $flags = getEnabledLangs();
@@ -181,6 +183,7 @@ $obj = $plugin->getDataObject();
                                     });
                                 </script>
                             </li>
+                            <?php */ ?>
                             
                         <!-- LOGGED USER -->
                             <?php if (User::isLogged()) { ?>

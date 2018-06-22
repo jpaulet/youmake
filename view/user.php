@@ -80,7 +80,7 @@ $advancedCustom = json_decode($json_file);
                                             <?php
                                         } else {
                                             ?>
-                                            <button class="btn btn-warning" id="verifyEmail"><i class="fa fa-envelope"></i> <?php echo __("Verify e-mail"); ?></button>
+                                            <button class="btn btn-warning youmake-button" id="verifyEmail"><i class="fa fa-envelope"></i> <?php echo __("Verify e-mail"); ?></button>
 
                                             <script>
                                                 $(document).ready(function () {
@@ -150,7 +150,7 @@ $advancedCustom = json_decode($json_file);
                                     <div class="col-md-8 ">
                                         <div id="croppie"></div>
                                         <center>
-                                            <a id="upload-btn" class="btn btn-primary"><i class="fa fa-upload"></i> <?php echo __("Upload a Photo"); ?></a>
+                                            <a id="upload-btn" class="btn btn-primary youmake-button"><i class="fa fa-upload"></i> <?php echo __("Upload a Photo"); ?></a>
                                         </center>
                                     </div>
                                     <input type="file" id="upload" value="Choose a file" accept="image/*" style="display: none;" />
@@ -160,7 +160,7 @@ $advancedCustom = json_decode($json_file);
                                     <div class="col-md-12 ">
                                         <div id="croppieBg" style='width:100%;'></div>
                                         <center>
-                                            <a id="upload-btnBg" class="btn btn-success">
+                                            <a id="upload-btnBg" class="btn btn-success youmake-button">
                                                 <i class="fa fa-upload"></i> 
                                                 <?php echo __("Upload a Background"); ?></a>
                                         </center>
@@ -174,7 +174,7 @@ $advancedCustom = json_decode($json_file);
                                     <hr>
                                     <div class="col-md-12">
                                         <center>
-                                            <button type="submit" class="btn btn-primary btn-lg" ><?php echo __("Save"); ?> <span class="fa fa-save"></span></button>
+                                            <button type="submit" class="btn btn-primary btn-lg youmake-button" ><?php echo __("Save"); ?> <span class="fa fa-save"></span></button>
                                         </center>
                                     </div>
                                 </div>

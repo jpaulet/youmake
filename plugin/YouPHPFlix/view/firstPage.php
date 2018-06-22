@@ -39,6 +39,7 @@ unset($_SESSION['type']);
     <link href="<?php echo $global['webSiteRootURL']; ?>js/webui-popover/jquery.webui-popover.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo $global['webSiteRootURL']; ?>plugin/YouPHPFlix/view/js/flickty/flickity.min.css" rel="stylesheet" type="text/css" />
     <?php include $global['systemRootPath'] . 'view/include/head.php'; ?>
+
     <title><?php echo $config->getWebSiteTitle(); ?></title>
     <style>
         .first-page-slider-row{
@@ -92,17 +93,16 @@ unset($_SESSION['type']);
         <div class='row'>
             <div class='col-xs-12'>
                 
-                <div class="row text-center" style="">
-                    <?php //echo $config->getAdsense(); ?>
+                <div class="row text-center">
+                    <?php echo $config->getAdsense(); ?>
                 </div>
 
                 <div class='col-xs-12' style='padding:0px;margin:0px;margin-bottom:40px;background-color:#4f1091;border-radius:8px;'>
-                    <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Show your  ♥  send some $" id="transferFundsImg" style='height:250px;border-radius:8px;' />
+                    <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Welcome to youmake!" style='height:250px;border-radius:8px;' />
                     <h1 style='float:right;color:#fff;font-size:36px;letter-spacing: 0.05;padding:20px 40px;line-height:40px;'> Welcome to <span style='font-weight:600;letter-spacing:0;font-size:42px;line-height:20px;margin-left:8px;margin-right:8px;'>youMake.live</span> !</h1>
                 </div>
                 
                 <div class="col-xs-12 list-group-item" style='padding:0px;margin:0px;'>
-                    
                     <?php if (User::isLogged() && !User::completeProfile()){ ?>
                         <div class='jumbotron' style='padding-top:35px;padding-bottom:25px;'>
                             <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
@@ -115,7 +115,7 @@ unset($_SESSION['type']);
                             </p>
                         </div>
                     <?php } ?>
-                    
+
                     <?php if(!User::isLogged()){ ?>
                         <div class='jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;border-width: '>
                             <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
@@ -134,224 +134,220 @@ unset($_SESSION['type']);
                         </div>
                     <?php } ?>
             
-            <?php
-            $category = Category::getAllCategories();
-            $currentCat;
-            $currentCatType = array('type'=>99); // 99 because it will not match - only when found and be replaced.
-            if(!empty($_GET['catName'])){
-                foreach ($category as $cat) {
-                    if ($cat['clean_name'] == $_GET['catName']) {
-                        $currentCat = $cat;
-                        $currentCatType = Category::getCategoryType($cat['id']);
-                    }
-                }
-            }
-            if (($o->SubCategorys) && (! empty($_GET['catName']))) {
-                ?>
-                <script>
-                    setTimeout(function(){ document.getElementById('mainContainer').style="display: block;";document.getElementById('loading').style="display: none;" }, 1000);
-                </script>
-                <div class="clear clearfix">
-                   <div class="row">
-                    <?php 
-                    if((($currentCat['parentId'] == "0") || ($currentCat['parentId'] == "-1"))) {
-                        if(!empty($_GET['catName'])){ ?>
-                        <div>
-                            <a class="btn btn-primary"  href="<?php echo $global['webSiteRootURL']; ?>"><?php echo __("Back to startpage"); ?> </a>
-                        </div>
-                        <?php }
-                    }
-                    if (($currentCat['parentId'] != "0") && ($currentCat['parentId'] != "-1")) {
-                        $parentCat = Category::getCategory($currentCat['parentId']); ?>
-                        <div>
-                            <a class="btn btn-primary" href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $parentCat['clean_name']; ?>"><?php echo __("Back to") . " " . $parentCat['name']; ?> </a>
-                        </div>
+                    <?php
+                        $category = Category::getAllCategories();
+                        $currentCat;
+                        $currentCatType = array('type'=>99); // 99 because it will not match - only when found and be replaced.
+                        if(!empty($_GET['catName'])){
+                            foreach ($category as $cat) {
+                                if ($cat['clean_name'] == $_GET['catName']) {
+                                    $currentCat = $cat;
+                                    $currentCatType = Category::getCategoryType($cat['id']);
+                                }
+                            }
+                        }
+                        if (($o->SubCategorys) && (! empty($_GET['catName']))) {
+                            ?>
+                            <div class="clear clearfix">
+                               <div class="row">
+                                <?php 
+                                if((($currentCat['parentId'] == "0") || ($currentCat['parentId'] == "-1"))) {
+                                    if(!empty($_GET['catName'])){ ?>
+                                    <div>
+                                        <a class="btn btn-primary"  href="<?php echo $global['webSiteRootURL']; ?>"><?php echo __("Back to startpage"); ?> </a>
+                                    </div>
+                                    <?php }
+                                }
+                                if (($currentCat['parentId'] != "0") && ($currentCat['parentId'] != "-1")) {
+                                    $parentCat = Category::getCategory($currentCat['parentId']); ?>
+                                    <div>
+                                        <a class="btn btn-primary" href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $parentCat['clean_name']; ?>"><?php echo __("Back to") . " " . $parentCat['name']; ?> </a>
+                                    </div>
+                                    <?php
+                                }
+                                $category = Category::getChildCategories($currentCat['id']);
+                                if(!empty($category)) { ?>
+                                <h2 style="margin-top: 30px;"><?php echo __("Sub-Category-Gallery"); ?>
+                                    <span class="badge"><?php echo count($category); ?></span>
+                                </h2>
+                                <?php
+                            }
+                            $countCols = 0;
+                            $originalCat = $_GET['catName'];
+                            unset($_POST['sort']);
+                            $_POST['sort']['title'] = "ASC";
+
+                            foreach ($category as $cat) {
+                                $_GET['catName'] = $cat['clean_name'];
+                                $description = str_ireplace(array("<br />","<br>","<br/>"),"\r\n", $cat['description']);
+                                unset($_POST['sort']);
+                                $_POST['sort']['title'] = "ASC";
+                                $_GET['limitOnceToOne'] = "1";
+                                $videos = Video::getAllVideos("viewableNotAd");
+                                // make a row each 6 cols
+                                if ($countCols % 6 === 0) {
+                                    echo '</div><div class="row aligned-row ">';
+                                }
+                                $countCols ++; 
+
+                                unset($_GET['catName']); ?>
+                                <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 galleryVideo thumbsImage fixPadding">
+                                    <a href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $cat['clean_name']; ?>" title="<?php $cat['name']; ?>"> 
+                                       <div class="aspectRatio16_9">
+                                        <?php
+                                        if (! empty($videos)) {
+                                            foreach ($videos as $value) {
+                                                //$name = User::getNameIdentificationById($value['users_id']); 
+                                                $images = Video::getImageFromFilename($value['filename'], $value['type']);
+                                                $poster = $images->thumbsJpg;
+                                                ?>
+                                                <img src="<?php echo $poster; ?>" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" class="thumbsJPG img img-responsive rotate<?php echo $value['rotation']; ?>" id="thumbsJPG<?php echo $value['id']; ?>" />
+                                                <?php if ((!empty($imgGif)) && (!$o->LiteGalleryNoGifs)) { ?>
+                                                <img src="<?php echo $imgGif; ?>" style="position: absolute; top: 0; display: none;" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" id="thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive <?php echo $img_portrait; ?>  rotate<?php echo $value['rotation']; ?>" height="130" />
+                                                <?php }
+                                                $sql = "SELECT COUNT(title) FROM videos WHERE status='a' AND categories_id = ?;";
+                                                $res = sqlDAL::readSql($sql,"i",array($value['categories_id']));
+                                                $videoCount = sqlDAL::fetchArray($res);
+                                                sqlDAL::close($res);
+                                                break;
+                                            }
+                                        } else {
+                                            $poster = $global['webSiteRootURL'] . "view/img/notfound.jpg";
+                                            ?>
+                                            <img src="<?php echo $poster; ?>" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" class="thumbsJPG img img-responsive" id="thumbsJPG<?php echo $cat['id']; ?>" />
+                                            <?php
+                                            $sql = "SELECT COUNT(title) FROM videos WHERE status='a' AND categories_id = ?;";
+                                            $res = sqlDAL::readSql($sql,"i",array($cat['id']));
+                                            $videoCount = sqlDAL::fetchArray($res);
+                                            sqlDAL::close($res);
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="videoInfo">
+                                        <?php if (!empty($videoCount)) { ?>
+                                        <span class="label label-default" style="top: 10px !important; position: absolute;"><i class="glyphicon glyphicon-cd"></i> <?php echo $videoCount[0]; ?></span>
+                                        <?php } ?>
+                                    </div>
+                                    <div data-toggle="tooltip" title="<?php echo $description; ?>" class="tile__title" style="margin-left: 10%; width: 80% !important; bottom: 40% !important; opacity: 0.8 !important; text-align: center;">
+                                        <?php echo $cat['name']; ?>
+                                    </div>
+                                </a>
+                            </div>
+                            <?php
+                                } // foreach $category 
+                                unset($_POST['sort']);
+                                $_GET['catName'] = $originalCat;
+                                ?>
+                            </div>
+                        </div>              
                         <?php
                     }
-                    $category = Category::getChildCategories($currentCat['id']);
-                    if(!empty($category)) { ?>
-                    <h2 style="margin-top: 30px;"><?php echo __("Sub-Category-Gallery"); ?>
-                        <span class="badge"><?php echo count($category); ?></span>
-                    </h2>
-                    <?php
-                }
-                $countCols = 0;
-                $originalCat = $_GET['catName'];
-                unset($_POST['sort']);
-                $_POST['sort']['title'] = "ASC";
-
-                foreach ($category as $cat) {
-                    $_GET['catName'] = $cat['clean_name'];
-                    $description = str_ireplace(array("<br />","<br>","<br/>"),"\r\n", $cat['description']);
-                    unset($_POST['sort']);
-                    $_POST['sort']['title'] = "ASC";
-                    $_GET['limitOnceToOne'] = "1";
-                    $videos = Video::getAllVideos("viewableNotAd");
-                    // make a row each 6 cols
-                    if ($countCols % 6 === 0) {
-                        echo '</div><div class="row aligned-row ">';
-                    }
-                    $countCols ++; 
-
-                    unset($_GET['catName']); ?>
-                    <div class="col-lg-2 col-md-4 col-sm-4 col-xs-6 galleryVideo thumbsImage fixPadding">
-                        <a href="<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $cat['clean_name']; ?>" title="<?php $cat['name']; ?>"> 
-                           <div class="aspectRatio16_9">
-                            <?php
-                            if (! empty($videos)) {
-                                foreach ($videos as $value) {
-                                    //$name = User::getNameIdentificationById($value['users_id']); 
-                                    $images = Video::getImageFromFilename($value['filename'], $value['type']);
-                                    $poster = $images->thumbsJpg;
-                                    ?>
-                                    <img src="<?php echo $poster; ?>" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" class="thumbsJPG img img-responsive rotate<?php echo $value['rotation']; ?>" id="thumbsJPG<?php echo $value['id']; ?>" />
-                                    <?php if ((!empty($imgGif)) && (!$o->LiteGalleryNoGifs)) { ?>
-                                    <img src="<?php echo $imgGif; ?>" style="position: absolute; top: 0; display: none;" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" id="thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive <?php echo $img_portrait; ?>  rotate<?php echo $value['rotation']; ?>" height="130" />
-                                    <?php }
-                                    $sql = "SELECT COUNT(title) FROM videos WHERE status='a' AND categories_id = ?;";
-                                    $res = sqlDAL::readSql($sql,"i",array($value['categories_id']));
-                                    $videoCount = sqlDAL::fetchArray($res);
-                                    sqlDAL::close($res);
-                                    break;
-                                }
-                            } else {
-                                $poster = $global['webSiteRootURL'] . "view/img/notfound.jpg";
-                                ?>
-                                <img src="<?php echo $poster; ?>" alt="" data-toggle="tooltip" title="<?php echo $description; ?>" class="thumbsJPG img img-responsive" id="thumbsJPG<?php echo $cat['id']; ?>" />
-                                <?php
-                                $sql = "SELECT COUNT(title) FROM videos WHERE status='a' AND categories_id = ?;";
-                                $res = sqlDAL::readSql($sql,"i",array($cat['id']));
-                                $videoCount = sqlDAL::fetchArray($res);
-                                sqlDAL::close($res);
-                            }
-                            ?>
-                        </div>
-                        <div class="videoInfo">
-                            <?php if (!empty($videoCount)) { ?>
-                            <span class="label label-default" style="top: 10px !important; position: absolute;"><i class="glyphicon glyphicon-cd"></i> <?php echo $videoCount[0]; ?></span>
-                            <?php } ?>
-                        </div>
-                        <div data-toggle="tooltip" title="<?php echo $description; ?>" class="tile__title" style="margin-left: 10%; width: 80% !important; bottom: 40% !important; opacity: 0.8 !important; text-align: center;">
-                            <?php echo $cat['name']; ?>
-                        </div>
-                    </a>
-                </div>
-                <?php
-                    } // foreach $category 
-                    unset($_POST['sort']);
-                    $_GET['catName'] = $originalCat;
                     ?>
-                </div>
-            </div>              
-            <?php
-        }
-        ?>
 
-        <!-- For Live Videos -->
-        <div id="liveVideos" class="clear clearfix" style="display: none;">
-            <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>
-            <div class="extraVideos"></div>
-        </div>
-        <script>
-            function afterExtraVideos($liveLi) {
-                $liveLi.removeClass('col-lg-12 col-sm-12 col-xs-12 bottom-border');
-                $liveLi.find('.thumbsImage').removeClass('col-lg-5 col-sm-5 col-xs-5');
-                $liveLi.find('.videosDetails').removeClass('col-lg-7 col-sm-7 col-xs-7');
-                $liveLi.addClass('col-lg-2 col-md-4 col-sm-4 col-xs-6 fixPadding');
-                $('#liveVideos').slideDown();
-                return $liveLi;
-            }
-        </script>
-        <?php echo YouPHPTubePlugin::getGallerySection(); ?>
-
-        <?php
-        if ($o->DateAdded) {
-
-
-            $_POST['sort']['created'] = "DESC";
-            $_POST['current'] = 1;
-            $_POST['rowCount'] = 20;
-
-            if (($currentCatType['type']=="2")||($isVideoOnly)||(($o->separateAudio) && ($isAudioOnly == false))){ 
-               $_SESSION['type'] = "video";
-           } else if (($currentCatType['type']=="1")||($isAudioOnly)){
-            $_SESSION['type'] = "audio";
-        } else {
-            unset($_SESSION['type']);
-        }
-        $videos = Video::getAllVideos("viewableNotAd");
-        unset($_SESSION['type']);
-        if(!empty($videos)){
-            ?>
-            <div class="row first-page-slider-row first-page-slider-row-make">
-               <h2>
-                <i class="glyphicon glyphicon-sort-by-attributes"></i> <?php
-                echo __("Date added (newest)");
-                ?>
-            </h2>
-            <div class="carousel">
-                <?php
-
-                foreach ($videos as $value) {
-                    $images = Video::getImageFromFilename($value['filename'], $value['type']);
-                    $imgGif = $images->thumbsGif;
-                    $img = $images->thumbsJpg;
-                    $poster = $images->poster;
-                    ?>
-                    <div class="carousel-cell tile ">
-                     <div class="slide thumbsImage" videos_id="<?php echo $value['id']; ?>" poster="<?php echo $poster; ?>" video="<?php echo $value['clean_title']; ?>" iframe="<?php echo $global['webSiteRootURL']; ?>videoEmbeded/<?php echo $value['clean_title']; ?>">
-                        <div class="tile__media ">
-                            <img alt="<?php echo $value['title']; ?>" class="tile__img thumbsJPG ing img-responsive carousel-cell-image" data-flickity-lazyload="<?php echo $img; ?>" />
-                            <?php if (! empty($imgGif)) { ?>
-                            <img style="position: absolute; top: 0; display: none;" alt="<?php echo $value['title']; ?>" id="tile__img thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive img carousel-cell-image" data-flickity-lazyload="<?php echo $imgGif; ?>" />
-                            <?php } ?>
-                        </div>
-                        <div class="tile__details">
-                           <div class="videoInfo">
-                            <span class="label label-default"><i class="fa fa-eye"></i> <?php echo $value['views_count']; ?></span>
-                            <span class="label label-success"><i class="fa fa-thumbs-up"></i> <?php echo $value['likes']; ?></span>
-                            <span class="label label-success"><a style="color: inherit;" class="tile__cat" cat="<?php echo $value['clean_category']; ?>" href="<?php echo $global['webSiteRootURL'] . "cat/" . $value['clean_category']; ?>"><i class="fa"></i> <?php echo $value['category']; ?></a></span>
-                            <?php if ($config->getAllow_download()) { 
-                                $ext = ".mp4";
-                                if($value['type']=="audio"){
-                                    if(file_exists($global['systemRootPath']."videos/".$value['filename'].".ogg")){
-                                        $ext = ".ogg";
-                                    } else if(file_exists($global['systemRootPath']."videos/".$value['filename'].".mp3")){
-                                        $ext = ".mp3";
-                                    }
-                                } ?>
-                                <span><a class="label label-default " href="<?php echo $global['webSiteRootURL'] . "videos/" . $value['filename'].$ext; ?>" download="<?php echo $value['title'] . $ext; ?>"><?php echo __("Download"); ?></a></span><?php } ?>
-                            </div>
-                            <div class="tile__title">
-                                <?php echo $value['title']; ?>
-                            </div>
-                            <div class="videoDescription">
-                                <?php echo nl2br(textToLink($value['description'])); ?>
-                            </div>
-                        </div>
+                    <!-- For Live Videos -->
+                    <div id="liveVideos" class="clear clearfix" style="display: none;">
+                        <h3 class="galleryTitle text-danger"> <i class="fab fa-youtube"></i> <?php echo __("Live"); ?></h3>
+                        <div class="extraVideos"></div>
                     </div>
-                    <div class="arrow-down" style="display: none;"></div>
-                </div>
-                <?php
-            }
-            ?>
-        </div>
-        <div class="poster list-group-item" style="display: none;">
-            <div class="posterDetails ">
-             <h2 class="infoTitle">Title</h2>
-             <h4 class="infoDetails">Details</h4>
-             <div class="infoText col-md-4 col-sm-12">Text</div>
-             <div class="footerBtn" style="display: none;">
-              <a class="btn btn-danger playBtn" href="#"><i class="fa fa-play"></i> <?php echo __("Play"); ?></a>
-              <button class="btn btn-primary myList">
-               <i class="fa fa-plus"></i> <?php echo __("My list"); ?></button>
-           </div>
+                    <script>
+                        function afterExtraVideos($liveLi) {
+                            $liveLi.removeClass('col-lg-12 col-sm-12 col-xs-12 bottom-border');
+                            $liveLi.find('.thumbsImage').removeClass('col-lg-5 col-sm-5 col-xs-5');
+                            $liveLi.find('.videosDetails').removeClass('col-lg-7 col-sm-7 col-xs-7');
+                            $liveLi.addClass('col-lg-2 col-md-4 col-sm-4 col-xs-6 fixPadding');
+                            $('#liveVideos').slideDown();
+                            return $liveLi;
+                        }
+                    </script>
+                    <?php echo YouPHPTubePlugin::getGallerySection(); ?>
 
-       </div>
-   </div>
-</div>
+                    <?php
+                    if ($o->DateAdded) {
+                        $_POST['sort']['created'] = "DESC";
+                        $_POST['current'] = 1;
+                        $_POST['rowCount'] = 20;
 
-<?php
+                        if (($currentCatType['type']=="2")||($isVideoOnly)||(($o->separateAudio) && ($isAudioOnly == false))){
+                            $_SESSION['type'] = "video";
+                        } else if (($currentCatType['type']=="1")||($isAudioOnly)){
+                            $_SESSION['type'] = "audio";
+                        } else {
+                            unset($_SESSION['type']);
+                        }
+                        $videos = Video::getAllVideos("viewableNotAd");
+                        unset($_SESSION['type']);
+                        
+                        if(!empty($videos)){
+                        ?>
+                        <div class="row first-page-slider-row first-page-slider-row-make">
+                           <h2>
+                            <i class="glyphicon glyphicon-sort-by-attributes"></i> <?php
+                            echo __("Date added (newest)");
+                            ?>
+                        </h2>
+                        <div class="carousel">
+                            <?php
+
+                            foreach ($videos as $value) {
+                                $images = Video::getImageFromFilename($value['filename'], $value['type']);
+                                $imgGif = $images->thumbsGif;
+                                $img = $images->thumbsJpg;
+                                $poster = $images->poster;
+                                ?>
+                                <div class="carousel-cell tile ">
+                                 <div class="slide thumbsImage" videos_id="<?php echo $value['id']; ?>" poster="<?php echo $poster; ?>" video="<?php echo $value['clean_title']; ?>" iframe="<?php echo $global['webSiteRootURL']; ?>videoEmbeded/<?php echo $value['clean_title']; ?>">
+                                    <div class="tile__media ">
+                                        <img alt="<?php echo $value['title']; ?>" class="tile__img thumbsJPG ing img-responsive carousel-cell-image" data-flickity-lazyload="<?php echo $img; ?>" />
+                                        <?php if (! empty($imgGif)) { ?>
+                                        <img style="position: absolute; top: 0; display: none;" alt="<?php echo $value['title']; ?>" id="tile__img thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive img carousel-cell-image" data-flickity-lazyload="<?php echo $imgGif; ?>" />
+                                        <?php } ?>
+                                    </div>
+                                    <div class="tile__details">
+                                       <div class="videoInfo">
+                                        <span class="label label-default"><i class="fa fa-eye"></i> <?php echo $value['views_count']; ?></span>
+                                        <span class="label label-success"><i class="fa fa-thumbs-up"></i> <?php echo $value['likes']; ?></span>
+                                        <span class="label label-success"><a style="color: inherit;" class="tile__cat" cat="<?php echo $value['clean_category']; ?>" href="<?php echo $global['webSiteRootURL'] . "cat/" . $value['clean_category']; ?>"><i class="fa"></i> <?php echo $value['category']; ?></a></span>
+                                        <?php if ($config->getAllow_download()) { 
+                                            $ext = ".mp4";
+                                            if($value['type']=="audio"){
+                                                if(file_exists($global['systemRootPath']."videos/".$value['filename'].".ogg")){
+                                                    $ext = ".ogg";
+                                                } else if(file_exists($global['systemRootPath']."videos/".$value['filename'].".mp3")){
+                                                    $ext = ".mp3";
+                                                }
+                                            } ?>
+                                            <span><a class="label label-default " href="<?php echo $global['webSiteRootURL'] . "videos/" . $value['filename'].$ext; ?>" download="<?php echo $value['title'] . $ext; ?>"><?php echo __("Download"); ?></a></span><?php } ?>
+                                        </div>
+                                        <div class="tile__title">
+                                            <?php echo $value['title']; ?>
+                                        </div>
+                                        <div class="videoDescription">
+                                            <?php echo nl2br(textToLink($value['description'])); ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="arrow-down" style="display: none;"></div>
+                            </div>
+                            <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="poster list-group-item" style="display: none;">
+                        <div class="posterDetails ">
+                         <h2 class="infoTitle">Title</h2>
+                         <h4 class="infoDetails">Details</h4>
+                         <div class="infoText col-md-4 col-sm-12">Text</div>
+                         <div class="footerBtn" style="display: none;">
+                          <a class="btn btn-danger playBtn" href="#"><i class="fa fa-play"></i> <?php echo __("Play"); ?></a>
+                          <button class="btn btn-primary myList">
+                           <i class="fa fa-plus"></i> <?php echo __("My list"); ?></button>
+                       </div>
+
+                   </div>
+               </div>
+            </div>
+
+            <?php
             } //}
             if (($o->separateAudio) && ($isAudioOnly == false) && ($isVideoOnly == false)) {    
                 unset($_POST['sort']);
@@ -1012,6 +1008,13 @@ if (($o->LiteGallery) && (empty($_GET['catName']))) {
     $jsFiles = array("view/js/bootstrap-list-filter/bootstrap-list-filter.min.js","plugin/YouPHPFlix/view/js/flickty/flickity.pkgd.min.js","view/js/webui-popover/jquery.webui-popover.min.js","plugin/YouPHPFlix/view/js/script.js");
     $jsURL =  combineFiles($jsFiles, "js");
     ?>
+
+    <script>
+        setTimeout(function(){ 
+            document.getElementById('mainContainer').style="display: block;";
+            document.getElementById('loading').style="display: none;"; 
+        }, 1000);
+    </script>
     <script src="<?php echo $jsURL; ?>" type="text/javascript"></script>
 </body>
 </html>

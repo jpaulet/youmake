@@ -1,4 +1,5 @@
 <?php
+
 if ((!file_exists('../videos/configuration.php')) && (empty($global['systemRootPath']))) {
     if (!file_exists('../install/index.php')) {
         die("No Configuration and no Installation");
@@ -182,6 +183,15 @@ $advancedCustom = YouPHPTubePlugin::getObjectDataIfEnabled("CustomizeAdvanced");
         <meta property="og:image:height"       content="<?php echo $imgh; ?>" />
         <meta property="video:duration" content="<?php echo Video::getItemDurationSeconds($video['duration']); ?>"  />
         <meta property="duration" content="<?php echo Video::getItemDurationSeconds($video['duration']); ?>"  />
+        <style>
+            .bgWhite{
+                margin: 0px !important;
+                padding: 20px !important;
+            }
+            .commentDetails{
+                min-height: 20px;
+            }
+        </style>
     </head>
 
     <body>

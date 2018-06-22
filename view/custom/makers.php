@@ -150,9 +150,7 @@ $makers[] = [
 </head>
 
 <body>
-    <?php
-    include $global['systemRootPath'] . 'view/include/navbar.php';
-    ?>
+    <?php include $global['systemRootPath'] . 'view/include/navbar.php'; ?>
 
     <div class="container-fluid">
         <div class='row'>
