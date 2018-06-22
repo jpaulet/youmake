@@ -22,25 +22,27 @@ if (!User::isAdmin()) {
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
         <div class="container-fluid">
-            <div class="col-xs-12">
-                <div class="panel-heading">
-                    <?php
-                    echo __("Pending Requests");
-                    ?>
-                </div>
-                <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
-                    <div class="row list-group-item">
-                        <table id="grid" class="table table-condensed table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th data-column-id="user"  data-width="150px"><?php echo __("User"); ?></th>
-                                    <th data-column-id="valueText"  data-width="150px"><?php echo __("Value"); ?></th>
-                                    <th data-column-id="description" ><?php echo __("Description"); ?></th>
-                                    <th data-column-id="status" data-formatter="status"  data-width="150px"><?php echo __("Status"); ?></th>
-                                    <th data-column-id="created" data-order="desc" data-width="150px"><?php echo __("Date"); ?></th>
-                                </tr>
-                            </thead>
-                        </table>
+            <div class='row'>
+                <div class="col-xs-12">
+                    <div class="panel-heading">
+                        <?php
+                        echo __("Pending Requests");
+                        ?>
+                    </div>
+                    <div class="panel-body" style='background-color:#fff;border-radius:8px;'>
+                        <div class="list-group-item" style='background-color:#fff;'>
+                            <table id="grid" class="table table-condensed table-hover table-striped">
+                                <thead>
+                                    <tr>
+                                        <th data-column-id="user"  data-width="150px"><?php echo __("User"); ?></th>
+                                        <th data-column-id="valueText"  data-width="150px"><?php echo __("Value"); ?></th>
+                                        <th data-column-id="description" ><?php echo __("Description"); ?></th>
+                                        <th data-column-id="status" data-formatter="status"  data-width="150px"><?php echo __("Status"); ?></th>
+                                        <th data-column-id="created" data-order="desc" data-width="150px"><?php echo __("Date"); ?></th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

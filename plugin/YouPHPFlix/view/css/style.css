@@ -189,7 +189,7 @@ iframe{
     height: 120px;
 }
 .container-fluid{
-    overflow: hidden;
+    /* overflow: hidden; */
     padding-bottom: 50px;
 }
 
