@@ -1,4 +1,5 @@
 <?php
+
 if ((!empty($videos)) || ($obj->SubCategorys)) {
     ?>
     <?php if (($obj->CategoryDescription) && (!empty($_GET['catName']))) { ?>

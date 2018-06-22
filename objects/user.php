@@ -441,7 +441,7 @@ class User {
 
     static function completeProfile(){
         //Check if the user is verified, has set a `About` text and changed the default avatar
-        return self::isVerified() && (self::getAbout() !== '') && (self::getPhoto() === $global['webSiteRootURL'] . "img/userSilhouette.jpg");
+        return self::isLogged() && self::isVerified() && (self::getAbout() !== '') && (self::getPhoto() === $global['webSiteRootURL'] . "img/userSilhouette.jpg");
     }
 
     static function isVerified() {
