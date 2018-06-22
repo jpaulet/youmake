@@ -54,8 +54,8 @@
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.025em;
-    text-decoration: none;
-    -webkit-transition: all 150ms ease;
+    text-decoration: none
+;    -webkit-transition: all 150ms ease;
     transition: all 150ms ease;
     margin:10px auto;
 }
@@ -63,11 +63,12 @@
 
 <script src="https://js.stripe.com/v3/"></script>
 
-<form action="/charge" method="post" id="payment-form">
+<form action="<?php echo $global['webSiteRootURL']; ?>paystripe" method="post" id="payment-form">
+  <input type='hidden' name='email' avlue="<?php //echo User::getEmail(); ?>" />
   <div class='form-row'>
     <div class="form-group">
         <label for="value"><?php echo __("Add Funds"); ?> <?php echo $obj->currency_symbol; ?> <?php echo $obj->currency; ?></label>
-        <select class="form-control" id="value" >
+        <select class="form-control" id="stripePrice" name="stripePrice">
             <?php
             foreach ($options as $value) {
                 ?>
@@ -99,7 +100,7 @@
 
 <script type='text/javascript'>
 // Create a Stripe client.
-var stripe = Stripe('pk_test_g6do5S237ekq10r65BnxO6S0');
+var stripe = Stripe('pk_test_OMQPZa6KHK9Vezj2gtCkdGkW');
 
 // Create an instance of Elements.
 var elements = stripe.elements();
@@ -139,6 +140,35 @@ card.addEventListener('change', function(event) {
   }
 });
 
+function stripeTokenHandler(token) {
+  modal.showPleaseWait();
+ 
+  $.ajax({
+      url: '<?php echo $global['webSiteRootURL']; ?>paystripe',
+      data: {
+          "value": $('#stripePrice').val(),
+          "stripeToken": token.id
+      },
+      type: 'post',
+      success: function (response) {
+          if (!response.error) {
+              swal({ 
+                title: "<h2><?php echo __("Done"); ?></h2>",
+                text: response.msg, 
+                html: response.msg, 
+                type: "success",
+                timer: 5000
+              });
+              modal.hidePleaseWait();
+          } else {
+              swal("<?php echo __("Sorry!"); ?>", "<?php echo __("Error!"); ?>", "error");
+              modal.hidePleaseWait();
+          }
+      }
+  });
+  return false;
+}
+
 // Handle form submission.
 var form = document.getElementById('payment-form');
 form.addEventListener('submit', function(event) {
@@ -155,4 +185,32 @@ form.addEventListener('submit', function(event) {
     }
   });
 });
+
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#YPTWalletPayPalButton').click(function (evt) {
+            evt.preventDefault();
+            modal.showPleaseWait();
+
+            $.ajax({
+                url: '<?php echo $global['webSiteRootURL']; ?>plugin/YPTWallet/plugins/YPTWalletPayPal/requestPayment.json.php',
+                data: {
+                    "value": $('#value').val()
+                },
+                type: 'post',
+                success: function (response) {
+                    if (!response.error) {
+                        document.location = response.approvalLink;
+                    } else {
+                        swal("<?php echo __("Sorry!"); ?>", "<?php echo __("Error!"); ?>", "error");
+                        modal.hidePleaseWait();
+                    }
+                }
+            });
+            return false;
+        });
+    });
+
 </script>
