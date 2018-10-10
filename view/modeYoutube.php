@@ -1,11 +1,4 @@
 <?php
-
-if ((!file_exists('../videos/configuration.php')) && (empty($global['systemRootPath']))) {
-    if (!file_exists('../install/index.php')) {
-        die("No Configuration and no Installation");
-    }
-    header("Location: install/index.php");
-}
 if (empty($global['systemRootPath'])) {
     require_once '../videos/configuration.php';
 } else {

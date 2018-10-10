@@ -12,7 +12,12 @@ $user->setPassword($_POST['pass']);
 $user->setEmail($_POST['email']);
 $user->setName($_POST['name']);
 $user->setAbout($_POST['about']);
+$user->setTwitter($_POST['twitter']);
+$user->setInstagram($_POST['instagram']);
+$user->setFacebook($_POST['facebook']);
+$user->setWebsite($_POST['website']);
 $unique = $user->setChannelName($_POST['channelName']);
+
 if(!$unique){
     echo '{"error":"'.__("Channel name already exists").'"}';
     exit;

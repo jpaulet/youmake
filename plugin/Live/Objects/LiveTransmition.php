@@ -6,7 +6,7 @@ require_once dirname(__FILE__) . '/../../../objects/user.php';
 
 class LiveTransmition extends ObjectYPT {
 
-    protected $id, $title, $public, $saveTransmition, $users_id, $categories_id, $key, $description;
+    protected $id, $title, $public, $saveTransmition, $users_id, $categories_id, $key, $description, $published;
 
     static function getSearchFieldsNames() {
         return array('title');
@@ -40,6 +40,10 @@ class LiveTransmition extends ObjectYPT {
         return $this->categories_id;
     }
 
+    function getPublished(){
+        return $this->published;
+    }
+
     function getKey() {
         return $this->key;
     }
@@ -56,6 +60,10 @@ class LiveTransmition extends ObjectYPT {
         global $global;
         $title = $global['mysqli']->real_escape_string($title);
         $this->title = $title;
+    }
+
+    function setPublished($published){
+        $this->published = $published;
     }
 
     function setPublic($public) {
@@ -94,10 +102,18 @@ class LiveTransmition extends ObjectYPT {
         return true;
     }
 
+    static function publish($user_id) {
+        $row = static::getFromDbByUser($user_id);
+
+        $l = new LiveTransmition($row['id']);
+        $l->setPublished(1);
+        return $l->save();
+    }
+
     static function getFromDbByUser($user_id) {
         global $global;
         $user_id = intval($user_id);
-        $sql = "SELECT * FROM " . static::getTableName() . " WHERE  users_id = ? LIMIT 1";
+        $sql = "SELECT * FROM " . static::getTableName() . " WHERE  users_id = ? AND published = 0 LIMIT 1";
         $res = sqlDAL::readSql($sql,"i",array($user_id), true); 
         $data = sqlDAL::fetchAssoc($res);
         sqlDAL::close($res);
@@ -120,6 +136,7 @@ class LiveTransmition extends ObjectYPT {
         $l->setKey(uniqid());
         $l->setCategories_id(1);
         $l->setUsers_id(User::getId());
+        $l->setPublished(0);
         $l->save();
         return static::getFromDbByUser($user_id);
     }

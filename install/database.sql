@@ -493,3 +493,12 @@ COMMIT;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+
+-- -----------------------------------------------------
+-- New alters
+-- -----------------------------------------------------
+ALTER TABLE `users` ADD `twitter` VARCHAR(255) NOT NULL AFTER `emailVerified`, ADD `facebook` TEXT NOT NULL AFTER `twitter`, ADD `instagram` VARCHAR(255) NOT NULL AFTER `facebook`, ADD `website` VARCHAR(255) NOT NULL AFTER `instagram`;
+ALTER TABLE `users` CHANGE `twitter` `twitter` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `facebook` `facebook` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `instagram` `instagram` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL, CHANGE `website` `website` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+ALTER TABLE `live_transmitions` ADD `start_date` DATETIME NULL AFTER `published`, ADD `end_date` DATETIME NULL AFTER `start_date`, ADD `free` BOOLEAN NOT NULL AFTER `end_date`, ADD `tickets` INT NOT NULL AFTER `free`, ADD `freeTickets` INT NOT NULL AFTER `tickets`;

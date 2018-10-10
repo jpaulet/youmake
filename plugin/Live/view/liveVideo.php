@@ -1,7 +1,7 @@
 <link href="<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/live.css" rel="stylesheet" type="text/css"/>
 <div class="row main-video">
     <div class="col-xs-12 col-sm-12 col-lg-2"></div>
-    <div class="col-xs-12 col-sm-12 col-lg-8">
+    <div class="col-xs-12 col-sm-8 col-lg-8" style='min-height:200px;'>
         <div id="videoContainer">
             <div id="floatButtons" style="display: none;">
                 <p class="btn btn-outline btn-xs move">
@@ -39,9 +39,25 @@
         </div>
     </div> 
     <div class="col-xs-12 col-sm-12 col-lg-2"></div>
+    <!-- 
+    <div id='chatArea' class='col-xs-4 hide-xs col-sm-4 col-lg-4' style='background-color: #fff;min-height:270px;'>
+        <h3> Chat </h3>
+        <div class='chatRoom'>
+
+        </div>
+    </div>    
+    -->
 </div><!--/row-->
 <script>
     $(document).ready(function () {
+        /*
+        $(window).resize(function() {
+            $('#chatArea').height($('#videoContainer').height());
+        });
+
+        $(window).trigger('resize');
+        */
+
         player = videojs('mainVideo');
         player.ready(function () {
             var err = this.error();

@@ -676,8 +676,6 @@ if (!class_exists('Video')) {
                 $sql .= " AND c.clean_name = '{$_GET['catName']}'";
             }
 
-
-
             if (!empty($_GET['search'])) {
                 $_POST['searchPhrase'] = $_GET['search'];
             }

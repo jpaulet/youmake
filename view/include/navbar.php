@@ -30,7 +30,7 @@ $obj = $plugin->getDataObject();
     <div class='row'>
         <div class='col-xs-12'>
             <ul class="items-container">
-                <li>
+                <li style='margin-right:0px;'>
                     <ul class="left-side">
                         <li>
                             <!-- <button class="btn btn-default navbar-btn pull-left" id="buttonMenu" ><span class="fa fa-bars"></span></button> -->
@@ -350,7 +350,7 @@ $obj = $plugin->getDataObject();
                                 </li>
                                 <li>
                                     <div>
-                                        <a href="<?php echo $global['webSiteRootURL']; ?>user" class="btn btn-success btn-block youmake-button" style="color:#fff;padding:7px;margin:8px;height:35px;line-height: 22px;"> 
+                                        <a href="<?php echo $global['webSiteRootURL']; ?>signUp" class="btn btn-success btn-block youmake-button" style="color:#fff;padding:7px;margin:8px;height:35px;line-height: 22px;"> 
                                             <?php echo __("Join Now! "); ?>
                                         </a>
                                     </div>
@@ -554,13 +554,13 @@ $obj = $plugin->getDataObject();
             ?>            
         </ul>
 
-        <div style='position:fixed;bottom:5px;left:10px;'>
+        <div style='position:fixed;bottom:5px;left:10px;text-align:center;'>
             <a href="<?php echo $global['webSiteRootURL']; ?>help" style='float:left; color:#555;font-size:12px;padding:0px 5px;'>
                 <span class="glyphicon glyphicon-question-sign"></span>
                 <?php echo __("Help"); ?>
             </a>
        
-            <a href="<?php echo $global['webSiteRootURL']; ?>about" style='float:left;color:#555;font-size:12px;padding:0px 5px;'>
+            <a href="<?php echo $global['webSiteRootURL']; ?>about" style='display:none;float:left;color:#555;font-size:12px;padding:0px 5px;'>
                 <span class="glyphicon glyphicon-info-sign"></span>
                 <?php echo __("About"); ?>
             </a>

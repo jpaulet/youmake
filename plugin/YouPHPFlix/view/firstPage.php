@@ -42,10 +42,45 @@ unset($_SESSION['type']);
 
     <title><?php echo $config->getWebSiteTitle(); ?></title>
     <style>
+        .promoBox {
+            padding:0px;
+            margin:0px;
+            margin-bottom:40px;
+            background-color:#4f1091;
+            border-radius:8px;
+            padding-left:20px;
+        }
+
+        .promoImg {
+            height:250px;
+            border-radius:8px;
+            float:left;
+        }
+
+        .promoText {
+            float:left;
+            color:#fff;
+            font-size:36px;
+            letter-spacing: 0.05;
+            padding:40px 40px 0px 0px;
+            line-height:40px;
+            font-size: 36px;
+            font-weight: 500;
+            line-height: 40px;
+        }
+
+        .promoText span {
+            font-weight:600;
+            letter-spacing:0;
+            font-size:42px;
+            line-height:20px;
+        }
+
         .first-page-slider-row{
             background-color: transparent !important;
             padding: 15px;
             margin-bottom: 30px;
+            padding-right: 30px;
         }
         .flickity-slider{
             position:relative;
@@ -54,6 +89,7 @@ unset($_SESSION['type']);
 
         .flickity-viewport{
             margin: 10px 0px;
+            overflow: hidden;
         }
 
         .first-page-slider-row h2{
@@ -97,43 +133,15 @@ unset($_SESSION['type']);
                     <?php echo $config->getAdsense(); ?>
                 </div>
 
-                <div class='col-xs-12' style='padding:0px;margin:0px;margin-bottom:40px;background-color:#4f1091;border-radius:8px;'>
-                    <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Welcome to youmake!" style='height:250px;border-radius:8px;' />
-                    <h1 style='float:right;color:#fff;font-size:36px;letter-spacing: 0.05;padding:20px 40px;line-height:40px;'> Welcome to <span style='font-weight:600;letter-spacing:0;font-size:42px;line-height:20px;margin-left:8px;margin-right:8px;'>youMake.live</span> !</h1>
+                <div class='col-xs-12 promoBox'>
+                    <div class='row'>
+                        <img src="<?php echo $global['webSiteRootURL']; ?>img/youmakelive1.jpg" alt="Welcome to youmake!" class='promoImg' />
+                        <div class='promoText'> Welcome to <span>youMake.live</span> !</div>
+                    </div>
                 </div>
                 
                 <div class="col-xs-12 list-group-item" style='padding:0px;margin:0px;'>
-                    <?php if (User::isLogged() && !User::completeProfile()){ ?>
-                        <div class='jumbotron' style='padding-top:35px;padding-bottom:25px;'>
-                            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
-                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Finish your profile </h2>
-                            <div> We encourage you to complete all the user information. A good profile picture, description about you and a channel name with `hook` will help you get a bigger community.</div>
-                            <p style='font-size:13px;text-align:center;'> Let's do it! <br />
-                                <a class='button button-join youmake-button youmake-button-secundary' style='background-color: #ddd !important; color:#333;margin-top:10px;margin-bottom:-40px;' href='<?php echo $global['webSiteRootURL']; ?>user'>
-                                    <span class="fa fa-user-circle"></span> Profile
-                                </a> 
-                            </p>
-                        </div>
-                    <?php } ?>
-
-                    <?php if(!User::isLogged()){ ?>
-                        <div class='jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;border-width: '>
-                            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
-                            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
-                            <div> 
-                                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
-                                <strong>grow your community</strong> around your product before you launch
-                                and <strong>earn money</strong> while you build! 
-                            </div>
-                            <div> 
-                                We are X liveMakers right now! 
-                            </div>
-                            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
-                                Want more? See our features, <a class='button youmake-button' href=''>JOIN now!</a> or read the F.A.Q
-                            </p>
-                        </div>
-                    <?php } ?>
-            
+                                
                     <?php
                         $category = Category::getAllCategories();
                         $currentCat;
@@ -279,7 +287,7 @@ unset($_SESSION['type']);
                         
                         if(!empty($videos)){
                         ?>
-                        <div class="row first-page-slider-row first-page-slider-row-make">
+                        <div class="first-page-slider-row first-page-slider-row-make">
                            <h2>
                             <i class="glyphicon glyphicon-sort-by-attributes"></i> <?php
                             echo __("Date added (newest)");
@@ -370,7 +378,7 @@ unset($_SESSION['type']);
                         ?>
 
 
-                        <div class="row first-page-slider-row first-page-slider-row-make">
+                        <div class="first-page-slider-row first-page-slider-row-make">
                            <h2>
                             <i class="glyphicon glyphicon-music"></i> <?php
                             echo __("Audio-Gallery by Date");
@@ -441,9 +449,10 @@ unset($_SESSION['type']);
               } 
             } //there
 
+                    
 
     if ($o->MostWatched) { ?>
-        <div class="row first-page-slider-row first-page-slider-row-make">
+        <div class="first-page-slider-row first-page-slider-row-make">
            <h2>
             <i class="glyphicon glyphicon-eye-open"></i> <?php echo __("Most watched"); ?>
         </h2>
@@ -524,86 +533,117 @@ unset($_SESSION['type']);
    <?php
    }
 
+   if (User::isLogged() && !User::completeProfile()){ ?>
+        <div class='jumbotron' style='padding-top:35px;padding-bottom:25px;'>
+            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Finish your profile </h2>
+            <div> We encourage you to complete all the user information. A good profile picture, description about you and a channel name with `hook` will help you get a bigger community.</div>
+            <p style='font-size:13px;text-align:center;'> Let's do it! <br />
+                <a class='button button-join youmake-button youmake-button-secundary' style='background-color: #ddd !important; color:#333;margin-top:10px;margin-bottom:-40px;' href='<?php echo $global['webSiteRootURL']; ?>user'>
+                    <span class="fa fa-user-circle"></span> Profile
+                </a> 
+            </p>
+        </div>
+    <?php } ?>
+
+    <?php if(!User::isLogged()){ ?>
+        <div class='jumbotron' style='background-color:#dbbffc33;color:#3c116bb3;border-width: '>
+            <span style='position:relative;top:-20px;width:10px;float:right;'> x </span>
+            <h2 style='text-align:center;font-weight: 600;margin-bottom:10px;margin-top:-4px;'> Join the community of Live Makers! </h2>
+            <div> 
+                Build your product live in YouMake, get <strong>real feedback</strong> from potentials users, 
+                <strong>grow your community</strong> around your product before you launch
+                and <strong>earn money</strong> while you build! 
+            </div>
+            <div> 
+                We are X liveMakers right now! 
+            </div>
+            <p style='font-size:13px;margin-top:15px;margin-bottom:-15px;text-align:center;'> 
+                Want more? See our features, <a class='button youmake-button' href=''>JOIN now!</a> or read the F.A.Q
+            </p>
+        </div>
+    <?php } 
+
    if ($o->MostPopular) { ?>
-    <div class="row first-page-slider-row first-page-slider-row-make">
+    <div class="first-page-slider-row first-page-slider-row-make">
        <h2>
         <i class="glyphicon glyphicon-thumbs-up"></i> <?php echo __("Most popular"); ?>
     </h2>
     <div class="carousel">
-        <?php
+        <?php        
         unset($_POST['sort']);
         $_POST['sort']['likes'] = "DESC";
         if (($currentCatType['type']=="2")||($isVideoOnly)||(($o->separateAudio) && ($isAudioOnly == false))){ 
            $_SESSION['type'] = "video";
-       } else if (($currentCatType['type']=="1")||($isAudioOnly)){
-        $_SESSION['type'] = "audio";
-    } else {
+        } else if (($currentCatType['type']=="1")||($isAudioOnly)){
+            $_SESSION['type'] = "audio";
+        } else {
+            unset($_SESSION['type']);
+        }
+        $videos = Video::getAllVideos("viewableNotAd");
         unset($_SESSION['type']);
-    }
-    $videos = Video::getAllVideos("viewableNotAd");
-    unset($_SESSION['type']);
-    foreach ($videos as $value) {
-        $images = Video::getImageFromFilename($value['filename'], $value['type']);
-        $imgGif = $images->thumbsGif;
-        $img = $images->thumbsJpg;
-        $poster = $images->poster;
-        ?>
-        <div class="carousel-cell tile ">
-         <div class="slide thumbsImage" videos_id="<?php echo $value['id']; ?>" poster="<?php echo $poster; ?>" video="<?php echo $value['clean_title']; ?>" iframe="<?php echo $global['webSiteRootURL']; ?>videoEmbeded/<?php echo $value['clean_title']; ?>">
-            <div class="tile__media ">
-                <img alt="<?php echo $value['title']; ?>" class="tile__img thumbsJPG ing img-responsive carousel-cell-image" data-flickity-lazyload="<?php echo $img; ?>" />
-                <?php if (! empty($imgGif)) { ?>
-                <img style="position: absolute; top: 0; display: none;" alt="<?php echo $value['title']; ?>" id="tile__img thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive img carousel-cell-image" data-flickity-lazyload="<?php echo $imgGif; ?>" />
-                <?php } ?>
+
+        foreach ($videos as $value) {
+            $images = Video::getImageFromFilename($value['filename'], $value['type']);
+            $imgGif = $images->thumbsGif;
+            $img = $images->thumbsJpg;
+            $poster = $images->poster;
+            ?>
+            <div class="carousel-cell tile ">
+             <div class="slide thumbsImage" videos_id="<?php echo $value['id']; ?>" poster="<?php echo $poster; ?>" video="<?php echo $value['clean_title']; ?>" iframe="<?php echo $global['webSiteRootURL']; ?>videoEmbeded/<?php echo $value['clean_title']; ?>">
+                <div class="tile__media ">
+                    <img alt="<?php echo $value['title']; ?>" class="tile__img thumbsJPG ing img-responsive carousel-cell-image" data-flickity-lazyload="<?php echo $img; ?>" />
+                    <?php if (! empty($imgGif)) { ?>
+                    <img style="position: absolute; top: 0; display: none;" alt="<?php echo $value['title']; ?>" id="tile__img thumbsGIF<?php echo $value['id']; ?>" class="thumbsGIF img-responsive img carousel-cell-image" data-flickity-lazyload="<?php echo $imgGif; ?>" />
+                    <?php } ?>
+                </div>
+                <div class="tile__details">
+                   <div class="videoInfo">
+                    <span class="label label-default"><i class="fa fa-eye"></i> <?php echo $value['views_count']; ?></span>
+                    <span class="label label-success"><i class="fa fa-thumbs-up"></i> <?php echo $value['likes']; ?></span>
+                    <span class="label label-success"><a style="color: inherit;" class="tile__cat" cat="<?php echo $value['clean_category']; ?>" href="<?php echo $global['webSiteRootURL'] . "cat/" . $value['clean_category']; ?>"><i class="fa"></i> <?php echo $value['category']; ?></a></span>
+                    <?php if ($config->getAllow_download()) { 
+                        $ext = ".mp4";
+                        if($value['type']=="audio"){
+                            if(file_exists($global['systemRootPath']."videos/".$value['filename'].".ogg")){
+                                $ext = ".ogg";
+                            } else if(file_exists($global['systemRootPath']."videos/".$value['filename'].".mp3")){
+                                $ext = ".mp3";
+                            }
+                        } ?>
+                        <span><a class="label label-default " href="<?php echo $global['webSiteRootURL'] . "videos/" . $value['filename'].$ext; ?>" download="<?php echo $value['title'] . $ext; ?>"><?php echo __("Download"); ?></a></span><?php } ?>
+                    </div>
+                    <div class="tile__title">
+                        <?php echo $value['title']; ?>
+                    </div>
+                    <div class="videoDescription">
+                        <?php echo nl2br(textToLink($value['description'])); ?>
+                    </div>
+                </div>
             </div>
-            <div class="tile__details">
-               <div class="videoInfo">
-                <span class="label label-default"><i class="fa fa-eye"></i> <?php echo $value['views_count']; ?></span>
-                <span class="label label-success"><i class="fa fa-thumbs-up"></i> <?php echo $value['likes']; ?></span>
-                <span class="label label-success"><a style="color: inherit;" class="tile__cat" cat="<?php echo $value['clean_category']; ?>" href="<?php echo $global['webSiteRootURL'] . "cat/" . $value['clean_category']; ?>"><i class="fa"></i> <?php echo $value['category']; ?></a></span>
-                <?php if ($config->getAllow_download()) { 
-                    $ext = ".mp4";
-                    if($value['type']=="audio"){
-                        if(file_exists($global['systemRootPath']."videos/".$value['filename'].".ogg")){
-                            $ext = ".ogg";
-                        } else if(file_exists($global['systemRootPath']."videos/".$value['filename'].".mp3")){
-                            $ext = ".mp3";
-                        }
-                    } ?>
-                    <span><a class="label label-default " href="<?php echo $global['webSiteRootURL'] . "videos/" . $value['filename'].$ext; ?>" download="<?php echo $value['title'] . $ext; ?>"><?php echo __("Download"); ?></a></span><?php } ?>
-                </div>
-                <div class="tile__title">
-                    <?php echo $value['title']; ?>
-                </div>
-                <div class="videoDescription">
-                    <?php echo nl2br(textToLink($value['description'])); ?>
-                </div>
-            </div>
+            <div class="arrow-down" style="display: none;"></div>
         </div>
-        <div class="arrow-down" style="display: none;"></div>
+        <?php
+        }
+        ?>
     </div>
-    <?php
-}
+    <div class="poster list-group-item" style="display: none;">
+        <div class="posterDetails ">
+         <h2 class="infoTitle">Title</h2>
+         <h4 class="infoDetails">Details</h4>
+         <div class="infoText col-md-4 col-sm-12">Text</div>
+         <div class="footerBtn" style="display: none;">
+          <a class="btn btn-danger playBtn" href="#"><i class="fa fa-play"></i> <?php
+              echo __("Play");
+              ?></a>
+              <button class="btn btn-primary myList">
+               <i class="fa fa-plus"></i> <?php
+               echo __("My list");
+               ?></button>
+           </div>
 
-?>
-</div>
-<div class="poster list-group-item" style="display: none;">
-    <div class="posterDetails ">
-     <h2 class="infoTitle">Title</h2>
-     <h4 class="infoDetails">Details</h4>
-     <div class="infoText col-md-4 col-sm-12">Text</div>
-     <div class="footerBtn" style="display: none;">
-      <a class="btn btn-danger playBtn" href="#"><i class="fa fa-play"></i> <?php
-          echo __("Play");
-          ?></a>
-          <button class="btn btn-primary myList">
-           <i class="fa fa-plus"></i> <?php
-           echo __("My list");
-           ?></button>
        </div>
-
-   </div>
-</div>
+    </div>
 </div>
 
 <?php
@@ -639,7 +679,7 @@ if ($o->DefaultDesign) {
     }
     ?>
 
-    <div class="row first-page-slider-row first-page-slider-row-make">
+    <div class="first-page-slider-row first-page-slider-row-make">
         <a style="z-index: 9999;" href='<?php echo $global['webSiteRootURL']; ?>cat/<?php echo $cat['clean_name']; ?>'>
             <h2 style="margin-top: 10px;">
              <i class="<?php echo $cat['iconClass']; ?>"></i><?php echo $cat['name']; ?>
@@ -726,7 +766,7 @@ if (($o->LiteGallery) && (empty($_GET['catName']))) {
     </script>
 
     <div class="clear clearfix">
-       <div class="row first-page-slider-row first-page-slider-row-make">
+       <div class="first-page-slider-row first-page-slider-row-make">
         <h2 style="margin-top: 30px;">
             <?php echo __("Category-Gallery"); ?>
             <span class="badge"><?php echo Category::getTotalCategories()?></span>
@@ -902,7 +942,7 @@ if (($o->LiteGallery) && (empty($_GET['catName']))) {
 </div>
 </div>                
 <?php } if ($o->LiteDesign) { ?>
-<div class="row  first-page-slider-row first-page-slider-row-make">
+<div class="first-page-slider-row first-page-slider-row-make">
     <h2 style="margin-top: 30px;"><?php echo __("Categories"); ?> <span class="badge"><?php echo count($category); ?></span></h2>
     <div class="carousel">
         <?php
@@ -1010,10 +1050,16 @@ if (($o->LiteGallery) && (empty($_GET['catName']))) {
     ?>
 
     <script>
-        setTimeout(function(){ 
-            document.getElementById('mainContainer').style="display: block;";
-            document.getElementById('loading').style="display: none;"; 
-        }, 1000);
+    $(document).ready(function(){
+        var promoTextWidth = $('#mainContainer').width() - 290; // 250px from image and 40px from padding
+        $('.promoText').css('width', promoTextWidth);
+        $('.promoText').css('margin-left', '20px');
+    });
+
+    setTimeout(function(){ 
+        document.getElementById('mainContainer').style="display: block;";
+        document.getElementById('loading').style="display: none;"; 
+    }, 1000);
     </script>
     <script src="<?php echo $jsURL; ?>" type="text/javascript"></script>
 </body>

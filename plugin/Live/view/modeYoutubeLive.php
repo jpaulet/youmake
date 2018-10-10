@@ -12,7 +12,6 @@ if(!empty($_GET['c'])){
     }
 }
 
-
 $t = LiveTransmition::getFromDbByUserName($_GET['u']);
 $uuid = $t['key'];
 
@@ -20,7 +19,6 @@ $u = new User(0, $_GET['u'], false);
 $user_id = $u->getBdId();
 $subscribe = Subscribe::getButton($user_id);
 $name = $u->getNameIdentificationBd();
-$video['creator'] = '<div class="pull-left"><img src="' . User::getPhoto($user_id) . '" alt="" class="img img-responsive img-circle" style="max-width: 40px;"/></div><div class="commentDetails" style="margin-left:45px;"><div class="commenterName text-muted"><strong style="margin-right:5px;">' . $name . '</strong>' . $subscribe . '</div></div>';
 
 $img = "{$global['webSiteRootURL']}plugin/Live/getImage.php?u={$_GET['u']}&format=jpg";
 $imgw = 640;
@@ -47,6 +45,32 @@ $imgh = 360;
         <meta property="og:image"              content="<?php echo $img; ?>" />
         <meta property="og:image:width"        content="<?php echo $imgw; ?>" />
         <meta property="og:image:height"       content="<?php echo $imgh; ?>" />
+        <style>
+            .youmake-button{
+                height: 35px;
+                line-height: 35px;
+            }
+            .payment_amount_option {
+                margin-bottom:2px;
+                min-width:45%;
+                text-align:center;
+                cursor:pointer;
+            }
+            .payment_dropdown {
+                float:left;
+                border-radius:0px;
+                margin-left:-2px;
+                list-style-type:none;
+            }
+
+            #sidebar{
+                display:none;
+            }
+
+            .container-fluid{
+                padding-left: 20px !important;
+            }
+        </style>
     </head>
 
     <body>
@@ -66,7 +90,38 @@ $imgh = 360;
                     <i class="fas fa-video"></i> <?php echo $t['title']; ?>
                 </h1>
                 <p><?php echo nl2br(textToLink($t['description'])); ?></p>
-                <div class="col-xs-12 col-sm-12 col-lg-12"><?php echo $video['creator']; ?></div>
+                <div class="col-xs-12 col-sm-12 col-lg-12">
+                    <div class="pull-left">
+                        <img src="<?php echo User::getPhoto($user_id); ?>" alt="User avatar" class="img img-responsive img-circle" style="max-width: 40px;"/>
+                    </div>
+                    <div class="commentDetails" style="margin-left:45px;">
+                        <div class="commenterName text-muted">
+                            <strong style="margin-right:5px;"><?php echo $name; ?></strong>
+                            <?php echo $subscribe; ?>
+
+                            <div class="btn-group">
+                                <button class="btn btn-xs youmake-button" id='transferNow'>
+                                    <i class="far fa-money-bill-alt"></i> 
+                                    <b class="text">Donate </b>
+                                </button>
+
+                                <li class="dropdown payment_dropdown">
+                                    <a href="#" class="btn btn-default navbar-btn youmake-button" data-toggle="dropdown">
+                                        <span class='payment_amount'>1$</span>
+                                        <b class="caret"></b>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-right notify-drop" style='min-width:150px;'>
+                                        <li class='youmake-button payment_amount_option' style='margin-left:5px;'>1$</li>
+                                        <li class='youmake-button payment_amount_option'>5$</li>
+                                        <li class='youmake-button payment_amount_option' style='margin-left:5px;'>10$</li>
+                                        <li class='youmake-button payment_amount_option'>20$</li>
+                                    </ul>
+                                </li>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div> 
             <div class="col-md-3">
                 <?php echo $config->getAdsense(); ?>
@@ -85,6 +140,47 @@ $imgh = 360;
 
     <script src="<?php echo $global['webSiteRootURL']; ?>js/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
     <script>
+        $(document).ready(function(){
+            $('.payment_amount_option').click(function(){
+                $('.payment_amount').text($(this).text());
+            });
+
+            $('#transferNow').click(function () {
+                swal({
+                    title: "<?php echo __("Are you sure?"); ?>",
+                    text: "<?php echo __("You will not be able to recover this action!"); ?>",
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "<?php echo __("Yes, transfer it!"); ?>",
+                    closeOnConfirm: true
+                },
+                function () {
+                    modal.showPleaseWait();
+                    $.ajax({
+                        url: '<?php echo $global['webSiteRootURL']; ?>plugin/YPTWallet/view/transferFunds.json.php',
+                        data: {
+                            "value": $('.payment_amount').text().slice(0,-1),
+                            "users_id": <?php echo $user_id; ?>
+                        },
+                        type: 'post',
+                        success: function (response) {
+                            $(".walletBalance").text(response.walletBalance);
+                            modal.hidePleaseWait();
+                            if (response.error) {
+                                setTimeout(function () {
+                                    swal("<?php echo __("Sorry!"); ?>", response.msg, "error");
+                                }, 500);
+                            } else {
+                                setTimeout(function () {
+                                    swal("<?php echo __("Congratulations!"); ?>", "<?php echo __("Funds successfully transferred"); ?>", "success");
+                                }, 500);
+                            }
+                        }
+                    });
+                });
+            });
+        });
         /*** Handle jQuery plugin naming conflict between jQuery UI and Bootstrap ***/
         $.widget.bridge('uibutton', $.ui.button);
         $.widget.bridge('uitooltip', $.ui.tooltip);

@@ -69,7 +69,7 @@ if(!empty($_GET['embed'])){
         <?php
         include $global['systemRootPath'] . 'view/include/navbar.php';
         ?>
-        <div class="container-fluid principalContainer " itemscope itemtype="http://schema.org/VideoObject" style='margin-top:10px;'>
+        <div class="container-fluid principalContainer" itemscope itemtype="http://schema.org/VideoObject" style='margin-top:10px;'>
             <div class="col-md-12">
                 <?php
                 require "{$global['systemRootPath']}plugin/LiveLinks/view/liveVideo.php";
@@ -77,15 +77,29 @@ if(!empty($_GET['embed'])){
             </div>  
         </div>
         <div class="container-fluid ">
-            <div class="col-md-5 col-md-offset-2 list-group-item">
-                <h1 itemprop="name">
-                    <i class="fas fa-video"></i> <?php echo $t['title']; ?>
-                </h1>
-                <p><?php echo nl2br(textToLink($t['description'])); ?></p>
-                <div class="col-xs-12 col-sm-12 col-lg-12"><?php echo $video['creator']; ?></div>
-            </div> 
-            <div class="col-md-3">
-                <?php echo $config->getAdsense(); ?>
+            <div class="row">
+                <div class="col-md-5 col-md-offset-2 list-group-item">
+                    <h1 itemprop="name">
+                        <i class="fas fa-video"></i> <?php echo $t['title']; ?>
+                    </h1>
+                    <p><?php echo nl2br(textToLink($t['description'])); ?></p>
+                    <div class="col-xs-12">
+                        <div class="pull-left">
+                            <img src="<?php echo User::getPhoto($user_id); ?>" alt="" class="img img-responsive img-circle" style="max-width: 40px;"/>
+                        </div>
+                        <div class="commentDetails" style="margin-left:45px;">
+                            <div class="commenterName text-muted">
+                                <strong style="margin-right:5px;">
+                                    <?php echo $u->getNameIdentificationBd(); ?>
+                                </strong>
+                                <?php echo $subscribe; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-md-3">
+                    <?php echo $config->getAdsense(); ?>
+                </div>
             </div>
         </div>
         

@@ -52,6 +52,38 @@ class User {
         return $this->about;
     }
 
+    function getTwitter(){
+        return $this->twitter;
+    }
+
+    function getFacebook(){
+        return $this->facebook;
+    }
+
+    function getWebsite(){
+        return $this->website;
+    }
+
+    function getInstagram(){
+        return $this->instagram;
+    }
+
+    function setTwitter($twitter){
+        $this->twitter = $twitter;
+    }
+
+    function setFacebook($facebook){
+        $this->facebook = $facebook;
+    }
+
+    function setWebsite($website){
+        $this->website = $website;
+    }
+
+    function setInstagram($instagram){
+        $this->instagram = $instagram;
+    }
+
     function setAbout($about) {
         $this->about = $about;
     }
@@ -320,6 +352,10 @@ class User {
         $this->status = $global['mysqli']->real_escape_string($this->status);
         $this->about = $global['mysqli']->real_escape_string($this->about);
         $this->channelName = $global['mysqli']->real_escape_string($this->channelName);
+        $this->twitter = $global['mysqli']->real_escape_string($this->twitter);
+        $this->facebook = $global['mysqli']->real_escape_string($this->facebook);
+        $this->instagram = $global['mysqli']->real_escape_string($this->instagram);
+        $this->website = $global['mysqli']->real_escape_string($this->website);
         if (empty($this->channelName)) {
             $this->channelName = uniqid();
         }
@@ -330,9 +366,12 @@ class User {
                     . "canStream = {$this->canStream},canUpload = {$this->canUpload}, status = '{$this->status}', "
                     . "photoURL = '{$this->photoURL}', backgroundURL = '{$this->backgroundURL}', "
                     . "recoverPass = '{$this->recoverPass}', about = '{$this->about}', "
-                    . " channelName = '{$this->channelName}', emailVerified = '{$this->emailVerified}' , modified = now() WHERE id = {$this->id}";
+                    . " channelName = '{$this->channelName}', emailVerified = '{$this->emailVerified}', "
+                    . " twitter = '{$this->twitter}', facebook = '{$this->facebook}', "
+                    . " instagram = '{$this->instagram}', website = '{$this->website}', "
+                    . "modified = now() WHERE id = {$this->id}";
         } else {
-            $sql = "INSERT INTO users (user, password, email, name, isAdmin, canStream, canUpload, status,photoURL,recoverPass, created, modified, channelName) VALUES ('{$this->user}','{$this->password}','{$this->email}','{$this->name}',{$this->isAdmin}, {$this->canStream}, {$this->canUpload}, '{$this->status}', '{$this->photoURL}', '{$this->recoverPass}', now(), now(), '{$this->channelName}')";
+            $sql = "INSERT INTO users (user, password, email, name, isAdmin, canStream, canUpload, status,photoURL,recoverPass, created, modified, channelName, twitter, facebook, instagram, website) VALUES ('{$this->user}','{$this->password}','{$this->email}','{$this->name}',{$this->isAdmin}, {$this->canStream}, {$this->canUpload}, '{$this->status}', '{$this->photoURL}', '{$this->recoverPass}', now(), now(), '{$this->channelName}', '{$this->twitter}', '{$this->facebook}', '{$this->instagram}', '{$this->website}')";
         }
         //echo $sql;
         $insert_row = sqlDAL::writeSql($sql);

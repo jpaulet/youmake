@@ -40,23 +40,34 @@ if($result == null){
     $obj->error = false;
     $obj->walletBalance = $plugin->getBalanceFormated(User::getId());
     $obj->msg = "Added ".$_POST['value']."€ to your account.<br />You have ".$obj->walletBalance." in total.";
+
+    try {
+
+        if(!isset($_POST['stripeToken'])){
+            throw new Exception("The Stripe Token was not generated correctly");
+        }
+
+        \Stripe\Stripe::setApiKey("sk_test_ov6iLYrsLOXTPTMNJPwadRpc");
+
+        $customer = \Stripe\Customer::create(array(
+            'email' => 'blakdrak@gmail.com',
+            'source'  => $_POST['stripeToken']
+        ));
+
+        // Make the payment on Stripe
+        $charge = \Stripe\Charge::create(array(
+            'customer' => $customer->id,
+            'amount'   => $_POST['value']*100,
+            'currency' => 'usd'
+        ));
+    } catch (Exception $e){
+        $obj->error = $e->getMessage();
+        $obj->message = 'Something went wrong with Stripe account';
+        $plugin->addBalance(User::getId(),($_POST['value']*-1));
+    }
 }else{
     $obj->msg = "We could not transfer funds, please check your credit card";
 }
-
-\Stripe\Stripe::setApiKey("sk_test_ov6iLYrsLOXTPTMNJPwadRpc");
-
-$customer = \Stripe\Customer::create(array(
-    'email' => 'blakdrak@gmail.com',
-    'source'  => $_POST['stripeToken']
-));
-
-// Make the payment on Stripe
-$charge = \Stripe\Charge::create(array(
-    'customer' => $customer->id,
-    'amount'   => $_POST['value']*100,
-    'currency' => 'usd'
-));
 
 echo json_encode($obj);
 

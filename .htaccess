@@ -39,6 +39,7 @@
     #RewriteRule    ^index.php$ /view/index.php    [NC,L]
     #RewriteRule    ^$ view/    [NC,L]
     RewriteRule    ^bootstrap/(.+)$ view/bootstrap/$1 [NC,L]
+    RewriteRule    ^assets/(.+)$ view/assets/$1 [NC,L]
     RewriteRule    ^js/(.+)$ view/js/$1 [NC,L]
     RewriteRule    ^css/(.+)$ view/css/$1 [NC,L]
     RewriteRule    ^img/(.+)$ view/img/$1 [NC,L]
@@ -51,6 +52,7 @@
     RewriteRule    ^getDownloadProgress$ objects/downloadVideoProgress.php    [NC,L]
     RewriteRule    ^status$ objects/status.json.php    [NC,L]
 
+    RewriteRule    ^how view/how.php    [NC,L]
     RewriteRule    ^about$ view/about.php    [NC,L]
     RewriteRule    ^contact$ view/contact.php    [NC,L]
     RewriteRule    ^sendEmail$ objects/sendEmail.json.php    [NC,L]
@@ -206,6 +208,10 @@
     RewriteRule    ^screencasts/?$ view/custom/screencasts.php    [NC,L]
     RewriteRule    ^learning/?$ view/custom/learning.php    [NC,L]
     RewriteRule    ^artists/?$ view/custom/artists.php    [NC,L]
+    RewriteRule    ^landing view/custom/landing.php    [NC,L]
+
+    # RewriteRule    ^/live plugin/Live    [NC,L]    #NOT working
+    # RewriteRule    ^/live/([A-Za-z0-9-_.]+)$ plugin/Live/?c=$1    [QSA]        #NOT working
 
     RewriteRule    ^paystripe/?$ view/custom/pay_stripe.php    [NC,L]
 

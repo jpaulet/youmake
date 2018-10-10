@@ -140,6 +140,46 @@ $advancedCustom = json_decode($json_file);
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-md-2 control-label control-label-make"><?php echo __("Twitter"); ?></label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon input-group-addon-make"><i class="fab fa-twitter"></i></span>
+                                            <input  id="twitterName" placeholder="<?php echo __("Twitter Name"); ?>" class="form-control form-control-make"  type="text" value="<?php echo $user->getTwitter(); ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label control-label-make"><?php echo __("Facebook"); ?></label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon input-group-addon-make"><i class="fab fa-facebook"></i></span>
+                                            <input  id="facebookName" placeholder="<?php echo __("Facebook URL"); ?>" class="form-control form-control-make"  type="text" value="<?php echo $user->getFacebook(); ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label control-label-make"><?php echo __("Instagram"); ?></label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon input-group-addon-make"><i class="fab fa-instagram"></i></span>
+                                            <input  id="instagramName" placeholder="<?php echo __("Instagram"); ?>" class="form-control form-control-make"  type="text" value="<?php echo $user->getInstagram(); ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 control-label control-label-make"><?php echo __("Website"); ?></label>
+                                    <div class="col-md-8 inputGroupContainer">
+                                        <div class="input-group">
+                                            <span class="input-group-addon input-group-addon-make"><i class="fas fa-external-link-alt "></i></span>
+                                            <input  id="website" placeholder="<?php echo __("Website"); ?>" class="form-control form-control-make"  type="text" value="<?php echo $user->getWebsite(); ?>" >
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-md-2 control-label control-label-make"><?php echo __("About"); ?></label>
                                     <div class="col-md-8 inputGroupContainer">
                                         <textarea id="textAbout" placeholder="<?php echo __("About"); ?>" class="form-control form-control-make"  ><?php echo $user->getAbout(); ?></textarea>
@@ -167,7 +207,6 @@ $advancedCustom = json_decode($json_file);
                                     </div>
                                     <input type="file" id="uploadBg" value="Choose a file" accept="image/*" style="display: none;" />
                                 </div>
-
 
                                 <!-- Button -->
                                 <div class="form-group">
@@ -273,7 +312,11 @@ $advancedCustom = json_decode($json_file);
                                         "email": $('#inputEmail').val(),
                                         "name": $('#inputName').val(),
                                         "about": $('#textAbout').val(),
-                                        "channelName": $('#channelName').val()
+                                        "channelName": $('#channelName').val(),
+                                        "twitter": $('#twitterName').val(),
+                                        "facebook": $('#facebookName').val(),
+                                        "instagram": $('#instagramName').val(),
+                                        "website": $('#website').val()
                                     },
                                     type: 'post',
                                     success: function (response) {
@@ -396,7 +439,6 @@ $advancedCustom = json_decode($json_file);
                                 ?>
                             </div>
                         </fieldset>
-
                     </div>
                     <div class="hidden-xs col-sm-2 col-md-3 col-lg-4"></div>
                 </div>

@@ -33,11 +33,11 @@
                 $('.vjs-error-display').hide();
                 $('#mainVideo').find('.vjs-poster').css({'background-image': 'url(<?php echo $global['webSiteRootURL']; ?>plugin/Live/view/Offline.jpg)'});
             }
-<?php
-if ($config->getAutoplay()) {
-    echo "this.play();";
-}
-?>
+        <?php
+        if ($config->getAutoplay()) {
+            echo "this.play();";
+        }
+        ?>
 
         });
         player.persistvolume({

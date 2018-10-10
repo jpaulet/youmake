@@ -33,6 +33,7 @@ if (!empty($_GET['p'])) {
 }
 
 if (!empty($obj) && empty($obj->error)) {
+    LiveTransmition::publish($obj->row['users_id']);
     http_response_code(200);
 } else {
     http_response_code(401);

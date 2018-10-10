@@ -223,48 +223,49 @@ class Subscribe {
         $total = static::getTotalSubscribes($user_id);
         
         $subscribe = "<div class=\"btn-group\">"
-                . "<button class='btn btn-xs youmake-button subsB subs{$user_id} subscribeButton{$user_id}' style='height:35px;line-height:35px;'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribe") . "</b></button>"
-                . "<button class='btn btn-xs youmake-button subsB subs{$user_id}' style='height:35px;line-height:35px;'><b class='textTotal{$user_id}'>{$total}</b></button>"
-                . "</div>";
+                    . "<button class='btn btn-xs youmake-button subsB subs{$user_id} subscribeButton{$user_id}' style='height:35px;line-height:35px;'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribe") . "</b></button>"
+                    . "<button class='btn btn-xs youmake-button subsB subs{$user_id}' style='height:35px;line-height:35px;'><b class='textTotal{$user_id}'>{$total}</b></button>"
+                    . "</div>";
                 
         //show subscribe button with mail field
         $popover = "<div id=\"popover-content\" class=\"hide\">
-        <div class=\"input-group\"  style=\"max-height:34px;\">
-          <input type=\"text\" placeholder=\"E-mail\" class=\"form-control\"  id=\"subscribeEmail{$user_id}\" style=\"min-width: 150px;\">
-          <span class=\"input-group-btn\">
-          <button class=\"btn btn-danger\" id=\"subscribeButton{$user_id}2\"><i class=\"fa fa-check\"></i></button>
-          </span>
-        </div>
-    </div><script>
-$(document).ready(function () {
-$(\".subscribeButton{$user_id}\").popover({
-placement: 'bottom',
-trigger: 'manual',
-    html: true,
-	content: function() {
-          return $('#popover-content').html();
-        }
-});
-});
-</script>";
+                        <div class=\"input-group\"  style=\"max-height:34px;\">
+                          <input type=\"text\" placeholder=\"E-mail\" class=\"form-control\"  id=\"subscribeEmail{$user_id}\" style=\"min-width: 150px;\">
+                          <span class=\"input-group-btn\">
+                          <button class=\"btn btn-danger\" id=\"subscribeButton{$user_id}2\"><i class=\"fa fa-check\"></i></button>
+                          </span>
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                        $(\".subscribeButton{$user_id}\").popover({
+                        placement: 'bottom',
+                        trigger: 'manual',
+                            html: true,
+                        	content: function() {
+                                  return $('#popover-content').html();
+                                }
+                        });
+                        });
+                    </script>";
         $script = "<script>
-            function toogleNotify{$user_id}(){
-                email = $('#subscribeEmail{$user_id}').val();
-                if (validateEmail(email)) {
-                    subscribeNotify(email, {$user_id});
-                }
-            }
-            $(document).ready(function () {
-                $(\".subscribeButton{$user_id}\").off(\"click\");
-                $(\".subscribeButton{$user_id}\").click(function () {
-                    email = $('#subscribeEmail{$user_id}').val();
-                    if (validateEmail(email)) {
-                        subscribe(email, {$user_id});
+                    function toogleNotify{$user_id}(){
+                        email = $('#subscribeEmail{$user_id}').val();
+                        if (validateEmail(email)) {
+                            subscribeNotify(email, {$user_id});
+                        }
                     }
-                });
-                $('[data-toggle=\"tooltip\"]').tooltip(); 
-            });
-        </script>";
+                    $(document).ready(function () {
+                        $(\".subscribeButton{$user_id}\").off(\"click\");
+                        $(\".subscribeButton{$user_id}\").click(function () {
+                            email = $('#subscribeEmail{$user_id}').val();
+                            if (validateEmail(email)) {
+                                subscribe(email, {$user_id});
+                            }
+                        });
+                        $('[data-toggle=\"tooltip\"]').tooltip(); 
+                    });
+                </script>";
         if (User::isLogged()) {
             //check if the email is logged
             $email = User::getMail();
@@ -274,8 +275,8 @@ trigger: 'manual',
                 if (!empty($subs)) {
                     // show unsubscribe Button
                     $subscribe = "<div class=\"btn-group\">"
-                . "<button class='btn btn-xs subsB subscribeButton{$user_id} subscribed subs{$user_id}'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribed") . "</b></button>"
-                . "<button class='btn btn-xs subsB subscribed subs{$user_id}'><b class='textTotal{$user_id}'>$total</b></button>"
+                . "<button class='btn btn-xs subsB subscribeButton{$user_id} subscribed subs{$user_id} youmake-button'><i class='fab fa-youtube'></i> <b class='text'>" . __("Subscribed") . "</b></button>"
+                . "<button class='btn btn-xs subsB subscribed subs{$user_id} youmake-button'><b class='textTotal{$user_id}'>$total</b></button>"
                 . "</div>";
         
                     if(!empty($subs['notify'])){
@@ -285,13 +286,16 @@ trigger: 'manual',
                         $notify = 'hidden';
                         $notNotify = '';
                     }
-                    $subscribe .= '<span class=" notify'.$user_id.' '.$notify.'"><button onclick="toogleNotify'.$user_id.'();" class="btn btn-default btn-xs " data-toggle="tooltip" 
-                                   title="'.__("Stop getting notified for every new video").'">
-                                <i class="fa fa-bell" ></i>
-                            </button></span><span class=" notNotify'.$user_id.' '.$notNotify.'"><button onclick="toogleNotify'.$user_id.'();" class="btn btn-default btn-xs "  data-toggle="tooltip" 
-                                   title="'.__("Get notified for every new video").'">
-                                <i class="fa fa-bell-slash"></i>
-                            </button></span>';
+                    $subscribe .=  '<span class="notify'.$user_id.' '.$notify.'">
+                                        <button onclick="toogleNotify'.$user_id.'();" class="btn btn-default btn-xs youmake-button " data-toggle="tooltip" title="'.__("Stop getting notified for every new video").'">
+                                            <i class="fa fa-bell" ></i>
+                                        </button>
+                                    </span>
+                                    <span class="notNotify'.$user_id.' '.$notNotify.'">
+                                        <button onclick="toogleNotify'.$user_id.'();" class="btn btn-default btn-xs youmake-button "  data-toggle="tooltip" title="'.__("Get notified for every new video").'">
+                                            <i class="fa fa-bell-slash"></i>
+                                        </button>
+                                    </span>';
                 }
             }
         }

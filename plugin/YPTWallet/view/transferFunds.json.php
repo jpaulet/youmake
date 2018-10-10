@@ -22,10 +22,13 @@ if(empty($plugin)){
     die(json_encode($obj));
 }
 $obj->walletBalance = $plugin->getBalanceFormated(User::getId());
-$valid = Captcha::validation($_POST['captcha']);
-if (!$valid) {
-    $obj->msg = ("Invalid Captcha");
-    die(json_encode($obj));
+
+if(isset($_POST['captcha'])){
+    $valid = Captcha::validation($_POST['captcha']);
+    if (!$valid) {
+        $obj->msg = ("Invalid Captcha");
+        die(json_encode($obj));
+    }
 }
 
 if(empty($_POST['users_id'])){
